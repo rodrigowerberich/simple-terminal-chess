@@ -3,12 +3,12 @@
 #include <istream>
 #include <vector>
 
-#include "CommandInterface.hh"
+#include "ParserInterface.hh"
 
 namespace Chess{
 namespace Input {
 
-class Parser
+class Parser: public Chess::Input::ParserInterface
 {
 private:
     std::istream& m_inputStream;
@@ -16,8 +16,8 @@ private:
 public:
     Parser(std::istream& inputStream);
     ~Parser();
-    bool parse();
-    void addCommand(CommandInterface& command);
+    bool parse(GameResources& gameResources) override;
+    void addCommand(CommandInterface& command) override;
 };
 }
 }

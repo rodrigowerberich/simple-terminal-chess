@@ -17,10 +17,10 @@ Parser::~Parser(){
 }
 
 void Parser::addCommand(CommandInterface& command){
-    m_commands.emplace_back(command);
+    m_commands.push_back(command);
 }
 
-bool Parser::parse(){
+bool Parser::parse(GameResources& gameResources){
     bool execution_ok = true;
 
     std::string lineRead;
@@ -28,7 +28,7 @@ bool Parser::parse(){
     std::cout << '"' << lineRead << '"' << std::endl;
     for(auto& command:m_commands){
         if(command.get().activated(lineRead)){
-            execution_ok = command.get().execute();
+            execution_ok = command.get().execute(gameResources);
         }
     }
     return execution_ok;

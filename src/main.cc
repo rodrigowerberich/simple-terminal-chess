@@ -1,13 +1,18 @@
 #include <iostream>
 
+#include "GameManager.hh"
 #include "Parser.hh"
-#include "CommandQuit.hh"
 
 int main(){
-    Chess::Input::Commands::CommandQuit commandQuit;
+    Chess::Input::Parser parser(std::cin);
 
-    Chess::Input::Parser gameParser(std::cin);
-    gameParser.addCommand(commandQuit);
-    while( gameParser.parse());
+    Chess::GameManager gameManager{
+        parser
+    };
+
+    gameManager.init();
+
+    while(gameManager.run());
+    
     return 0;
 }
