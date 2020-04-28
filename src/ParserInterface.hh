@@ -11,7 +11,7 @@ namespace Input {
 class ParserInterface
 {
 public:
-    virtual bool parse(GameResources& gameResources) = 0;
+    virtual CommandInterface& parse(GameResources& gameResources) = 0;
     virtual void addCommand(CommandInterface& command) = 0;
 };
 

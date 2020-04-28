@@ -17,7 +17,8 @@ void GameManager::init(){
 }
 
 bool GameManager::run(){
-    return m_resources.parser().parse(m_resources);
+    auto & command = m_resources.parser().parse(m_resources);
+    return command.execute(m_resources);
 }
 
 }

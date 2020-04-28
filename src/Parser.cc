@@ -20,18 +20,19 @@ void Parser::addCommand(CommandInterface& command){
     m_commands.push_back(command);
 }
 
-bool Parser::parse(GameResources& gameResources){
-    bool execution_ok = true;
-
+CommandInterface& Parser::parse(GameResources& gameResources){
     std::string lineRead;
     std::getline(m_inputStream, lineRead);
-    std::cout << '"' << lineRead << '"' << std::endl;
+
+
     for(auto& command:m_commands){
         if(command.get().activated(lineRead)){
-            execution_ok = command.get().execute(gameResources);
+            return command.get();
         }
     }
-    return execution_ok;
+
+    m_commandUnrecognized.setUnrecognizedString(lineRead);
+    return m_commandUnrecognized;
 }
 
 }  
