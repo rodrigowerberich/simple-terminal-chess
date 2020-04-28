@@ -38,7 +38,7 @@ The game consists of 16 pieces on each side
  |      |      |      |      |      |      |      |      | 
 1|      |      |      |      |      |      |      |      | 
  |______|______|______|______|______|______|______|______| 
-   A    B    C    D    E    F    G    H    
+     A      B      C      D      E      F      G      H    
   
 
 ```
