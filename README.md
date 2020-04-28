@@ -43,7 +43,7 @@ The game consists of 16 pieces on each side
 
 ```
 
-## Normal play example
+## Scenario 1:  Normal moving example <a name="Scenario1"></a>
 
 ```
 Turn 1 - Player 1
@@ -53,4 +53,28 @@ Turn 2 - Player 2
 PC C5
 Moving PC to C5
 ``` 
- 
+[More Details](./scenarios_visualization.md#Scenario1)
+
+## Scenario 2: Trying to move to a blocked space <a name="Scenario2"></a>
+
+```
+Turn X - Player 1
+BF D3
+Attempted move is not possible!
+Blocked by W-PE!
+BF G2
+Moving BF to G2
+```
+[More Details](./scenarios_visualization.md#Scenario2)
+
+## Scenario 3: Trying to do an invalid move <a name="Scenario3"></a>
+
+```
+Turn X - Player 1
+kB B2
+Attempted move is not allowed!
+Knights can only move in a L shape movement.
+
+BF G2
+```
+[More Details](./scenarios_visualization.md#Scenario2)
