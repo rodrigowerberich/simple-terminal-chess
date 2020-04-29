@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <functional>
+#include <sstream>
 
 #include "Parser.hh"
 
@@ -16,23 +17,23 @@ Parser::~Parser(){
     
 }
 
-void Parser::addCommand(CommandInterface& command){
-    m_commands.push_back(command);
-}
-
-CommandInterface& Parser::parse(GameResources& gameResources){
+ParsedInput Parser::parse(){
+    // Making Sure the parsed input is empty
+    ParsedInput parsedInput = {};
+    // Read until user types a space
     std::string lineRead;
     std::getline(m_inputStream, lineRead);
+    // Using stringstream to be able to read the line 
+    // the user typed as a stream
+    std::stringstream lineReadStream(lineRead);
+    // Separating the line by spaces and saving each word 
+    // in a vector 
+    std::string word;
+    while (std::getline(lineReadStream, word, ' ')) {
+        parsedInput.push_back(word);
 
-
-    for(auto& command:m_commands){
-        if(command.get().activated(lineRead)){
-            return command.get();
-        }
     }
-
-    m_commandUnrecognized.setUnrecognizedString(lineRead);
-    return m_commandUnrecognized;
+    return parsedInput;
 }
 
 }  

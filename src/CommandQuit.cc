@@ -1,21 +1,19 @@
 #include "CommandQuit.hh"
 
 namespace Chess{
-namespace Input{
-namespace Commands{
+namespace Command{
 
-void CommandQuit::init(GameResources& gameResources){
+void Quit::init(GameResources& gameResources){
 
 }
 
-bool CommandQuit::activated(const std::string& commandLine){
-    return (commandLine == "exit") || (commandLine == "quit");
+bool Quit::activated(const Chess::Input::ParsedInput& parsedInput){
+    return (parsedInput.size() == 1) && ((parsedInput[0] == "exit") || (parsedInput[0] == "quit"));
 }
 
-bool CommandQuit::execute(GameResources& gameResources){
+bool Quit::execute(GameResources& gameResources){
     return false;
 }
 
-}
 }
 }

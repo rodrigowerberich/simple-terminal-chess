@@ -1,18 +1,15 @@
 #pragma once
 
-#include "CommandInterface.hh"
+#include "ParsedInput.hh"
 
 namespace Chess{
-
-class GameResources;
 
 namespace Input {
 
 class ParserInterface
 {
 public:
-    virtual CommandInterface& parse(GameResources& gameResources) = 0;
-    virtual void addCommand(CommandInterface& command) = 0;
+    virtual ParsedInput parse() = 0;
 };
 
 }

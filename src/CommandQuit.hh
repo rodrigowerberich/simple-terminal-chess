@@ -3,16 +3,14 @@
 #include "CommandInterface.hh"
 
 namespace Chess{
-namespace Input{
-namespace Commands{
+namespace Command{
 
-class CommandQuit: public Chess::Input::CommandInterface{
+class Quit: public Chess::Command::CommandInterface{
 public:
     void init(GameResources& gameResources) override;
-    bool activated(const std::string& commandLine) override;
+    bool activated(const Chess::Input::ParsedInput& parsedInput) override;
     bool execute(GameResources& gameResources) override;
 };
 
-}
 }
 }
