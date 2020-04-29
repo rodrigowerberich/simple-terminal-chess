@@ -13,12 +13,20 @@ MESSAGE("MY_SOURCES: ${MY_SOURCES}")
 
 #add the executable
 ADD_EXECUTABLE(chess ${MY_SOURCES})
+ADD_EXECUTABLE(printer_test  "${CMAKE_SOURCE_DIR}/tst/Printer/Printer_tester.cc"
+                             "${CMAKE_SOURCE_DIR}/src/Printer.cc")
+
 ADD_EXECUTABLE(parser_test  "${CMAKE_SOURCE_DIR}/tst/Parser/Parser_tester.cc"
                             "${CMAKE_SOURCE_DIR}/src/Parser.cc")
 ADD_EXECUTABLE(command_quit_test    "${CMAKE_SOURCE_DIR}/tst/CommandQuit/CommandQuit_tester.cc"
                                     "${CMAKE_SOURCE_DIR}/src/CommandQuit.cc")
+        
 
 target_include_directories(chess PUBLIC 
+                            ${PROJECT_SOURCE_DIR}/src
+                           )
+
+target_include_directories(printer_test PUBLIC 
                             ${PROJECT_SOURCE_DIR}/src
                            )
 
