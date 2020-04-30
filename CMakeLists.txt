@@ -44,7 +44,16 @@ ADD_EXECUTABLE(board_position_test  "${CMAKE_SOURCE_DIR}/tst/BoardPosition/Board
 target_include_directories(board_position_test PUBLIC 
                             ${PROJECT_SOURCE_DIR}/src
                            )                           
-                            
+# Tester Piece
+ADD_EXECUTABLE(piece_test  "${CMAKE_SOURCE_DIR}/tst/Piece/Piece_tester.cc"
+                            "${CMAKE_SOURCE_DIR}/src/BoardPosition.cc"
+                            "${CMAKE_SOURCE_DIR}/src/Piece.cc")
+
+target_include_directories(piece_test PUBLIC 
+                            ${PROJECT_SOURCE_DIR}/src
+                           )                           
+
+
 # Tester CommandQuit
 
 ADD_EXECUTABLE(command_quit_test    "${CMAKE_SOURCE_DIR}/tst/CommandQuit/CommandQuit_tester.cc"
