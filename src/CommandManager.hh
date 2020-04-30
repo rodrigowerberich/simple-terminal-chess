@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 namespace Chess{
 namespace Command{
 
