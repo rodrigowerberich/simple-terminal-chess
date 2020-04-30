@@ -42,12 +42,12 @@ int main(){
 
     auto correctValue3 = "{1, 2, 3, 4, 5, 6}\n{7, 5, 2}\n{{7, 5.1, 2}, {1.5, 9.6, 4.2}}\n{{7, 5, 2}, {6, 1, 0}, {-4, -6, 2}}\n{{Oi, Hi}, {Tchau, Bye}}\n";
 
+
     printer.println(vectorOfNumbers);    
     printer.println(arrayOfNumbers);    
     printer.println(vectorOfVectorOfNumbers);    
     printer.println(arrayOfArrayOfNumbers);    
     printer.println(vectorOfArrayOfStrings);    
-    printer.println();    
     result &= (outputStream.str() == correctValue3);
 
     if(result){
