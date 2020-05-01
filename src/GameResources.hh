@@ -11,9 +11,9 @@ private:
     Chess::Input::ParserInterface& m_parser;
     Chess::Output::Printer& m_printer;
 public:
-    GameResources(Chess::Input::ParserInterface& parser, Chess::Output::Print& printer):
+    GameResources(Chess::Input::ParserInterface& parser, Chess::Output::Printer& printer):
     m_parser{parser},
-    m_printer{printer};
+    m_printer{printer}{};
     ~GameResources(){};
 
     Chess::Input::ParserInterface& parser();

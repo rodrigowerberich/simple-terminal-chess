@@ -4,15 +4,15 @@
 #include "Parser.hh"
 
 int main(){
-    Chess::Input::Parser parser(std::cin);
+    // Chess::Input::Parser parser(std::cin);
 
-    Chess::GameManager gameManager{
-        parser
-    };
+    // Chess::GameManager gameManager{
+    //     parser
+    // };
 
-    gameManager.init();
+    // gameManager.init();
 
-    while(gameManager.run());
+    // while(gameManager.run());
     
     return 0;
 }

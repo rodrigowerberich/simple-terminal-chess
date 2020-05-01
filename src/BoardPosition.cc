@@ -64,7 +64,11 @@ std::string Chess::Board::Position::toString() const{
     return out.str();
 }
 
-
+bool Chess::Board::Position::operator==(const Chess::Board::Position& lhs) const{
+    return (m_row == lhs.m_row) && (m_column == lhs.m_column);
 }
 
+
+
+}
 } // namespace Chess

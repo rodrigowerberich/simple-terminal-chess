@@ -34,6 +34,7 @@ public:
     Chess::Board::Column column() const;
     bool isValid() const;
     std::string toString() const;
+    bool operator==(const Chess::Board::Position& lhs) const;
 };
 
 }
