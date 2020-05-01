@@ -57,7 +57,7 @@ Side::Side(Board::SideSelector sideSelected):
     m_pieces.emplace(PieceType::King, king);
 }
 Board::Piece& Side::getPiece(PieceType type, const PieceSelector& pieceSelector){
-    auto piecesFromAType = m_pieces[type];
+    auto& piecesFromAType = m_pieces[type];
     switch(type){
         case PieceType::Pawn:
             return piecesFromAType[static_cast<size_t>(pieceSelector.pawn)];
