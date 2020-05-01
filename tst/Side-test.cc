@@ -143,5 +143,12 @@ TEST(Side, movePiece) {
     ASSERT_EQ(pawnA.currentPosition(), newPosition);
     auto& newPawnARef = side.getPiece(Board::PieceType::Pawn, {Board::PieceSelector::Pawn::A});
     ASSERT_EQ(newPawnARef.currentPosition(), newPosition);
+}
+
+TEST(Side, invalidPiece){
+    using namespace Chess;
+    auto side = Board::Side(Board::SideSelector::Black);
+    auto& pawnA = side.getPiece(Board::PieceType::King, {Board::PieceSelector::Pawn::H});
+    ASSERT_FALSE(pawnA.currentPosition().isValid());
 
 }

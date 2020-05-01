@@ -58,8 +58,12 @@ union PieceSelector{
     PieceSelector(PieceSelector::King inputKing){
         king = inputKing;
     }
-
+    template <PieceType t, typename T>
+    static int toIndex(T);
+    int toIndex(PieceType type) const;
 };
+
+
 
 std::vector<Chess::Board::PieceType> PieceType_asVector();
 
@@ -79,3 +83,4 @@ public:
 
 std::ostream& operator<<(std::ostream& os, const Chess::Board::PieceType& type);
 std::ostream& operator<<(std::ostream& os, const Chess::Board::Piece& position);
+

@@ -5,6 +5,77 @@
 namespace Chess{
 namespace Board{
 
+template <>
+int PieceSelector::toIndex<PieceType::Pawn, PieceSelector::Pawn>(PieceSelector::Pawn pawn){
+    switch (pawn){
+        case PieceSelector::Pawn::A: return 0;
+        case PieceSelector::Pawn::B: return 1;
+        case PieceSelector::Pawn::C: return 2;
+        case PieceSelector::Pawn::D: return 3;
+        case PieceSelector::Pawn::E: return 4;
+        case PieceSelector::Pawn::F: return 5;
+        case PieceSelector::Pawn::G: return 6;
+        case PieceSelector::Pawn::H: return 7;
+        default: return -1;
+    }
+}
+
+template <>
+int PieceSelector::toIndex<PieceType::Rook, PieceSelector::Rook>(PieceSelector::Rook rook){
+    switch (rook){
+        case PieceSelector::Rook::A : return 0;
+        case PieceSelector::Rook::H : return 1;
+        default: return -1;
+    }
+}
+
+template <>
+int PieceSelector::toIndex<PieceType::Knight, PieceSelector::Knight>(PieceSelector::Knight knight){
+    switch (knight){
+        case PieceSelector::Knight::B: return 0;
+        case PieceSelector::Knight::G: return 1;
+        default: return -1;
+    }
+}
+
+
+template <>
+int PieceSelector::toIndex<PieceType::Bishop, PieceSelector::Bishop>(PieceSelector::Bishop bishop){
+    switch (bishop){
+        case PieceSelector::Bishop::C: return 0;
+        case PieceSelector::Bishop::F: return 1;
+        default: return -1;
+    }
+}
+
+template <>
+int PieceSelector::toIndex<PieceType::Queen, PieceSelector::Queen>(PieceSelector::Queen queen){
+    switch (queen){
+        case PieceSelector::Queen::E: return 0;
+        default: return -1;
+    }
+}
+
+template <>
+int PieceSelector::toIndex<PieceType::King, PieceSelector::King>(PieceSelector::King king){
+    switch (king){
+        case PieceSelector::King::D: return 0;
+        default: return -1;
+    }
+}
+
+int Board::PieceSelector::toIndex(PieceType type) const{
+    switch(type){
+        case PieceType::Pawn: return toIndex<PieceType::Pawn>(pawn);
+        case PieceType::Rook: return toIndex<PieceType::Rook>(rook);
+        case PieceType::Knight: return toIndex<PieceType::Knight>(knight);
+        case PieceType::Bishop: return toIndex<PieceType::Bishop>(bishop);
+        case PieceType::Queen: return toIndex<PieceType::Queen>(queen);
+        case PieceType::King: return toIndex<PieceType::King>(king);
+        default: return -1;
+    }
+}  
+
 std::vector<Chess::Board::PieceType> PieceType_asVector(){
     using namespace Chess;
     return {    

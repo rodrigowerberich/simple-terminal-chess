@@ -57,22 +57,20 @@ Side::Side(Board::SideSelector sideSelected):
     m_pieces.emplace(PieceType::King, king);
 }
 Board::Piece& Side::getPiece(PieceType type, const PieceSelector& pieceSelector){
-    auto& piecesFromAType = m_pieces[type];
-    switch(type){
-        case PieceType::Pawn:
-            return piecesFromAType[static_cast<size_t>(pieceSelector.pawn)];
-        case PieceType::Rook:
-            return piecesFromAType[static_cast<size_t>(pieceSelector.rook)];
-        case PieceType::Knight:
-            return piecesFromAType[static_cast<size_t>(pieceSelector.knight)];
-        case PieceType::Bishop:
-            return piecesFromAType[static_cast<size_t>(pieceSelector.bishop)];
-        case PieceType::Queen:
-            return piecesFromAType[static_cast<size_t>(pieceSelector.queen)];
-        case PieceType::King:
-            return piecesFromAType[static_cast<size_t>(pieceSelector.king)];
-        default:
-            return m_invalidPiece;
+    auto index = pieceSelector.toIndex(type);
+    if(index < 0){
+        return m_invalidPiece;
+    }else{
+        return m_pieces[type][index];
+    }
+}
+
+const Board::Piece& Side::getPiece(PieceType type, const PieceSelector& pieceSelector) const{
+    auto index = pieceSelector.toIndex(type);
+    if(index < 0){
+        return m_invalidPiece;
+    }else{
+        return m_pieces.at(type)[index];
     }
 }
 
