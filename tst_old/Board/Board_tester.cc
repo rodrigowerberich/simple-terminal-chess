@@ -13,7 +13,7 @@ int main(){
     
     Chess::Board::PieceDescription pieceDescription = {
         Chess::Board::PieceType::Pawn,
-        Chess::Board::Side::Black,
+        Chess::Board::SideSelector::Black,
         Chess::Board::PieceSelector::Pawn::A
     };
     Chess::Board::Position newPosition = 

@@ -5,6 +5,18 @@
 namespace Chess{
 namespace Board{
 
+std::vector<Chess::Board::PieceType> PieceType_asVector(){
+    using namespace Chess;
+    return {    
+        Board::PieceType::Pawn,
+        Board::PieceType::Rook,
+        Board::PieceType::Knight,
+        Board::PieceType::Bishop,
+        Board::PieceType::Queen,
+        Board::PieceType::King
+    };
+}
+
 Chess::Board::Piece::Piece(
     Chess::Board::PieceType type, 
     Chess::Board::Position position):
