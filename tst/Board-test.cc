@@ -20,6 +20,14 @@ TEST(Board, moveOk){
     ASSERT_EQ(board.getPiecePosition(pieceDescription), newPosition);
 }
 
+TEST(Board, moveInvalidInput){
+    using namespace Chess::Board;
+    Board board;
+    
+        PieceDescription pieceDescription = {SideSelector::White, PieceType::King, PieceSelector::Pawn::B};
+        std::cout << pieceDescription << std::endl;
+}
+
 
 TEST(Board, boardConstruction) {
     using namespace Chess;

@@ -8,8 +8,8 @@ namespace Board{
 class MoveResult{
 public:
     enum class Status{
-        Ok //,
-        // InvalidInput,
+        Ok ,
+        InvalidInput //,
         // ColisionSameSide
         // ColisionOtherSide
     };
@@ -17,6 +17,8 @@ public:
         struct Ok{
             Chess::Board::Position oldPosition;
             Chess::Board::Position newPosition;
+        };
+        struct InvalidInput{
         };
         Info::Ok ok;
         Info(Info::Ok inputOk) {ok = inputOk;}
