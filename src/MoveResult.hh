@@ -8,7 +8,10 @@ namespace Board{
 class MoveResult{
 public:
     enum class Status{
-        Ok
+        Ok //,
+        // InvalidInput,
+        // ColisionSameSide
+        // ColisionOtherSide
     };
     union Info{
         struct Ok{
