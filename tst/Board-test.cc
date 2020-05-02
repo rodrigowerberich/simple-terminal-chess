@@ -1,7 +1,25 @@
 #include "gtest/gtest.h"
 #include "Board.hh"
 
-// Chess::Board::MoveResult moveResult = board.move(pieceDescription, newPosition);
+TEST(Board, moveOk){
+    using namespace Chess::Board;
+    Board board;    
+    
+    PieceDescription pieceDescription = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::B};
+    Position initialPosition = {Column::B, Row(2)};
+    Position newPosition = {Column::B, Row(3)};
+    
+    ASSERT_EQ(board.getPiecePosition(pieceDescription), initialPosition);
+
+    MoveResult moveResult = board.movePiece(pieceDescription, newPosition);
+
+    ASSERT_EQ(moveResult.status(), MoveResult::Status::Ok);
+    ASSERT_EQ(moveResult.info<MoveResult::Info::Ok>().oldPosition, initialPosition);
+    ASSERT_EQ(moveResult.info<MoveResult::Info::Ok>().newPosition, newPosition);
+
+    ASSERT_EQ(board.getPiecePosition(pieceDescription), newPosition);
+}
+
 
 TEST(Board, boardConstruction) {
     using namespace Chess;

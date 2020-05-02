@@ -16,5 +16,14 @@ Chess::Board::Position Board::getPiecePosition(const Chess::Board::PieceDescript
     }
 }
 
+Chess::Board::MoveResult Board::movePiece(const Chess::Board::PieceDescription& pieceDescription, const Chess::Board::Position& newPosition){
+    auto& side = (pieceDescription.sideSelector == SideSelector::White)?m_whiteSide:m_blackSide;
+    auto& piece = side.getPiece(pieceDescription.type, pieceDescription.pieceSelector);
+    auto oldPosition = piece.currentPosition();
+    piece.setPosition(newPosition);
+    return MoveResult{MoveResult::Status::Ok,{{oldPosition, newPosition}}};
+}
+
+
 }
 }
