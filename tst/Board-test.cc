@@ -24,8 +24,11 @@ TEST(Board, moveInvalidInput){
     using namespace Chess::Board;
     Board board;
     
-        PieceDescription pieceDescription = {SideSelector::White, PieceType::King, PieceSelector::Pawn::B};
-        std::cout << pieceDescription << std::endl;
+    PieceDescription pieceDescription = {SideSelector::White, PieceType::King, PieceSelector::Pawn::B};
+    MoveResult moveResult = board.movePiece(pieceDescription);
+    ASSERT_EQ(moveResult.status(), MoveResult::Status::InvalidInput);
+    ASSERT_EQ(moveResult.info<Move::Result::Info::InvalidInput>
+        
 }
 
 
