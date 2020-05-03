@@ -83,6 +83,7 @@ TEST(Board, moveCollisionDifferentSide){
     MoveResult piece2moveResult = board.movePiece(piece2Description, piece2attemptedNewPosition);
     ASSERT_EQ(piece2moveResult.status(), MoveResult::Status::Collision);
     ASSERT_TRUE(piece2moveResult.info<MoveResult::Info::Collision>().differentSide);
+    ASSERT_FALSE(piece2moveResult.info<MoveResult::Info::Collision>().sameSide);
     ASSERT_TRUE(piece2moveResult.info<MoveResult::Info::Collision>().originalPiece.isValid());
     ASSERT_EQ(piece2moveResult.info<MoveResult::Info::Collision>().originalPiece, piece2Description);
     ASSERT_TRUE(piece2moveResult.info<MoveResult::Info::Collision>().colidingPiece.isValid());
@@ -93,6 +94,54 @@ TEST(Board, moveCollisionDifferentSide){
     ASSERT_EQ(board.getPiecePosition(piece2Description), piece2initialPosition);
 }
 
+TEST(Board, moveCollisionSameSide){
+    using namespace Chess::Board;
+    Board board;    
+    
+    PieceDescription piece1Description = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::B};
+    Position piece1initialPosition = {Column::B, Row(2)};
+    Position piece1newPosition = {Column::B, Row(3)};
+    ASSERT_EQ(board.getPiecePosition(piece1Description), piece1initialPosition);
+    MoveResult piece1moveResult = board.movePiece(piece1Description, piece1newPosition);
+    ASSERT_EQ(piece1moveResult.status(), MoveResult::Status::Ok);
+    ASSERT_EQ(piece1moveResult.info<MoveResult::Info::Ok>().oldPosition, piece1initialPosition);
+    ASSERT_EQ(piece1moveResult.info<MoveResult::Info::Ok>().newPosition, piece1newPosition);
+    ASSERT_EQ(board.getPiecePosition(piece1Description), piece1newPosition);
+
+    PieceDescription piece2Description = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::C};
+    Position piece2initialPosition = {Column::C, Row(2)};
+    Position piece2attemptedNewPosition = {Column::B, Row(3)};
+    ASSERT_EQ(board.getPiecePosition(piece2Description), piece2initialPosition);
+    MoveResult piece2moveResult = board.movePiece(piece2Description, piece2attemptedNewPosition);
+    ASSERT_EQ(piece2moveResult.status(), MoveResult::Status::Collision);
+    ASSERT_TRUE(piece2moveResult.info<MoveResult::Info::Collision>().sameSide);
+    ASSERT_FALSE(piece2moveResult.info<MoveResult::Info::Collision>().differentSide);
+    ASSERT_TRUE(piece2moveResult.info<MoveResult::Info::Collision>().originalPiece.isValid());
+    ASSERT_EQ(piece2moveResult.info<MoveResult::Info::Collision>().originalPiece, piece2Description);
+    ASSERT_TRUE(piece2moveResult.info<MoveResult::Info::Collision>().colidingPiece.isValid());
+    ASSERT_EQ(piece2moveResult.info<MoveResult::Info::Collision>().colidingPiece, piece1Description);
+    ASSERT_EQ(piece2moveResult.info<MoveResult::Info::Collision>().position, piece1newPosition);
+
+    ASSERT_EQ(board.getPiecePosition(piece1Description), piece1newPosition);
+    ASSERT_EQ(board.getPiecePosition(piece2Description), piece2initialPosition);
+}
+
+TEST(Board, noMovement){
+    using namespace Chess::Board;
+    Board board;    
+    
+    PieceDescription pieceDescription = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::B};
+    Position pieceinitialPosition = {Column::B, Row(2)};
+    Position pieceNewPosition = {Column::B, Row(2)};
+    ASSERT_EQ(pieceinitialPosition, pieceNewPosition);
+    ASSERT_EQ(board.getPiecePosition(pieceDescription), pieceinitialPosition);
+    ASSERT_EQ(board.getPieceAtPosition(pieceinitialPosition), pieceDescription);
+    MoveResult pieceMoveResult = board.movePiece(pieceDescription, pieceNewPosition);
+
+    ASSERT_EQ(pieceMoveResult.status(), MoveResult::Status::NoMovement);
+    ASSERT_EQ(board.getPiecePosition(pieceDescription), pieceinitialPosition);
+    ASSERT_EQ(board.getPieceAtPosition(pieceinitialPosition), pieceDescription);
+}
 
 TEST(Board, boardConstruction) {
     using namespace Chess;

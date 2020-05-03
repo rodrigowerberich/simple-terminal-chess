@@ -68,7 +68,7 @@ Chess::Board::MoveResult Board::movePiece(const Chess::Board::PieceDescription& 
     if(!newPosition.isValid()){
         return MoveResult{MoveResult::Status::InvalidInput, {{MoveResult::Info::InvalidInput::Type::InvalidPosition, pieceDescription}}};
     }
-    
+
     auto& piece = side.getPiece(pieceDescription.type(), pieceDescription.pieceSelector());
     if(!piece.isValid()){
         return MoveResult{MoveResult::Status::InvalidInput, {{MoveResult::Info::InvalidInput::Type::InvalidPieceSelector, pieceDescription}}};
@@ -77,6 +77,10 @@ Chess::Board::MoveResult Board::movePiece(const Chess::Board::PieceDescription& 
     auto pieceAtDestinationDescription = getPieceAtPosition(newPosition);
 
     if(pieceAtDestinationDescription.isValid()){
+        if(pieceAtDestinationDescription == pieceDescription){
+            return MoveResult{MoveResult::Status::NoMovement, {MoveResult::Info::NoMovement{}}};
+        }
+        
         bool sameSide = (pieceAtDestinationDescription.sideSelector() == pieceDescription.sideSelector());
         return MoveResult{MoveResult::Status::Collision, {{sameSide, !sameSide, pieceDescription, pieceAtDestinationDescription, newPosition}}};
     }    

@@ -13,7 +13,7 @@ public:
     enum class Status{
         Ok ,
         InvalidInput,
-        // NoMovement,
+        NoMovement,
         Collision
     };
     union Info{
@@ -29,6 +29,9 @@ public:
             InvalidInput::Type type;
             Chess::Board::PieceDescription invalidPieceDescription;
         };
+        struct NoMovement{
+
+        };
         struct Collision{
             bool sameSide;
             bool differentSide;
@@ -39,9 +42,11 @@ public:
         Info::Ok ok;
         Info::InvalidInput invalidInput;
         Info::Collision collision;
+        Info::NoMovement noMovement;
         Info(Info::Ok inputOk) {ok = inputOk;}
         Info(Info::InvalidInput inputInvalidInput) {invalidInput = inputInvalidInput;}
         Info(Info::Collision inputCollision) {collision = inputCollision;}
+        Info(Info::NoMovement inputNoMovement) {noMovement = inputNoMovement;}
     };
     MoveResult(MoveResult::Status status, MoveResult::Info info);
     MoveResult::Status status() const;

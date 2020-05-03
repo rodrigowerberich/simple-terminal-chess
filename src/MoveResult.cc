@@ -29,6 +29,11 @@ const MoveResult::Info::Collision& MoveResult::info<MoveResult::Info::Collision>
     return m_info.collision;
 }
 
+template <>
+const MoveResult::Info::NoMovement& MoveResult::info<MoveResult::Info::NoMovement>() const{
+    return m_info.noMovement;
+}
+
 
 }
 }
