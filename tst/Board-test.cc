@@ -25,10 +25,14 @@ TEST(Board, moveInvalidInput){
     Board board;
     
     PieceDescription pieceDescription = {SideSelector::White, PieceType::King, PieceSelector::Pawn::B};
-    MoveResult moveResult = board.movePiece(pieceDescription);
+    Position newPosition = {Column::B, Row(3)};
+    MoveResult moveResult = board.movePiece(pieceDescription, newPosition);
     ASSERT_EQ(moveResult.status(), MoveResult::Status::InvalidInput);
-    ASSERT_EQ(moveResult.info<Move::Result::Info::InvalidInput>
-        
+    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().type, MoveResult::Info::InvalidInput::Type::InvalidPieceSelector); 
+    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.sideSelector(), SideSelector::White);
+    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.type(), PieceType::King);
+    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.pieceSelector().pawn, PieceSelector::Pawn::B);
+    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.pieceSelectorType(), PieceType::Pawn);
 }
 
 

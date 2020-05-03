@@ -19,6 +19,11 @@ const MoveResult::Info::Ok& MoveResult::info<MoveResult::Info::Ok>() const{
     return m_info.ok;
 }
 
+template <>
+const MoveResult::Info::InvalidInput& MoveResult::info<MoveResult::Info::InvalidInput>() const{
+    return m_info.invalidInput;
+}
+
 
 }
 }

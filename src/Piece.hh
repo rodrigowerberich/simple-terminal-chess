@@ -12,7 +12,8 @@ enum class PieceType{
     Knight,
     Bishop,
     Queen,
-    King
+    King,
+    Invalid
 };
 
 union PieceSelector{
@@ -76,6 +77,8 @@ public:
     Chess::Board::PieceType type() const;
     const Chess::Board::Position& currentPosition() const;
     void setPosition(const Chess::Board::Position& position);
+    bool isValid() const;
+    bool isOnBoard() const;
 };
 
 }

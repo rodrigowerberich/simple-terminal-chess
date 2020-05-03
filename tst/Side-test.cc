@@ -148,7 +148,7 @@ TEST(Side, movePiece) {
 TEST(Side, invalidPiece){
     using namespace Chess;
     auto side = Board::Side(Board::SideSelector::Black);
-    auto& pawnA = side.getPiece(Board::PieceType::King, {Board::PieceSelector::Pawn::H});
-    ASSERT_FALSE(pawnA.currentPosition().isValid());
-
+    auto& invalidPiece = side.getPiece(Board::PieceType::King, {Board::PieceSelector::Pawn::H});
+    ASSERT_FALSE(invalidPiece.currentPosition().isValid());
+    ASSERT_FALSE(invalidPiece.isValid());
 }

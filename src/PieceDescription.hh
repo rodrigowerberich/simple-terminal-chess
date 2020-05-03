@@ -6,10 +6,24 @@
 namespace Chess{
 namespace Board{
 
-struct PieceDescription{
-    Chess::Board::SideSelector sideSelector;
-    Chess::Board::PieceType type;
-    Chess::Board::PieceSelector pieceSelector;
+class PieceDescription{
+private:
+    Chess::Board::SideSelector m_sideSelector;
+    Chess::Board::PieceType m_type;
+    Chess::Board::PieceSelector m_pieceSelector;
+    Chess::Board::PieceType m_pieceSelectorType;
+public:
+    PieceDescription(Chess::Board::SideSelector side, Chess::Board::PieceType pieceType, Chess::Board::PieceSelector::Pawn pawnSelector);
+    PieceDescription(Chess::Board::SideSelector side, Chess::Board::PieceType pieceType, Chess::Board::PieceSelector::Rook rookSelector);
+    PieceDescription(Chess::Board::SideSelector side, Chess::Board::PieceType pieceType, Chess::Board::PieceSelector::Knight knightSelector);
+    PieceDescription(Chess::Board::SideSelector side, Chess::Board::PieceType pieceType, Chess::Board::PieceSelector::Bishop bishopSelector);
+    PieceDescription(Chess::Board::SideSelector side, Chess::Board::PieceType pieceType, Chess::Board::PieceSelector::Queen queenSelector);
+    PieceDescription(Chess::Board::SideSelector side, Chess::Board::PieceType pieceType, Chess::Board::PieceSelector::King kingSelector);
+    Chess::Board::SideSelector sideSelector() const;
+    Chess::Board::PieceType type() const;
+    Chess::Board::PieceSelector pieceSelector() const;
+    Chess::Board::PieceType pieceSelectorType() const;
+    bool isValid() const;    
 };
 
 }

@@ -105,6 +105,14 @@ void Chess::Board::Piece::setPosition(const Chess::Board::Position& position){
     m_position = position;
 }
 
+bool Chess::Board::Piece::isValid() const{
+    return (m_type != Chess::Board::PieceType::Invalid);
+}
+bool Chess::Board::Piece::isOnBoard() const{
+    return m_position.isValid();
+}
+
+
 }
 }
 
@@ -132,6 +140,10 @@ std::ostream& operator<<(std::ostream& os, const Chess::Board::PieceType& type){
         }
         case Chess::Board::PieceType::King:{
             os << "King";
+            break;
+        }
+        default: {
+            os << "Invalid";
             break;
         }        
     }

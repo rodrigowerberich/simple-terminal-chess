@@ -4,7 +4,7 @@ namespace Chess{
 namespace Board{
 
 Side::Side(Board::SideSelector sideSelected):
-    m_invalidPiece{PieceType::Pawn}{
+    m_invalidPiece{PieceType::Invalid}{
     m_sideSelected = sideSelected;
     auto frontRow = Board::Row{0};
     auto backRow = Board::Row{0};

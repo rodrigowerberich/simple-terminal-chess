@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BoardPosition.hh"
+#include "PieceDescription.hh"
 
 namespace Chess{
 namespace Board{
@@ -19,9 +20,17 @@ public:
             Chess::Board::Position newPosition;
         };
         struct InvalidInput{
+            enum class Type{
+                InvalidPieceSelector
+            };
+            InvalidInput::Type type;
+            Chess::Board::PieceDescription invalidPieceDescription;
         };
         Info::Ok ok;
+        Info::InvalidInput invalidInput;
+
         Info(Info::Ok inputOk) {ok = inputOk;}
+        Info(Info::InvalidInput inputInvalidInput) {invalidInput = inputInvalidInput;}
     };
     MoveResult(MoveResult::Status status, MoveResult::Info info);
     MoveResult::Status status() const;
