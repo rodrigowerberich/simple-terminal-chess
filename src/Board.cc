@@ -21,6 +21,9 @@ Chess::Board::MoveResult Board::movePiece(const Chess::Board::PieceDescription& 
     if(!pieceDescription.isValid()){
         return MoveResult{MoveResult::Status::InvalidInput, {{MoveResult::Info::InvalidInput::Type::InvalidPieceSelector, pieceDescription}}};
     }
+    if(!newPosition.isValid()){
+        return MoveResult{MoveResult::Status::InvalidInput, {{MoveResult::Info::InvalidInput::Type::InvalidPosition, pieceDescription}}};
+    }
     
     auto& piece = side.getPiece(pieceDescription.type(), pieceDescription.pieceSelector());
     if(piece.isValid()){

@@ -20,7 +20,7 @@ TEST(Board, moveOk){
     ASSERT_EQ(board.getPiecePosition(pieceDescription), newPosition);
 }
 
-TEST(Board, moveInvalidInput){
+TEST(Board, moveInvalidInputInvalidPieceSelector){
     using namespace Chess::Board;
     Board board;
     
@@ -33,6 +33,21 @@ TEST(Board, moveInvalidInput){
     ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.type(), PieceType::King);
     ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.pieceSelector().pawn, PieceSelector::Pawn::B);
     ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.pieceSelectorType(), PieceType::Pawn);
+}
+
+TEST(Board, moveInvalidInputInvalidPosition){
+    using namespace Chess::Board;
+    Board board;
+    
+    PieceDescription pieceDescription = {SideSelector::White, PieceType::King, PieceSelector::King::D};
+    Position newPosition = {Column::B, Row(15)};
+    MoveResult moveResult = board.movePiece(pieceDescription, newPosition);
+    ASSERT_EQ(moveResult.status(), MoveResult::Status::InvalidInput);
+    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().type, MoveResult::Info::InvalidInput::Type::InvalidPosition); 
+    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.sideSelector(), SideSelector::White);
+    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.type(), PieceType::King);
+    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.pieceSelector().king, PieceSelector::King::D);
+    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.pieceSelectorType(), PieceType::King);
 }
 
 

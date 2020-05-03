@@ -21,7 +21,8 @@ public:
         };
         struct InvalidInput{
             enum class Type{
-                InvalidPieceSelector
+                InvalidPieceSelector,
+                InvalidPosition
             };
             InvalidInput::Type type;
             Chess::Board::PieceDescription invalidPieceDescription;
