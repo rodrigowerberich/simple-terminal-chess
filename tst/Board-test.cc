@@ -51,8 +51,6 @@ TEST(Board, moveInvalidInputInvalidPosition){
     Position newPosition = {Column::B, Row(15)};
     MoveResult moveResult = board.movePiece(pieceDescription, newPosition);
 
-    std::cout << board.getPiecePosition(pieceDescription) << std::endl;
-    std::cout << initialPosition << std::endl;
     ASSERT_EQ(board.getPiecePosition(pieceDescription), initialPosition);
     ASSERT_EQ(board.getPieceAtPosition(initialPosition), pieceDescription);
     ASSERT_FALSE(board.getPieceAtPosition(newPosition).isValid());
