@@ -13,6 +13,7 @@ private:
     Chess::Board::PieceSelector m_pieceSelector;
     Chess::Board::PieceType m_pieceSelectorType;
 public:
+    PieceDescription();
     PieceDescription(Chess::Board::SideSelector side, Chess::Board::PieceType pieceType, Chess::Board::PieceSelector::Pawn pawnSelector);
     PieceDescription(Chess::Board::SideSelector side, Chess::Board::PieceType pieceType, Chess::Board::PieceSelector::Rook rookSelector);
     PieceDescription(Chess::Board::SideSelector side, Chess::Board::PieceType pieceType, Chess::Board::PieceSelector::Knight knightSelector);
@@ -23,7 +24,8 @@ public:
     Chess::Board::PieceType type() const;
     Chess::Board::PieceSelector pieceSelector() const;
     Chess::Board::PieceType pieceSelectorType() const;
-    bool isValid() const;    
+    bool isValid() const;
+    bool operator==(const PieceDescription& rhs) const;
 };
 
 }

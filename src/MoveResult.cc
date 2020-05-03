@@ -24,6 +24,11 @@ const MoveResult::Info::InvalidInput& MoveResult::info<MoveResult::Info::Invalid
     return m_info.invalidInput;
 }
 
+template <>
+const MoveResult::Info::Collision& MoveResult::info<MoveResult::Info::Collision>() const{
+    return m_info.collision;
+}
+
 
 }
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "BoardPosition.hh"
 #include "PieceDescription.hh"
 
@@ -10,9 +12,9 @@ class MoveResult{
 public:
     enum class Status{
         Ok ,
-        InvalidInput //,
-        // ColisionSameSide
-        // ColisionOtherSide
+        InvalidInput,
+        // NoMovement,
+        Collision
     };
     union Info{
         struct Ok{
@@ -27,11 +29,19 @@ public:
             InvalidInput::Type type;
             Chess::Board::PieceDescription invalidPieceDescription;
         };
+        struct Collision{
+            bool sameSide;
+            bool differentSide;
+            Chess::Board::PieceDescription originalPiece;
+            Chess::Board::PieceDescription colidingPiece;
+            Chess::Board::Position position;
+        };
         Info::Ok ok;
         Info::InvalidInput invalidInput;
-
+        Info::Collision collision;
         Info(Info::Ok inputOk) {ok = inputOk;}
         Info(Info::InvalidInput inputInvalidInput) {invalidInput = inputInvalidInput;}
+        Info(Info::Collision inputCollision) {collision = inputCollision;}
     };
     MoveResult(MoveResult::Status status, MoveResult::Info info);
     MoveResult::Status status() const;
