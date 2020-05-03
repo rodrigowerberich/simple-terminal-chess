@@ -92,3 +92,8 @@ bool PieceDescription::operator==(const PieceDescription& rhs) const{
 
 }
 }
+
+std::ostream& operator<<(std::ostream& os, const Chess::Board::PieceDescription& pieceDescription){
+    os << pieceDescription.type();
+    return os;
+}

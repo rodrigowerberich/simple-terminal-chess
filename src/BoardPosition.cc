@@ -35,6 +35,10 @@ std::string column_to_string(Column column){
     }
 }
 
+std::vector<Column> column_as_vector(){
+    return {Column::A, Column::B, Column::C, Column::D, Column::E, Column::F, Column::G, Column::H};
+}
+
 Chess::Board::Position::Position(Chess::Board::Column column, Chess::Board::Row row):
 m_column{column},
 m_row{row}

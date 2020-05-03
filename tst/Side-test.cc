@@ -21,8 +21,8 @@ TEST(Side, whiteSideConstruction) {
     auto correctRAPosition = Board::Position{Board::Column::A,backRow};
     auto correctkBPosition = Board::Position{Board::Column::B,backRow};
     auto correctBCPosition = Board::Position{Board::Column::C,backRow};
-    auto correctKPosition  = Board::Position{Board::Column::D,backRow};
-    auto correctQPosition  = Board::Position{Board::Column::E,backRow};
+    auto correctQPosition  = Board::Position{Board::Column::D,backRow};
+    auto correctKPosition  = Board::Position{Board::Column::E,backRow};
     auto correctBFPosition = Board::Position{Board::Column::F,backRow};
     auto correctkGPosition = Board::Position{Board::Column::G,backRow};
     auto correctRHPosition = Board::Position{Board::Column::H,backRow};
@@ -60,10 +60,10 @@ TEST(Side, whiteSideConstruction) {
     auto& BF = side.getPiece(Board::PieceType::Bishop,  {Board::PieceSelector::Bishop::F});
     ASSERT_EQ(BF.currentPosition(), correctBFPosition);
 
-    auto& Q = side.getPiece(Board::PieceType::Queen,  {Board::PieceSelector::Queen::E});
+    auto& Q = side.getPiece(Board::PieceType::Queen,  {Board::PieceSelector::Queen::D});
     ASSERT_EQ(Q.currentPosition(), correctQPosition);
 
-    auto& K = side.getPiece(Board::PieceType::King,  {Board::PieceSelector::King::D});
+    auto& K = side.getPiece(Board::PieceType::King,  {Board::PieceSelector::King::E});
     ASSERT_EQ(K.currentPosition(), correctKPosition);
 }
 
@@ -86,8 +86,8 @@ TEST(Side, blackSideConstruction) {
     auto correctRAPosition = Board::Position{Board::Column::A,backRow};
     auto correctkBPosition = Board::Position{Board::Column::B,backRow};
     auto correctBCPosition = Board::Position{Board::Column::C,backRow};
-    auto correctKPosition  = Board::Position{Board::Column::D,backRow};
-    auto correctQPosition  = Board::Position{Board::Column::E,backRow};
+    auto correctQPosition  = Board::Position{Board::Column::D,backRow};
+    auto correctKPosition  = Board::Position{Board::Column::E,backRow};
     auto correctBFPosition = Board::Position{Board::Column::F,backRow};
     auto correctkGPosition = Board::Position{Board::Column::G,backRow};
     auto correctRHPosition = Board::Position{Board::Column::H,backRow};
@@ -125,10 +125,10 @@ TEST(Side, blackSideConstruction) {
     auto& BF = side.getPiece(Board::PieceType::Bishop,  {Board::PieceSelector::Bishop::F});
     ASSERT_EQ(BF.currentPosition(), correctBFPosition);
 
-    auto& Q = side.getPiece(Board::PieceType::Queen,  {Board::PieceSelector::Queen::E});
+    auto& Q = side.getPiece(Board::PieceType::Queen,  {Board::PieceSelector::Queen::D});
     ASSERT_EQ(Q.currentPosition(), correctQPosition);
 
-    auto& K = side.getPiece(Board::PieceType::King,  {Board::PieceSelector::King::D});
+    auto& K = side.getPiece(Board::PieceType::King,  {Board::PieceSelector::King::E});
     ASSERT_EQ(K.currentPosition(), correctKPosition);
 }
 

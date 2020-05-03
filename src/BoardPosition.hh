@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 namespace Chess{
 namespace Board{
@@ -20,6 +21,7 @@ enum class Column{
 };
 
 std::string column_to_string(Column column);
+std::vector<Column> column_as_vector();
 
 class Position{
 private:

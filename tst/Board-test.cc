@@ -45,11 +45,13 @@ TEST(Board, moveInvalidInputInvalidPosition){
     using namespace Chess::Board;
     Board board;
 
-    Position initialPosition = {Column::D, Row(1)};    
-    PieceDescription pieceDescription = {SideSelector::White, PieceType::King, PieceSelector::King::D};
+    Position initialPosition = {Column::E, Row(1)};    
+    PieceDescription pieceDescription = {SideSelector::White, PieceType::King, PieceSelector::King::E};
     Position newPosition = {Column::B, Row(15)};
     MoveResult moveResult = board.movePiece(pieceDescription, newPosition);
 
+    std::cout << board.getPiecePosition(pieceDescription) << std::endl;
+    std::cout << initialPosition << std::endl;
     ASSERT_EQ(board.getPiecePosition(pieceDescription), initialPosition);
     ASSERT_EQ(board.getPieceAtPosition(initialPosition), pieceDescription);
     ASSERT_FALSE(board.getPieceAtPosition(newPosition).isValid());
@@ -58,7 +60,7 @@ TEST(Board, moveInvalidInputInvalidPosition){
     ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().type, MoveResult::Info::InvalidInput::Type::InvalidPosition); 
     ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.sideSelector(), SideSelector::White);
     ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.type(), PieceType::King);
-    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.pieceSelector().king, PieceSelector::King::D);
+    ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.pieceSelector().king, PieceSelector::King::E);
     ASSERT_EQ(moveResult.info<MoveResult::Info::InvalidInput>().invalidPieceDescription.pieceSelectorType(), PieceType::King);
 }
 
@@ -164,8 +166,8 @@ TEST(Board, boardConstruction) {
     auto correctWhiteRAPosition = Board::Position{Board::Column::A, whiteBackRow};
     auto correctWhitekBPosition = Board::Position{Board::Column::B, whiteBackRow};
     auto correctWhiteBCPosition = Board::Position{Board::Column::C, whiteBackRow};
-    auto correctWhiteKPosition  = Board::Position{Board::Column::D, whiteBackRow};
-    auto correctWhiteQPosition  = Board::Position{Board::Column::E, whiteBackRow};
+    auto correctWhiteQPosition  = Board::Position{Board::Column::D, whiteBackRow};
+    auto correctWhiteKPosition  = Board::Position{Board::Column::E, whiteBackRow};
     auto correctWhiteBFPosition = Board::Position{Board::Column::F, whiteBackRow};
     auto correctWhitekGPosition = Board::Position{Board::Column::G, whiteBackRow};
     auto correctWhiteRHPosition = Board::Position{Board::Column::H, whiteBackRow};
@@ -181,8 +183,8 @@ TEST(Board, boardConstruction) {
     auto whiteRADescription = Board::PieceDescription{Board::SideSelector::White, Board::PieceType::Rook, Board::PieceSelector::Rook::A};
     auto whitekBDescription = Board::PieceDescription{Board::SideSelector::White, Board::PieceType::Knight, Board::PieceSelector::Knight::B};
     auto whiteBCDescription = Board::PieceDescription{Board::SideSelector::White, Board::PieceType::Bishop, Board::PieceSelector::Bishop::C};
-    auto whiteKDescription  = Board::PieceDescription{Board::SideSelector::White, Board::PieceType::King, Board::PieceSelector::King::D};
-    auto whiteQDescription  = Board::PieceDescription{Board::SideSelector::White, Board::PieceType::Queen, Board::PieceSelector::Queen::E};
+    auto whiteQDescription  = Board::PieceDescription{Board::SideSelector::White, Board::PieceType::Queen, Board::PieceSelector::Queen::D};
+    auto whiteKDescription  = Board::PieceDescription{Board::SideSelector::White, Board::PieceType::King, Board::PieceSelector::King::E};
     auto whiteBFDescription = Board::PieceDescription{Board::SideSelector::White, Board::PieceType::Bishop, Board::PieceSelector::Bishop::F};
     auto whitekGDescription = Board::PieceDescription{Board::SideSelector::White, Board::PieceType::Knight, Board::PieceSelector::Knight::G};
     auto whiteRHDescription = Board::PieceDescription{Board::SideSelector::White, Board::PieceType::Rook, Board::PieceSelector::Rook::H};
@@ -198,8 +200,8 @@ TEST(Board, boardConstruction) {
     auto correctBlackRAPosition = Board::Position{Board::Column::A, blackBackRow};
     auto correctBlackkBPosition = Board::Position{Board::Column::B, blackBackRow};
     auto correctBlackBCPosition = Board::Position{Board::Column::C, blackBackRow};
-    auto correctBlackKPosition  = Board::Position{Board::Column::D, blackBackRow};
-    auto correctBlackQPosition  = Board::Position{Board::Column::E, blackBackRow};
+    auto correctBlackQPosition  = Board::Position{Board::Column::D, blackBackRow};
+    auto correctBlackKPosition  = Board::Position{Board::Column::E, blackBackRow};
     auto correctBlackBFPosition = Board::Position{Board::Column::F, blackBackRow};
     auto correctBlackkGPosition = Board::Position{Board::Column::G, blackBackRow};
     auto correctBlackRHPosition = Board::Position{Board::Column::H, blackBackRow};
@@ -215,8 +217,8 @@ TEST(Board, boardConstruction) {
     auto blackRADescription = Board::PieceDescription{Board::SideSelector::Black, Board::PieceType::Rook, Board::PieceSelector::Rook::A};
     auto blackkBDescription = Board::PieceDescription{Board::SideSelector::Black, Board::PieceType::Knight, Board::PieceSelector::Knight::B};
     auto blackBCDescription = Board::PieceDescription{Board::SideSelector::Black, Board::PieceType::Bishop, Board::PieceSelector::Bishop::C};
-    auto blackKDescription  = Board::PieceDescription{Board::SideSelector::Black, Board::PieceType::King, Board::PieceSelector::King::D};
-    auto blackQDescription  = Board::PieceDescription{Board::SideSelector::Black, Board::PieceType::Queen, Board::PieceSelector::Queen::E};
+    auto blackQDescription  = Board::PieceDescription{Board::SideSelector::Black, Board::PieceType::Queen, Board::PieceSelector::Queen::D};
+    auto blackKDescription  = Board::PieceDescription{Board::SideSelector::Black, Board::PieceType::King, Board::PieceSelector::King::E};
     auto blackBFDescription = Board::PieceDescription{Board::SideSelector::Black, Board::PieceType::Bishop, Board::PieceSelector::Bishop::F};
     auto blackkGDescription = Board::PieceDescription{Board::SideSelector::Black, Board::PieceType::Knight, Board::PieceSelector::Knight::G};
     auto blackRHDescription = Board::PieceDescription{Board::SideSelector::Black, Board::PieceType::Rook, Board::PieceSelector::Rook::H};

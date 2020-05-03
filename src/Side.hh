@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <ostream>
 
 #include "Piece.hh"
 
@@ -29,3 +30,5 @@ public:
 
 }
 }
+
+std::ostream& operator<<(std::ostream& os, const Chess::Board::SideSelector& sideSelector);

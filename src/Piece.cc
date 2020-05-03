@@ -51,7 +51,7 @@ int PieceSelector::toIndex<PieceType::Bishop, PieceSelector::Bishop>(PieceSelect
 template <>
 int PieceSelector::toIndex<PieceType::Queen, PieceSelector::Queen>(PieceSelector::Queen queen){
     switch (queen){
-        case PieceSelector::Queen::E: return 0;
+        case PieceSelector::Queen::D: return 0;
         default: return -1;
     }
 }
@@ -59,8 +59,79 @@ int PieceSelector::toIndex<PieceType::Queen, PieceSelector::Queen>(PieceSelector
 template <>
 int PieceSelector::toIndex<PieceType::King, PieceSelector::King>(PieceSelector::King king){
     switch (king){
-        case PieceSelector::King::D: return 0;
+        case PieceSelector::King::E: return 0;
         default: return -1;
+    }
+}
+
+template <>
+std::string PieceSelector::toString<PieceType::Pawn, PieceSelector::Pawn>(PieceSelector::Pawn pawn){
+    switch (pawn){
+        case PieceSelector::Pawn::A: return "A";
+        case PieceSelector::Pawn::B: return "B";
+        case PieceSelector::Pawn::C: return "C";
+        case PieceSelector::Pawn::D: return "D";
+        case PieceSelector::Pawn::E: return "E";
+        case PieceSelector::Pawn::F: return "F";
+        case PieceSelector::Pawn::G: return "G";
+        case PieceSelector::Pawn::H: return "H";
+        default: return "";
+    }
+}
+
+template <>
+std::string PieceSelector::toString<PieceType::Rook, PieceSelector::Rook>(PieceSelector::Rook rook){
+    switch (rook){
+        case PieceSelector::Rook::A : return "A";
+        case PieceSelector::Rook::H : return "H";
+        default: return "";
+    }
+}
+
+template <>
+std::string PieceSelector::toString<PieceType::Knight, PieceSelector::Knight>(PieceSelector::Knight knight){
+    switch (knight){
+        case PieceSelector::Knight::B: return "B";
+        case PieceSelector::Knight::G: return "G";
+        default: return "";
+    }
+}
+
+
+template <>
+std::string PieceSelector::toString<PieceType::Bishop, PieceSelector::Bishop>(PieceSelector::Bishop bishop){
+    switch (bishop){
+        case PieceSelector::Bishop::C: return "C";
+        case PieceSelector::Bishop::F: return "F";
+        default: return "";
+    }
+}
+
+template <>
+std::string PieceSelector::toString<PieceType::Queen, PieceSelector::Queen>(PieceSelector::Queen queen){
+    switch (queen){
+        case PieceSelector::Queen::D: return " ";
+        default: return "";
+    }
+}
+
+template <>
+std::string PieceSelector::toString<PieceType::King, PieceSelector::King>(PieceSelector::King king){
+    switch (king){
+        case PieceSelector::King::E: return " ";
+        default: return "";
+    }
+}
+
+std::string Board::PieceSelector::toString(PieceType type) const{
+    switch(type){
+        case PieceType::Pawn:   return toString<PieceType::Pawn>(pawn);
+        case PieceType::Rook:   return toString<PieceType::Rook>(rook);
+        case PieceType::Knight: return toString<PieceType::Knight>(knight);
+        case PieceType::Bishop: return toString<PieceType::Bishop>(bishop);
+        case PieceType::Queen:  return toString<PieceType::Queen>(queen);
+        case PieceType::King:   return toString<PieceType::King>(king);
+        default: return "";
     }
 }
 
@@ -119,27 +190,27 @@ bool Chess::Board::Piece::isOnBoard() const{
 std::ostream& operator<<(std::ostream& os, const Chess::Board::PieceType& type){
     switch(type){
         case Chess::Board::PieceType::Pawn:{
-            os << "Pawn";
+            os << "P";
             break;
         }
         case Chess::Board::PieceType::Rook:{
-            os << "Rook";
+            os << "R";
             break;
         }
         case Chess::Board::PieceType::Knight:{
-            os << "Knight";
+            os << "k";
             break;
         }
         case Chess::Board::PieceType::Bishop:{
-            os << "Bishop";
+            os << "B";
             break;
         }
         case Chess::Board::PieceType::Queen:{
-            os << "Queen";
+            os << "Q";
             break;
         }
         case Chess::Board::PieceType::King:{
-            os << "King";
+            os << "K";
             break;
         }
         default: {

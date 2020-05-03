@@ -9,8 +9,8 @@ m_blackSide{Chess::Board::SideSelector::Black}{
     m_occupancyMap[Chess::Board::Column::A][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Rook, PieceSelector::Rook::A};
     m_occupancyMap[Chess::Board::Column::B][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Knight, PieceSelector::Knight::B};
     m_occupancyMap[Chess::Board::Column::C][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Bishop, PieceSelector::Bishop::C};
-    m_occupancyMap[Chess::Board::Column::D][Chess::Board::Row(1)] = {SideSelector::White, PieceType::King, PieceSelector::King::D};
-    m_occupancyMap[Chess::Board::Column::E][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Queen, PieceSelector::Queen::E};
+    m_occupancyMap[Chess::Board::Column::D][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Queen, PieceSelector::Queen::D};
+    m_occupancyMap[Chess::Board::Column::E][Chess::Board::Row(1)] = {SideSelector::White, PieceType::King, PieceSelector::King::E};
     m_occupancyMap[Chess::Board::Column::F][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Bishop, PieceSelector::Bishop::F};
     m_occupancyMap[Chess::Board::Column::G][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Knight, PieceSelector::Knight::G};
     m_occupancyMap[Chess::Board::Column::H][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Rook, PieceSelector::Rook::H};
@@ -36,8 +36,8 @@ m_blackSide{Chess::Board::SideSelector::Black}{
     m_occupancyMap[Chess::Board::Column::A][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Rook, PieceSelector::Rook::A};
     m_occupancyMap[Chess::Board::Column::B][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Knight, PieceSelector::Knight::B};
     m_occupancyMap[Chess::Board::Column::C][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Bishop, PieceSelector::Bishop::C};
-    m_occupancyMap[Chess::Board::Column::D][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::King, PieceSelector::King::D};
-    m_occupancyMap[Chess::Board::Column::E][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Queen, PieceSelector::Queen::E};
+    m_occupancyMap[Chess::Board::Column::D][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Queen, PieceSelector::Queen::D};
+    m_occupancyMap[Chess::Board::Column::E][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::King, PieceSelector::King::E};
     m_occupancyMap[Chess::Board::Column::F][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Bishop, PieceSelector::Bishop::F};
     m_occupancyMap[Chess::Board::Column::G][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Knight, PieceSelector::Knight::G};
     m_occupancyMap[Chess::Board::Column::H][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Rook, PieceSelector::Rook::H};

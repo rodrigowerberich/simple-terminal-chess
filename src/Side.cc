@@ -47,12 +47,12 @@ Side::Side(Board::SideSelector sideSelected):
     m_pieces.emplace(PieceType::Bishop, bishops);
     // Putting the queen in her board position
     auto queen = std::vector<Board::Piece>{
-        {PieceType::Queen, {Column::E, backRow}}
+        {PieceType::Queen, {Column::D, backRow}}
     };
     m_pieces.emplace(PieceType::Queen, queen);
     // Putting the king in his board position
     auto king = std::vector<Board::Piece>{
-        {PieceType::King, {Column::D, backRow}}
+        {PieceType::King, {Column::E, backRow}}
     };
     m_pieces.emplace(PieceType::King, king);
 }
@@ -75,4 +75,21 @@ const Board::Piece& Side::getPiece(PieceType type, const PieceSelector& pieceSel
 }
 
 }
+}
+
+std::ostream& operator<<(std::ostream& os, const Chess::Board::SideSelector& sideSelector){
+    switch (sideSelector)
+    {
+    case Chess::Board::SideSelector::Black: {
+        os << "B";
+        break;
+    }
+    case Chess::Board::SideSelector::White: {
+        os << "W";
+        break;
+    }
+    default:
+        break;
+    }
+    return os;
 }

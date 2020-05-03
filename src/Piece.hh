@@ -29,10 +29,10 @@ union PieceSelector{
     enum class Bishop {
         C,F
     };
-    enum class King {
+    enum class Queen {
         D
     };
-    enum class Queen {
+    enum class King {
         E
     };
     PieceSelector::Pawn pawn;
@@ -62,6 +62,10 @@ union PieceSelector{
     template <PieceType t, typename T>
     static int toIndex(T);
     int toIndex(PieceType type) const;
+    template <PieceType t, typename T>
+    static std::string toString(T);
+    std::string toString(PieceType type) const;
+
 };
 
 
