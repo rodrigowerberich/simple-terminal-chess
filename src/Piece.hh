@@ -41,24 +41,12 @@ union PieceSelector{
     PieceSelector::Bishop bishop;
     PieceSelector::Queen queen;
     PieceSelector::King king;
-    PieceSelector(PieceSelector::Pawn inputPawn){
-        pawn = inputPawn;
-    }
-    PieceSelector(PieceSelector::Rook inputRook){
-        rook = inputRook;
-    }
-    PieceSelector(PieceSelector::Knight inputKnight){
-        knight = inputKnight;
-    }
-    PieceSelector(PieceSelector::Bishop inputBishop){
-        bishop = inputBishop;
-    }
-    PieceSelector(PieceSelector::Queen inputQueen){
-        queen = inputQueen;
-    }
-    PieceSelector(PieceSelector::King inputKing){
-        king = inputKing;
-    }
+    constexpr PieceSelector(PieceSelector::Pawn inputPawn):pawn{inputPawn}{}
+    constexpr PieceSelector(PieceSelector::Rook inputRook):rook{inputRook}{}
+    constexpr PieceSelector(PieceSelector::Knight inputKnight):knight{inputKnight}{}
+    constexpr PieceSelector(PieceSelector::Bishop inputBishop):bishop{inputBishop}{}
+    constexpr PieceSelector(PieceSelector::Queen inputQueen):queen{inputQueen}{}
+    constexpr PieceSelector(PieceSelector::King inputKing):king{inputKing}{}
     template <PieceType t, typename T>
     static int toIndex(T);
     int toIndex(PieceType type) const;

@@ -1,4 +1,5 @@
 #include "Side.hh"
+#include "BoardDefinitions.hh"
 
 namespace Chess{
 namespace Board{
@@ -6,53 +7,44 @@ namespace Board{
 Side::Side(Board::SideSelector sideSelected):
     m_invalidPiece{PieceType::Invalid}{
     m_sideSelected = sideSelected;
-    auto frontRow = Board::Row{0};
-    auto backRow = Board::Row{0};
-    if(m_sideSelected == Board::SideSelector::White){
-        backRow = Board::Row{WHITE_BACK_ROW};
-        frontRow = Board::Row{WHITE_FRONT_ROW};
-    }else{
-        backRow = Board::Row{BLACK_BACK_ROW};
-        frontRow = Board::Row{BLACK_FRONT_ROW};
-    }
     // Putting the pawns in their board positions
     auto pawns = std::vector<Board::Piece>{
-        {PieceType::Pawn, {Column::A, frontRow}},
-        {PieceType::Pawn, {Column::B, frontRow}},
-        {PieceType::Pawn, {Column::C, frontRow}},
-        {PieceType::Pawn, {Column::D, frontRow}},
-        {PieceType::Pawn, {Column::E, frontRow}},
-        {PieceType::Pawn, {Column::F, frontRow}},
-        {PieceType::Pawn, {Column::G, frontRow}},
-        {PieceType::Pawn, {Column::H, frontRow}}
+        {PieceType::Pawn, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Pawn::A})},
+        {PieceType::Pawn, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Pawn::B})},
+        {PieceType::Pawn, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Pawn::C})},
+        {PieceType::Pawn, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Pawn::D})},
+        {PieceType::Pawn, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Pawn::E})},
+        {PieceType::Pawn, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Pawn::F})},
+        {PieceType::Pawn, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Pawn::G})},
+        {PieceType::Pawn, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Pawn::H})}
     };
     m_pieces.emplace(PieceType::Pawn, pawns);
     // Putting the rooks in their board positions
     auto rooks = std::vector<Board::Piece>{
-        {PieceType::Rook, {Column::A, backRow}},
-        {PieceType::Rook, {Column::H, backRow}}
+        {PieceType::Rook, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Rook::A})},
+        {PieceType::Rook, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Rook::H})},
     };
     m_pieces.emplace(PieceType::Rook, rooks);
     // Putting the knights in their board positions
     auto knights = std::vector<Board::Piece>{
-        {PieceType::Knight, {Column::B, backRow}},
-        {PieceType::Knight, {Column::G, backRow}}
+        {PieceType::Knight, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Knight::B})},
+        {PieceType::Knight, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Knight::G})},
     };
     m_pieces.emplace(PieceType::Knight, knights);
     // Putting the bishops in their board positions
     auto bishops = std::vector<Board::Piece>{
-        {PieceType::Bishop, {Column::C, backRow}},
-        {PieceType::Bishop, {Column::F, backRow}}
+        {PieceType::Bishop, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Bishop::C})},
+        {PieceType::Bishop, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Bishop::F})},
     };
     m_pieces.emplace(PieceType::Bishop, bishops);
     // Putting the queen in her board position
     auto queen = std::vector<Board::Piece>{
-        {PieceType::Queen, {Column::D, backRow}}
+        {PieceType::Queen, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::Queen::D})}
     };
     m_pieces.emplace(PieceType::Queen, queen);
     // Putting the king in his board position
     auto king = std::vector<Board::Piece>{
-        {PieceType::King, {Column::E, backRow}}
+        {PieceType::King, Board::Definitions::pieceDefaultPosition({sideSelected, PieceSelector::King::E})}
     };
     m_pieces.emplace(PieceType::King, king);
 }

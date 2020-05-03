@@ -1,46 +1,52 @@
 #include "Board.hh"
+#include "BoardDefinitions.hh"
 
 namespace Chess{
 namespace Board{
 
+template <typename T, typename Description>
+void Board_setDefaultPositionOnMap(T& occupancyMap, const Description& description){
+    auto defaultPosition = Chess::Board::Definitions::pieceDefaultPosition(description);
+    occupancyMap[defaultPosition.column()][defaultPosition.row()] = description;
+}
+
 Board::Board():
 m_whiteSide{Chess::Board::SideSelector::White},
 m_blackSide{Chess::Board::SideSelector::Black}{
-    m_occupancyMap[Chess::Board::Column::A][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Rook, PieceSelector::Rook::A};
-    m_occupancyMap[Chess::Board::Column::B][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Knight, PieceSelector::Knight::B};
-    m_occupancyMap[Chess::Board::Column::C][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Bishop, PieceSelector::Bishop::C};
-    m_occupancyMap[Chess::Board::Column::D][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Queen, PieceSelector::Queen::D};
-    m_occupancyMap[Chess::Board::Column::E][Chess::Board::Row(1)] = {SideSelector::White, PieceType::King, PieceSelector::King::E};
-    m_occupancyMap[Chess::Board::Column::F][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Bishop, PieceSelector::Bishop::F};
-    m_occupancyMap[Chess::Board::Column::G][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Knight, PieceSelector::Knight::G};
-    m_occupancyMap[Chess::Board::Column::H][Chess::Board::Row(1)] = {SideSelector::White, PieceType::Rook, PieceSelector::Rook::H};
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_PA_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_PB_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_PC_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_PD_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_PE_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_PF_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_PG_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_PH_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_RA_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_kB_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_BC_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_QD_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_KE_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_BF_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_kG_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::B_RH_DESCRIPTION);
 
-    m_occupancyMap[Chess::Board::Column::A][Chess::Board::Row(2)] = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::A};
-    m_occupancyMap[Chess::Board::Column::B][Chess::Board::Row(2)] = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::B};
-    m_occupancyMap[Chess::Board::Column::C][Chess::Board::Row(2)] = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::C};
-    m_occupancyMap[Chess::Board::Column::D][Chess::Board::Row(2)] = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::D};
-    m_occupancyMap[Chess::Board::Column::E][Chess::Board::Row(2)] = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::E};
-    m_occupancyMap[Chess::Board::Column::F][Chess::Board::Row(2)] = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::F};
-    m_occupancyMap[Chess::Board::Column::G][Chess::Board::Row(2)] = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::G};
-    m_occupancyMap[Chess::Board::Column::H][Chess::Board::Row(2)] = {SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::H};
-
-    m_occupancyMap[Chess::Board::Column::A][Chess::Board::Row(7)] = {SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::A};
-    m_occupancyMap[Chess::Board::Column::B][Chess::Board::Row(7)] = {SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::B};
-    m_occupancyMap[Chess::Board::Column::C][Chess::Board::Row(7)] = {SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::C};
-    m_occupancyMap[Chess::Board::Column::D][Chess::Board::Row(7)] = {SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::D};
-    m_occupancyMap[Chess::Board::Column::E][Chess::Board::Row(7)] = {SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::E};
-    m_occupancyMap[Chess::Board::Column::F][Chess::Board::Row(7)] = {SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::F};
-    m_occupancyMap[Chess::Board::Column::G][Chess::Board::Row(7)] = {SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::G};
-    m_occupancyMap[Chess::Board::Column::H][Chess::Board::Row(7)] = {SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::H};
-
-    m_occupancyMap[Chess::Board::Column::A][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Rook, PieceSelector::Rook::A};
-    m_occupancyMap[Chess::Board::Column::B][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Knight, PieceSelector::Knight::B};
-    m_occupancyMap[Chess::Board::Column::C][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Bishop, PieceSelector::Bishop::C};
-    m_occupancyMap[Chess::Board::Column::D][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Queen, PieceSelector::Queen::D};
-    m_occupancyMap[Chess::Board::Column::E][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::King, PieceSelector::King::E};
-    m_occupancyMap[Chess::Board::Column::F][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Bishop, PieceSelector::Bishop::F};
-    m_occupancyMap[Chess::Board::Column::G][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Knight, PieceSelector::Knight::G};
-    m_occupancyMap[Chess::Board::Column::H][Chess::Board::Row(8)] = {SideSelector::Black, PieceType::Rook, PieceSelector::Rook::H};
+    
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_PA_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_PB_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_PC_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_PD_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_PE_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_PF_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_PG_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_PH_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_RA_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_kB_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_BC_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_QD_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_KE_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_BF_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_kG_DESCRIPTION);
+    Board_setDefaultPositionOnMap(m_occupancyMap, Chess::Board::Definitions::W_RH_DESCRIPTION);
 }
 Chess::Board::Position Board::getPiecePosition(const Chess::Board::PieceDescription& pieceDescription) const{
     switch (pieceDescription.sideSelector()){

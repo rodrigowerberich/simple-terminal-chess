@@ -31,7 +31,14 @@ private:
     static constexpr int MIN_ROW = 1;
     static constexpr int INVALID_ROW_VALUE = 0;
 public:
-    Position(Chess::Board::Column, Chess::Board::Row row);
+    constexpr Position(Chess::Board::Column column, Chess::Board::Row row):
+    m_column{column},
+    m_row{row}
+    {
+        if((m_row < Chess::Board::Position::MIN_ROW)|| (m_row > Chess::Board::Position::MAX_ROW)){
+            m_row = Chess::Board::Position::INVALID_ROW_VALUE;
+        }
+    }
     Chess::Board::Row row() const;
     Chess::Board::Column column() const;
     bool isValid() const;

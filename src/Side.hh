@@ -16,10 +16,6 @@ class Side{
 private:
     Chess::Board::SideSelector m_sideSelected;
     std::map<Chess::Board::PieceType,std::vector<Chess::Board::Piece>> m_pieces;
-    static constexpr int WHITE_BACK_ROW = 1;
-    static constexpr int WHITE_FRONT_ROW = 2;
-    static constexpr int BLACK_BACK_ROW = 8;
-    static constexpr int BLACK_FRONT_ROW = 7;
     Chess::Board::Piece m_invalidPiece;
 public:
     Side(Chess::Board::SideSelector sideSelected);

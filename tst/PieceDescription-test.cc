@@ -1,10 +1,9 @@
 #include "gtest/gtest.h"
 #include "PieceDescription.hh"
 
-
 TEST(PieceDescription, pawnA) {
     using namespace Chess::Board;
-    auto pawnADescription = PieceDescription{SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::A};    
+    auto pawnADescription = PieceDescription{SideSelector::White, PieceSelector::Pawn::A};    
     ASSERT_TRUE(pawnADescription.isValid());
     ASSERT_EQ(pawnADescription.sideSelector(), SideSelector::White);
     ASSERT_EQ(pawnADescription.type(), PieceType::Pawn);
@@ -13,7 +12,7 @@ TEST(PieceDescription, pawnA) {
 }
 TEST(PieceDescription, pawnB) {
     using namespace Chess::Board;
-    auto pawnBDescription = PieceDescription{SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::B};    
+    auto pawnBDescription = PieceDescription{SideSelector::Black, PieceSelector::Pawn::B};    
     ASSERT_TRUE(pawnBDescription.isValid());
     ASSERT_EQ(pawnBDescription.sideSelector(), SideSelector::Black);
     ASSERT_EQ(pawnBDescription.type(), PieceType::Pawn);
@@ -22,7 +21,7 @@ TEST(PieceDescription, pawnB) {
 }
 TEST(PieceDescription, pawnC) {
     using namespace Chess::Board;
-    auto pawnCDescription = PieceDescription{SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::C};    
+    auto pawnCDescription = PieceDescription{SideSelector::White, PieceSelector::Pawn::C};    
     ASSERT_TRUE(pawnCDescription.isValid());
     ASSERT_EQ(pawnCDescription.sideSelector(), SideSelector::White);
     ASSERT_EQ(pawnCDescription.type(), PieceType::Pawn);
@@ -31,7 +30,7 @@ TEST(PieceDescription, pawnC) {
 }
 TEST(PieceDescription, pawnD) {
     using namespace Chess::Board;
-    auto pawnDDescription = PieceDescription{SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::D};    
+    auto pawnDDescription = PieceDescription{SideSelector::Black, PieceSelector::Pawn::D};    
     ASSERT_TRUE(pawnDDescription.isValid());
     ASSERT_EQ(pawnDDescription.sideSelector(), SideSelector::Black);
     ASSERT_EQ(pawnDDescription.type(), PieceType::Pawn);
@@ -40,7 +39,7 @@ TEST(PieceDescription, pawnD) {
 }
 TEST(PieceDescription, pawnE) {
     using namespace Chess::Board;
-    auto pawnEDescription = PieceDescription{SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::E};    
+    auto pawnEDescription = PieceDescription{SideSelector::White, PieceSelector::Pawn::E};    
     ASSERT_TRUE(pawnEDescription.isValid());
     ASSERT_EQ(pawnEDescription.sideSelector(), SideSelector::White);
     ASSERT_EQ(pawnEDescription.type(), PieceType::Pawn);
@@ -49,7 +48,7 @@ TEST(PieceDescription, pawnE) {
 }
 TEST(PieceDescription, pawnF) {
     using namespace Chess::Board;
-    auto pawnFDescription = PieceDescription{SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::F};    
+    auto pawnFDescription = PieceDescription{SideSelector::Black, PieceSelector::Pawn::F};    
     ASSERT_TRUE(pawnFDescription.isValid());
     ASSERT_EQ(pawnFDescription.sideSelector(), SideSelector::Black);
     ASSERT_EQ(pawnFDescription.type(), PieceType::Pawn);
@@ -58,7 +57,7 @@ TEST(PieceDescription, pawnF) {
 }
 TEST(PieceDescription, pawnG) {
     using namespace Chess::Board;   
-    auto pawnGDescription = PieceDescription{SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::G};    
+    auto pawnGDescription = PieceDescription{SideSelector::White, PieceSelector::Pawn::G};    
     ASSERT_TRUE(pawnGDescription.isValid());
     ASSERT_EQ(pawnGDescription.sideSelector(), SideSelector::White);
     ASSERT_EQ(pawnGDescription.type(), PieceType::Pawn);
@@ -67,7 +66,7 @@ TEST(PieceDescription, pawnG) {
 }
 TEST(PieceDescription, pawnH) {
     using namespace Chess::Board;   
-    auto pawnHDescription = PieceDescription{SideSelector::Black, PieceType::Pawn, PieceSelector::Pawn::H};    
+    auto pawnHDescription = PieceDescription{SideSelector::Black, PieceSelector::Pawn::H};    
     ASSERT_TRUE(pawnHDescription.isValid());
     ASSERT_EQ(pawnHDescription.sideSelector(), SideSelector::Black);
     ASSERT_EQ(pawnHDescription.type(), PieceType::Pawn);
@@ -75,12 +74,13 @@ TEST(PieceDescription, pawnH) {
     ASSERT_EQ(pawnHDescription.pieceSelectorType(), PieceType::Pawn);
 }
 
-TEST(PieceDescription, pawnInvalid){
-    using namespace Chess::Board;
-    auto pawnInvalidDescription = PieceDescription{SideSelector::Black, PieceType::Pawn, PieceSelector::Rook::H}; 
-    ASSERT_FALSE(pawnInvalidDescription.isValid());
-    ASSERT_EQ(pawnInvalidDescription.sideSelector(), SideSelector::Black);
-    ASSERT_EQ(pawnInvalidDescription.type(), PieceType::Pawn);
-    ASSERT_EQ(pawnInvalidDescription.pieceSelector().rook, PieceSelector::Rook::H);
-    ASSERT_EQ(pawnInvalidDescription.pieceSelectorType(), PieceType::Rook);
-}
+// No longer possible to create invalid description
+// TEST(PieceDescription, pawnInvalid){
+//     using namespace Chess::Board;
+//     auto pawnInvalidDescription = PieceDescription{SideSelector::Black, PieceSelector::Rook::H}; 
+//     ASSERT_FALSE(pawnInvalidDescription.isValid());
+//     ASSERT_EQ(pawnInvalidDescription.sideSelector(), SideSelector::Black);
+//     ASSERT_EQ(pawnInvalidDescription.type(), PieceType::Pawn);
+//     ASSERT_EQ(pawnInvalidDescription.pieceSelector().rook, PieceSelector::Rook::H);
+//     ASSERT_EQ(pawnInvalidDescription.pieceSelectorType(), PieceType::Rook);
+// }

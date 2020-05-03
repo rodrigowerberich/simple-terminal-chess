@@ -39,14 +39,6 @@ std::vector<Column> column_as_vector(){
     return {Column::A, Column::B, Column::C, Column::D, Column::E, Column::F, Column::G, Column::H};
 }
 
-Chess::Board::Position::Position(Chess::Board::Column column, Chess::Board::Row row):
-m_column{column},
-m_row{row}
-{
-    if((m_row < Chess::Board::Position::MIN_ROW)|| (m_row > Chess::Board::Position::MAX_ROW)){
-        m_row = Chess::Board::Position::INVALID_ROW_VALUE;
-    }
-}
 Chess::Board::Row Chess::Board::Position::row() const{
     return m_row;
 }

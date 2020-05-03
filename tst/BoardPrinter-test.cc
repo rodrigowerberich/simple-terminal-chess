@@ -55,8 +55,8 @@ TEST(XXX,xxx){
     Printer printer(std::cout);
     Board board;
     printer.println(BoardPrinter(board));
-    board.movePiece({SideSelector::White, PieceType::Pawn, PieceSelector::Pawn::B}, {Column::B, Row{4}});
+    board.movePiece({SideSelector::White, PieceSelector::Pawn::B}, {Column::B, Row{4}});
     printer.println(BoardPrinter(board));
-    board.movePiece({SideSelector::White, PieceType::Rook, PieceSelector::Rook::H}, {Column::E, Row{3}});
+    board.movePiece({SideSelector::White, PieceSelector::Rook::H}, {Column::E, Row{3}});
     printer.println(BoardPrinter(board));
 }
