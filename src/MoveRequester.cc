@@ -6,27 +6,6 @@
 namespace Chess{
 namespace Rules{
 
-// std::vector<Chess::Board::Position> pawnPath(const Chess::Board::Position& initialPosition, const Chess::Board::Position& finallPosition){
-//     std::vector<Chess::Board::Position>
-//     if(initialPosition.column() == finallPosition.column()){
-//         auto initialRow = initialPosition.row();
-//         auto finalRow = finallPosition.row();
-//         auto smallToBig = initialRow < finalRow;
-//         if(!smallToBig){
-//             std::swap(initialRow, finalRow);
-//         }
-//         for
-//     }
-// }
-
-template <>
-MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Pawn>(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription){
-    auto originalPosition = originalBoard.getPiecePosition(pieceDescription);
-    auto finalPosition = newBoard.getPiecePosition(pieceDescription);
-
-    return {originalBoard};
-}
-
 template <>
 MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Rook>(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription){
     return {originalBoard};
