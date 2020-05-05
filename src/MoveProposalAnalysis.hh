@@ -1,19 +1,31 @@
 #pragma once
 
+#include <memory>
+
 #include "Board.hh"
 
 namespace Chess{
 namespace Rules{
 
+struct InvalidPieceMovement{
+    Board::Position initialPosition;
+    Board::Position finalPosition;
+    Board::PieceDescription pieceDescription;
+};
+
+
 class MoveProposalAnalysis{
 public:
     enum class Type{
         MoveResult,
+        InvalidPieceMovement,
         Invalid
     };
     union Info{
+        // InvalidPieceMovement create Invalid piece movement class
         Chess::Board::MoveResult moveResult;
         int invalid;
+        Chess::Rules::InvalidPieceMovement invalidPieceMovement;
         Info(Chess::Board::MoveResult moveResult):moveResult{moveResult}{}
         Info(int i):invalid{i}{}
     };

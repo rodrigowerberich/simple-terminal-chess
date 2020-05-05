@@ -8,8 +8,7 @@ std::ostream& operator<<(std::ostream& os, const Chess::Board::Position& positio
 }
 
 
-namespace Chess
-{
+namespace Chess{
 namespace Board{
 
 std::string column_to_string(Column column){
@@ -38,6 +37,30 @@ std::string column_to_string(Column column){
 std::vector<Column> column_as_vector(){
     return {Column::A, Column::B, Column::C, Column::D, Column::E, Column::F, Column::G, Column::H};
 }
+
+int column_to_int(Column column){
+    switch (column){
+    case Chess::Board::Column::A :
+        return 1;
+    case Chess::Board::Column::B :
+        return 2;
+    case Chess::Board::Column::C :
+        return 3;
+    case Chess::Board::Column::D :
+        return 4;
+    case Chess::Board::Column::E :
+        return 5;
+    case Chess::Board::Column::F :
+        return 6;
+    case Chess::Board::Column::G :
+        return 7;
+    case Chess::Board::Column::H :
+        return 8;
+    default:
+        return 0;
+    }
+}
+
 
 Chess::Board::Row Chess::Board::Position::row() const{
     return m_row;

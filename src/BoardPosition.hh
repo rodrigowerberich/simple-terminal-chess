@@ -22,6 +22,7 @@ enum class Column{
 
 std::string column_to_string(Column column);
 std::vector<Column> column_as_vector();
+int column_to_int(Column column);
 
 class Position{
 private:

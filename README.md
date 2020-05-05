@@ -18,7 +18,7 @@ The game consists of 16 pieces on each side
 8| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH | 
  |______|______|______|______|______|______|______|______| 
  |      |      |      |      |      |      |      |      | 
-7| B-PA | B-PB | B-PC | B-PD | B-PE | B-PI | B-PG | B-PH | 
+7| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH | 
  |______|______|______|______|______|______|______|______| 
  |      |      |      |      |      |      |      |      | 
 6|      |      |      |      |      |      |      |      | 
@@ -33,7 +33,7 @@ The game consists of 16 pieces on each side
 3|      |      |      |      |      |      |      |      | 
  |______|______|______|______|______|______|______|______| 
  |      |      |      |      |      |      |      |      | 
-2| W-PA | W-PB | W-PC | W-PD | W-PE | W-PI | W-PG | W-PH | 
+2| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH | 
  |______|______|______|______|______|______|______|______| 
  |      |      |      |      |      |      |      |      | 
 1| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH | 
@@ -176,7 +176,7 @@ visualize field
 8| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH | 
  |______|______|______|______|______|______|______|______| 
  |      |      |      |      |      |      |      |      | 
-7| B-PA | B-PB | B-PC | B-PD | B-PE | B-PI | B-PG | B-PH | 
+7| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH | 
  |______|______|______|______|______|______|______|______| 
  |      |      |      |      |      |      |      |      | 
 6|      |      |      |      |      |      |      |      | 
@@ -191,7 +191,7 @@ visualize field
 3|      |      |      |      |      |      |      |      | 
  |______|______|______|______|______|______|______|______| 
  |      |      |      |      |      |      |      |      | 
-2| W-PA | W-PB | W-PC | W-PD | W-PE | W-PI | W-PG | W-PH | 
+2| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH | 
  |______|______|______|______|______|______|______|______| 
  |      |      |      |      |      |      |      |      | 
 1| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH | 

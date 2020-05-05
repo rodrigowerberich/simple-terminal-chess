@@ -49,7 +49,8 @@ MoveProposalAnalysis MoveRequester::proposeMove(const BoardType& board, const Pi
     BoardType newBoard = board;
     auto initialMoveResult = newBoard.movePiece(pieceDescription, position);
     
-    if(initialMoveResult.status() != Chess::Board::MoveResult::Status::Ok){
+    if( initialMoveResult.status() == Chess::Board::MoveResult::Status::InvalidInput || 
+        initialMoveResult.status() == Chess::Board::MoveResult::Status::NoMovement){
         return MoveProposalAnalysis{board, initialMoveResult};
     }
     std::cout << Chess::Output::BoardPrinter(board) << std::endl;
