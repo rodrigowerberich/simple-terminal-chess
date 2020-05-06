@@ -22,15 +22,16 @@ public:
         Invalid
     };
     union Info{
-        // InvalidPieceMovement create Invalid piece movement class
         Chess::Board::MoveResult moveResult;
         int invalid;
         Chess::Rules::InvalidPieceMovement invalidPieceMovement;
         Info(Chess::Board::MoveResult moveResult):moveResult{moveResult}{}
+        Info(Chess::Rules::InvalidPieceMovement invalidPieceMovement):moveResult{moveResult}{}
         Info(int i):invalid{i}{}
     };
     MoveProposalAnalysis(const Chess::Board::Board& board);
     MoveProposalAnalysis(const Chess::Board::Board& board, Chess::Board::MoveResult moveResult);
+    MoveProposalAnalysis(const Chess::Board::Board& board, Chess::Rules::InvalidPieceMovement invalidPieceMovement);
     const Chess::Board::Board& board();
     const MoveProposalAnalysis::Type& type() const;
     template<typename T>
