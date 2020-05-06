@@ -51,10 +51,11 @@ MoveProposalAnalysis MoveRequester::proposeMove(const BoardType& board, const Pi
     
     if( initialMoveResult.status() == Chess::Board::MoveResult::Status::InvalidInput || 
         initialMoveResult.status() == Chess::Board::MoveResult::Status::NoMovement){
+        std::cout << "Saida 1\n";
         return MoveProposalAnalysis{board, initialMoveResult};
     }
-    std::cout << Chess::Output::BoardPrinter(board) << std::endl;
-    std::cout << Chess::Output::BoardPrinter(newBoard) << std::endl;
+    // std::cout << Chess::Output::BoardPrinter(board) << std::endl;
+    // std::cout << Chess::Output::BoardPrinter(newBoard) << std::endl;
     return verifyMove(board, newBoard, pieceDescription, initialMoveResult);
 }
 

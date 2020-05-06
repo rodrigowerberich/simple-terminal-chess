@@ -26,7 +26,7 @@ public:
         int invalid;
         Chess::Rules::InvalidPieceMovement invalidPieceMovement;
         Info(Chess::Board::MoveResult moveResult):moveResult{moveResult}{}
-        Info(Chess::Rules::InvalidPieceMovement invalidPieceMovement):moveResult{moveResult}{}
+        Info(Chess::Rules::InvalidPieceMovement invalidPieceMovement):invalidPieceMovement{invalidPieceMovement}{}
         Info(int i):invalid{i}{}
     };
     MoveProposalAnalysis(const Chess::Board::Board& board);

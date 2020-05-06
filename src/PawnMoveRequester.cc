@@ -1,6 +1,7 @@
 #include "MoveRequester.hh"
 #include "PawnMoveRequester.hh"
 
+#include <iostream>
 namespace Chess{
 namespace Rules{
 namespace PawnMoveRequester{
@@ -63,6 +64,9 @@ template <>
 MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Pawn>(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription, const MoveResultType& moveResult){
     auto originalPosition = originalBoard.getPiecePosition(pieceDescription);
     auto finalPosition = newBoard.getPiecePosition(pieceDescription);
+    if(moveResult.status() == Chess::Board::MoveResult::Status::Collision){
+        finalPosition = moveResult.info<Chess::Board::MoveResult::Info::Collision>().position;
+    }
     auto path = PawnMoveRequester::pawnPath(originalPosition, finalPosition);
     auto pathSize = path.size();
     if(pathSize > 3){
@@ -77,13 +81,11 @@ MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Pawn>(co
         return {newBoard, moveResult};
 
     }else if(pathSize == 2){
-        // TODO If diagonal movement but no collision need to check for invalid movement as well
         if(PawnMoveRequester::isDiagonal(path) && moveResult.status() != Chess::Board::MoveResult::Status::Collision){
             return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}};
         }
         return {newBoard, moveResult};
     }
-
     return {originalBoard};
 }
 

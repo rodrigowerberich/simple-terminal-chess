@@ -32,8 +32,15 @@ bool isDiagonal(const Path& path){
     }
     return true;
 }
-int manhattanDistance(const ExternalPosition& p1, const ExternalPosition& p2){
+int manhattanDistance(const ExternalPosition& inputP1, const ExternalPosition& inputP2){
+    auto p1 = InternalPosition(inputP1);
+    auto p2 = InternalPosition(inputP2);
 
+    auto deltaColumn = p2.column() - p1.column();
+    auto deltaRow = p2.row() - p1.row();
+
+    auto distance = std::abs(deltaColumn) + std::abs(deltaRow);
+    return distance;
 }
 
 
