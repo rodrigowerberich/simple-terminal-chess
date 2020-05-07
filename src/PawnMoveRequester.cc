@@ -1,6 +1,7 @@
 #include "MoveRequester.hh"
 #include "PawnMoveRequester.hh"
 #include "PieceMoverAux.hh"
+#include "BoardDefinitions.hh"
 
 #include <iostream>
 namespace Chess{
@@ -73,9 +74,12 @@ MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Pawn>(co
     }else if(pathSize == 3){
         // Check if position in the middle is occupied, and if it is return an error
         // Check if piece can move more than one space
-        // if(pieceDescription.sideSelector() == Chess::Board::SideSelector::Black && )
+        if((pieceDescription.sideSelector() == Chess::Board::SideSelector::Black && originalPosition.row() != Chess::Board::Definitions::BLACK_FRONT_ROW) ||
+           (pieceDescription.sideSelector() == Chess::Board::SideSelector::White && originalPosition.row() != Chess::Board::Definitions::WHITE_FRONT_ROW)){
+            return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}}; // TODO Changes this to a new type   
+        }
         auto pieceAtMiddleDescription = originalBoard.getPieceAtPosition(path[1]);
-        if(!pieceAtMiddleDescription.isValid()){
+        if(pieceAtMiddleDescription.isValid()){
             return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}}; // TODO Change this to a new type
         }
         return {newBoard, moveResult};
@@ -84,6 +88,7 @@ MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Pawn>(co
         if(PieceMoverAux::isDiagonal(path) && moveResult.status() != Chess::Board::MoveResult::Status::Collision){
             return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}};
         }
+        // TODO Also if it is a collision but he moved vertically it is invalid
         return {newBoard, moveResult};
     }
     return {originalBoard};

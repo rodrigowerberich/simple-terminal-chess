@@ -87,6 +87,87 @@ R"( ______ ______ ______ ______ ______ ______ ______ ______
 | W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
 |______|______|______|______|______|______|______|______|)";
 
+static constexpr char MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      | W-PC |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB |      | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_2[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      | W-PC |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB |      | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_3[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA |      | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      | B-PB |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      | W-PC |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB |      | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
 TEST(MoveRequester, requestMoveToBigOfAMovement) {
     using namespace Chess::Board;
     using namespace Chess::Rules;
@@ -173,4 +254,64 @@ TEST(MoveRequester, requestDiagonalCollisionSameSide) {
     ASSERT_EQ(outputStream2.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_SAME_SIDE_STR_1);
 }
 
-// Add different side collision checker and add double space pawn moving checking
+TEST(MoveRequester, requestDiagonalCollisionDifferentSide) {
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+    PieceDescription pcDescription = Definitions::W_PC_DESCRIPTION;
+    
+    // Move W-PC C2->C4
+    auto pcPosition1 = Chess::Board::Position{Chess::Board::Column::C, 4};
+    MoveProposalAnalysis analysis1 = MoveRequester::proposeMove(board, pcDescription, pcPosition1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
+    board = analysis1.board();
+
+    std::stringstream outputStream;
+    outputStream << Chess::Output::BoardPrinter(analysis1.board());
+    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
+    outputStream.str("");
+
+    // Move W-PC C4->C5
+    auto pcPosition2 = Chess::Board::Position{Chess::Board::Column::C, 5};
+    MoveProposalAnalysis analysis2 = MoveRequester::proposeMove(board, pcDescription, pcPosition2);
+    ASSERT_EQ(analysis2.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(analysis2.info<MoveResult>().status(), MoveResult::Status::Ok);
+    board = analysis2.board();
+
+    outputStream << Chess::Output::BoardPrinter(analysis2.board());
+    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_2);
+    outputStream.str("");
+
+
+    // Move B-PB B7->B6
+    PieceDescription pbDescription = Definitions::B_PB_DESCRIPTION;
+    auto pbPosition1 = Chess::Board::Position{Chess::Board::Column::B, 6};
+    MoveProposalAnalysis analysis3 = MoveRequester::proposeMove(board, pbDescription, pbPosition1);
+    ASSERT_EQ(analysis3.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(analysis3.info<MoveResult>().status(), MoveResult::Status::Ok);
+    board = analysis3.board();
+
+    outputStream << Chess::Output::BoardPrinter(analysis3.board());
+    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_3);
+    outputStream.str("");
+
+    // Move P-PB B6->C5
+    auto pbPosition2 = Chess::Board::Position{Chess::Board::Column::C, 5};
+    MoveProposalAnalysis analysis4 = MoveRequester::proposeMove(board, pbDescription, pbPosition2);
+    ASSERT_EQ(analysis4.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(analysis4.info<MoveResult>().status(), MoveResult::Status::Collision);
+    ASSERT_TRUE(analysis4.info<MoveResult>().info<MoveResult::Info::Collision>().differentSide);
+    ASSERT_EQ(analysis4.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, pbDescription);
+    ASSERT_EQ(analysis4.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, pcDescription);
+    ASSERT_EQ(analysis4.info<MoveResult>().info<MoveResult::Info::Collision>().position, pbPosition2);
+    ASSERT_EQ(pbPosition2, pcPosition2);
+    board = analysis4.board();
+
+    outputStream << Chess::Output::BoardPrinter(analysis4.board());
+    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_3);
+    outputStream.str("");
+}
+
+// Add double space pawn moving checking, Add horizontal moving checker and backward moving checker
