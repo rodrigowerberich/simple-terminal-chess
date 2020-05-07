@@ -10,7 +10,7 @@ bool isDiagonal(const Path& path){
         return false;
     }
     auto slope = 0;
-    for(int i=0; i < path.size()-1; i++){
+    for(size_t i=0; i < path.size()-1; i++){
         auto p1 = InternalPosition(path[i]);
         auto p2 = InternalPosition(path[i+1]);
         auto deltaColumn = p2.column() - p1.column();
@@ -32,6 +32,12 @@ bool isDiagonal(const Path& path){
     }
     return true;
 }
+
+bool isDiagonal(const ExternalPosition& p1, const ExternalPosition& p2){
+    return isDiagonal({p1, p2});
+}
+
+
 int manhattanDistance(const ExternalPosition& inputP1, const ExternalPosition& inputP2){
     auto p1 = InternalPosition(inputP1);
     auto p2 = InternalPosition(inputP2);

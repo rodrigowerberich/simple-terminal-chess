@@ -28,6 +28,7 @@ public:
 };
 
 bool isDiagonal(const Path& path);
+bool isDiagonal(const ExternalPosition& p1, const ExternalPosition& p2);
 int manhattanDistance(const ExternalPosition& p1, const ExternalPosition& p2);
 
 }
