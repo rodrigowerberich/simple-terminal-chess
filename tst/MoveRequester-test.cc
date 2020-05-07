@@ -173,4 +173,4 @@ TEST(MoveRequester, requestDiagonalCollisionSameSide) {
     ASSERT_EQ(outputStream2.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_SAME_SIDE_STR_1);
 }
 
-// Add different size collision checker and add double space pawn moving checking
+// Add different side collision checker and add double space pawn moving checking
