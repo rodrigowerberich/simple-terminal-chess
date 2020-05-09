@@ -74,24 +74,31 @@ MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Pawn>(co
     }else if(pathSize == 3){
         // Check if position in the middle is occupied, and if it is return an error
         // Check if piece can move more than one space
+        if(moveResult.status() == Chess::Board::MoveResult::Status::Collision){
+            return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}}; // TODO Changes this to a new type or add more info
+        }
         if((pieceDescription.sideSelector() == Chess::Board::SideSelector::Black && originalPosition.row() != Chess::Board::Definitions::BLACK_FRONT_ROW) ||
            (pieceDescription.sideSelector() == Chess::Board::SideSelector::White && originalPosition.row() != Chess::Board::Definitions::WHITE_FRONT_ROW)){
-            return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}}; // TODO Changes this to a new type   
+            return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}}; // TODO Changes this to a new type or add more info
         }
         auto pieceAtMiddleDescription = originalBoard.getPieceAtPosition(path[1]);
         if(pieceAtMiddleDescription.isValid()){
-            return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}}; // TODO Change this to a new type
+            return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}}; // TODO Change this to a new type or add more info
         }
         return {newBoard, moveResult};
 
     }else if(pathSize == 2){
         if(PieceMoverAux::isDiagonal(path) && moveResult.status() != Chess::Board::MoveResult::Status::Collision){
             return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}};
+        }else if( (pieceDescription.sideSelector() == Chess::Board::SideSelector::Black && path[0].row() < path[1].row() ) ||
+                  (pieceDescription.sideSelector() == Chess::Board::SideSelector::White && path[0].row() > path[1].row() )){
+            return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}};
+        }else if(!PieceMoverAux::isDiagonal(path) && moveResult.status() == Chess::Board::MoveResult::Status::Collision){
+            return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}};
         }
-        // TODO Also if it is a collision but he moved vertically it is invalid
         return {newBoard, moveResult};
     }
-    return {originalBoard};
+    return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}};
 }
 
 }    
