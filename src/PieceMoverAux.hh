@@ -26,7 +26,7 @@ public:
     constexpr int row() const{ return m_row; }
     constexpr bool isValid() const { return (m_row != 0) && (m_column != 0); }
 };
-
+Board::Column columnFromNumber(int i);
 bool isDiagonal(const Path& path);
 bool isDiagonal(const ExternalPosition& p1, const ExternalPosition& p2);
 int manhattanDistance(const ExternalPosition& p1, const ExternalPosition& p2);

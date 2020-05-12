@@ -33,6 +33,21 @@ bool isDiagonal(const Path& path){
     return true;
 }
 
+Board::Column columnFromNumber(int i){
+    switch(i){
+        case 1: return Board::Column::A;
+        case 2: return Board::Column::B;
+        case 3: return Board::Column::C;
+        case 4: return Board::Column::D;
+        case 5: return Board::Column::E;
+        case 6: return Board::Column::F;
+        case 7: return Board::Column::G;
+        case 8: return Board::Column::H;
+        default: return Board::Column::Invalid;
+    }
+}
+
+
 bool isDiagonal(const ExternalPosition& p1, const ExternalPosition& p2){
     return isDiagonal({p1, p2});
 }

@@ -7,11 +7,6 @@ namespace Chess{
 namespace Rules{
 
 template <>
-MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Rook>(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription, const MoveResultType& moveResult){
-    return {originalBoard};
-}
-
-template <>
 MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Knight>(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription, const MoveResultType& moveResult){
     return {originalBoard};
 }
@@ -51,7 +46,6 @@ MoveProposalAnalysis MoveRequester::proposeMove(const BoardType& board, const Pi
     
     if( initialMoveResult.status() == Chess::Board::MoveResult::Status::InvalidInput || 
         initialMoveResult.status() == Chess::Board::MoveResult::Status::NoMovement){
-        std::cout << "Saida 1\n";
         return MoveProposalAnalysis{board, initialMoveResult};
     }
     // std::cout << Chess::Output::BoardPrinter(board) << std::endl;
