@@ -44,6 +44,25 @@ std::vector<Chess::Board::Position> rookPath(const Chess::Board::Position& initi
 
 template <>
 MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Rook>(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription, const MoveResultType& moveResult){
+    auto originalPosition = originalBoard.getPiecePosition(pieceDescription);
+    auto finalPosition = newBoard.getPiecePosition(pieceDescription);
+    if(moveResult.status() == Chess::Board::MoveResult::Status::Collision){
+        finalPosition = moveResult.info<Chess::Board::MoveResult::Info::Collision>().position;
+    }
+    // Rook path only returns horizontal or vertical paths.
+    auto path = RookMoveRequester::rookPath(originalPosition, finalPosition);
+
+    auto pathSize = static_cast<int>(path.size());
+    if(pathSize > 1){
+        for(int pathIndex = 1; pathIndex < pathSize-1; pathIndex++){
+            auto pieceDescription = originalBoard.getPieceAtPosition(path[pathIndex]);
+            if(pieceDescription.isValid()){
+                return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition}};
+            }
+        }
+        return {originalBoard, moveResult};
+    }
+
     return {originalBoard};
 }
 

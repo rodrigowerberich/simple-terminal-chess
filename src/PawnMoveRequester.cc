@@ -81,9 +81,10 @@ MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Pawn>(co
            (pieceDescription.sideSelector() == Chess::Board::SideSelector::White && originalPosition.row() != Chess::Board::Definitions::WHITE_FRONT_ROW)){
             return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}}; // TODO Changes this to a new type or add more info
         }
-        auto pieceAtMiddleDescription = originalBoard.getPieceAtPosition(path[1]);
+        auto possibilityOfCollisionPosition = path[1];
+        auto pieceAtMiddleDescription = originalBoard.getPieceAtPosition(possibilityOfCollisionPosition);
         if(pieceAtMiddleDescription.isValid()){
-            return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}}; // TODO Change this to a new type or add more info
+            return {originalBoard, Rules::MovementInterrupted{originalPosition, possibilityOfCollisionPosition, finalPosition, pieceDescription, pieceAtMiddleDescription}}; // TODO Change this to a new type or add more info
         }
         return {newBoard, moveResult};
 
