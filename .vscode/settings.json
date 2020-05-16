@@ -55,5 +55,6 @@
         "typeinfo": "cpp",
         "valarray": "cpp"
     },
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "python.pythonPath": "/usr/bin/python3"
 }

@@ -3,6 +3,7 @@
 #include "Board.hh"
 #include "BoardDefinitions.hh"
 #include "BoardPrinter.hh"
+#include "BoardComparer.hh"
 
 #include <sstream>
 
@@ -222,7 +223,88 @@ R"( ______ ______ ______ ______ ______ ______ ______ ______
 | W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
 |______|______|______|______|______|______|______|______|)";
 
-TEST(MoveRequester, requestMoveTooBigOfAMovement) {
+static constexpr char MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_1[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_2[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+|      | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-RA |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_3[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+|      | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | B-RA |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+TEST(MoveRequester, pawnRequestMoveTooBigOfAMovement) {
     using namespace Chess::Board;
     using namespace Chess::Rules;
 
@@ -258,7 +340,7 @@ TEST(MoveRequester, pawnValidPlayOneMovement) {
     ASSERT_EQ(outputStream2.str(), MOVE_REQUESTER_PAWN_VALID_PLAY_ONE_MOVEMENT_STR_1);
 }
 
-TEST(MoveRequester, requestDiagonalNotCollision) {
+TEST(MoveRequester, pawnRequestDiagonalNotCollision) {
     using namespace Chess::Board;
     using namespace Chess::Rules;
 
@@ -275,7 +357,7 @@ TEST(MoveRequester, requestDiagonalNotCollision) {
     ASSERT_EQ(outputStream.str(), NORMAL_BOARD);
 }
 
-TEST(MoveRequester, requestDiagonalCollisionSameSide) {
+TEST(MoveRequester, pawnRequestDiagonalCollisionSameSide) {
     using namespace Chess::Board;
     using namespace Chess::Rules;
 
@@ -308,7 +390,7 @@ TEST(MoveRequester, requestDiagonalCollisionSameSide) {
     ASSERT_EQ(outputStream2.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_SAME_SIDE_STR_1);
 }
 
-TEST(MoveRequester, requestDiagonalCollisionDifferentSide) {
+TEST(MoveRequester, pawnRequestDiagonalCollisionDifferentSide) {
     using namespace Chess::Board;
     using namespace Chess::Rules;
 
@@ -574,7 +656,7 @@ TEST(MoveRequester, pawnVerticalDoubleBackMovementBlack) {
     outputStream.str("");
 }
 
-TEST(MoveRequester, invalidDiagonalMovement) {
+TEST(MoveRequester, pawnInvalidDiagonalMovement) {
     using namespace Chess::Board;
     using namespace Chess::Rules;
 
@@ -650,7 +732,7 @@ TEST(MoveRequester, pawnHorizontalMovementBlackWithCollision) {
     outputStream.str("");
 }
 
-TEST(MoveRequester, frontalCollisionLarge) {
+TEST(MoveRequester, pawnFrontalCollisionLarge) {
     using namespace Chess::Board;
     using namespace Chess::Rules;
 
@@ -694,7 +776,7 @@ TEST(MoveRequester, frontalCollisionLarge) {
     outputStream.str("");
 }
 
-TEST(MoveRequester, frontalCollision) {
+TEST(MoveRequester, pawnFrontalCollision) {
     using namespace Chess::Board;
     using namespace Chess::Rules;
 
@@ -747,4 +829,113 @@ TEST(MoveRequester, frontalCollision) {
     outputStream << Chess::Output::BoardPrinter(analysis4.board());
     ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_PAWN_FRONTAL_COLISION_1);
     outputStream.str("");
+}
+
+TEST(MoveRequester, rookMovementInterrupted1){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bRADescription = Definitions::B_RA_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::A, 5);
+    auto analysis1 = MoveRequester::proposeMove(board, bRADescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_RA_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PA_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_RA_DESCRIPTION);
+}
+
+TEST(MoveRequester, rookMovementInterrupted2){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bRADescription = Definitions::B_RA_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::C, 8);
+    auto analysis1 = MoveRequester::proposeMove(board, bRADescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_RA_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_kB_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_RA_DESCRIPTION);
+}
+
+TEST(MoveRequester, rookMovementInvalidDiagonal){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bRADescription = Definitions::B_RA_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::B, 7);
+    auto analysis1 = MoveRequester::proposeMove(board, bRADescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
+    ASSERT_EQ(analysis1.info<InvalidPieceMovement>().initialPosition, Definitions::B_RA_POSITION);
+    ASSERT_EQ(analysis1.info<InvalidPieceMovement>().finalPosition, position1);
+    ASSERT_EQ(analysis1.info<InvalidPieceMovement>().pieceDescription, Definitions::B_RA_DESCRIPTION);
+}
+
+TEST(MoveRequester, rookSameSideCollision){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bRADescription = Definitions::B_RA_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::A, 7);
+    auto analysis1 = MoveRequester::proposeMove(board, bRADescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Collision);
+    ASSERT_TRUE(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().sameSide);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().position, position1);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bRADescription);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::B_PA_DESCRIPTION);
+}
+
+TEST(MoveRequester, rookdifferentSideCollision){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bPADescription = Definitions::B_PA_DESCRIPTION;
+    auto bPAPosition1 = Chess::Board::Position{Chess::Board::Column::A, 5};
+    auto bPAAnalysis = MoveRequester::proposeMove(board, bPADescription, bPAPosition1);
+    ASSERT_EQ(bPAAnalysis.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bPAAnalysis.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_TRUE(Comparer::compare(bPAAnalysis.board(), MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_1));
+    board = bPAAnalysis.board();
+
+    auto bRADescription = Definitions::B_RA_DESCRIPTION;
+    auto bRAPosition1 = Chess::Board::Position(Chess::Board::Column::A, 6);
+    auto bRAAnalysis1 = MoveRequester::proposeMove(board, bRADescription, bRAPosition1);
+    ASSERT_EQ(bRAAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bRAAnalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(bRAAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_RA_POSITION);
+    ASSERT_EQ(bRAAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bRAPosition1);
+    ASSERT_TRUE(Comparer::compare(bRAAnalysis1.board(), MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_2));
+    board = bRAAnalysis1.board();
+
+
+    auto bRAPosition2 = Chess::Board::Position(Chess::Board::Column::D, 6);
+    auto bRAAnalysis2 = MoveRequester::proposeMove(board, bRADescription, bRAPosition2);
+    ASSERT_EQ(bRAAnalysis2.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bRAAnalysis2.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(bRAAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, bRAPosition1);
+    ASSERT_EQ(bRAAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bRAPosition2);
+    ASSERT_TRUE(Comparer::compare(bRAAnalysis2.board(), MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_3));
+    board = bRAAnalysis2.board();
+
+    auto bRAPosition3 = Chess::Board::Position(Chess::Board::Column::D, 2);
+    auto bRAAnalysis3 = MoveRequester::proposeMove(board, bRADescription, bRAPosition3);
+    ASSERT_EQ(bRAAnalysis3.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bRAAnalysis3.info<MoveResult>().status(), MoveResult::Status::Collision);
+    ASSERT_TRUE(bRAAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().differentSide);
+    ASSERT_EQ(bRAAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().position, bRAPosition3);
+    ASSERT_EQ(bRAAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bRADescription);
+    ASSERT_EQ(bRAAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::W_PD_DESCRIPTION);
+    ASSERT_TRUE(Comparer::compare(bRAAnalysis3.board(), MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_3));
 }

@@ -55,15 +55,16 @@ MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Rook>(co
     auto pathSize = static_cast<int>(path.size());
     if(pathSize > 1){
         for(int pathIndex = 1; pathIndex < pathSize-1; pathIndex++){
-            auto pieceDescription = originalBoard.getPieceAtPosition(path[pathIndex]);
-            if(pieceDescription.isValid()){
-                return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition}};
+            auto possibilityOfCollisionPosition = path[pathIndex];
+            auto possiblePieceDescription = originalBoard.getPieceAtPosition(possibilityOfCollisionPosition);
+            if(possiblePieceDescription.isValid()){
+                return {originalBoard, Rules::MovementInterrupted{originalPosition, possibilityOfCollisionPosition, finalPosition, pieceDescription, possiblePieceDescription}};
             }
         }
-        return {originalBoard, moveResult};
+        return {newBoard, moveResult};
     }
 
-    return {originalBoard};
+    return {originalBoard, Rules::InvalidPieceMovement{originalPosition, finalPosition, pieceDescription}};
 }
 
 }    
