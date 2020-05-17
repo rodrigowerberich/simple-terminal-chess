@@ -574,6 +574,114 @@ R"( ______ ______ ______ ______ ______ ______ ______ ______
 | W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
 |______|______|______|______|______|______|______|______|)";
 
+static constexpr char MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_1_1[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC |      | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | B-PD |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_1_2[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB |      | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC |      | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | B-PD |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      | B-BC |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_1[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA |      | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      | B-PB |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_2[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB |      | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA |      | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-BC | B-PB |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
 
 TEST(MoveRequester, pawnRequestMoveTooBigOfAMovement) {
     using namespace Chess::Board;
@@ -1116,6 +1224,7 @@ TEST(MoveRequester, rookMovementInterrupted1){
     ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PA_POSITION);
     ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
     ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_RA_DESCRIPTION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PA_DESCRIPTION);
 }
 
 TEST(MoveRequester, rookMovementInterrupted2){
@@ -1132,6 +1241,7 @@ TEST(MoveRequester, rookMovementInterrupted2){
     ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_kB_POSITION);
     ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
     ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_RA_DESCRIPTION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_kB_DESCRIPTION);
 }
 
 TEST(MoveRequester, rookMovementInvalidDiagonal){
@@ -1423,5 +1533,148 @@ TEST(MoveRequester, knightDifferentSideCollision){
     ASSERT_EQ(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::W_PC_DESCRIPTION);
     ASSERT_TRUE(Comparer::compare(bkBAnalysis3.board(), MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_2));
     board = bkBAnalysis3.board();
+}
 
+TEST(MoveRequester, bishopMovementInterrupted1){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bBDDescription = Definitions::B_BC_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::E, 6);
+    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_BC_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PD_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_BC_DESCRIPTION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PD_DESCRIPTION);
+}
+
+TEST(MoveRequester, bishopMovementInterrupted2){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bBDDescription = Definitions::B_BC_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::A, 6);
+    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_BC_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PB_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_BC_DESCRIPTION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PB_DESCRIPTION);
+}
+
+TEST(MoveRequester, bishopMovementValid1){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bPDDescription = Definitions::B_PD_DESCRIPTION;
+    auto bPDPosition1 = Chess::Board::Position(Chess::Board::Column::D, 6);
+    auto bPDanalysis1 = MoveRequester::proposeMove(board, bPDDescription, bPDPosition1);
+    ASSERT_EQ(bPDanalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bPDanalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_PD_POSITION);
+    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bPDPosition1);
+    ASSERT_TRUE(Comparer::compare(bPDanalysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_1_1));
+    board = bPDanalysis1.board();
+
+    auto bBDDescription = Definitions::B_BC_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::H, 3);
+    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_BC_POSITION);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, position1);
+    ASSERT_TRUE(Comparer::compare(analysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_1_2));
+    board = analysis1.board();
+}
+
+TEST(MoveRequester, bishopMovementValid2){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bPDDescription = Definitions::B_PB_DESCRIPTION;
+    auto bPDPosition1 = Chess::Board::Position(Chess::Board::Column::B, 6);
+    auto bPDanalysis1 = MoveRequester::proposeMove(board, bPDDescription, bPDPosition1);
+    ASSERT_EQ(bPDanalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bPDanalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_PB_POSITION);
+    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bPDPosition1);
+    ASSERT_TRUE(Comparer::compare(bPDanalysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_1));
+    board = bPDanalysis1.board();
+
+    auto bBDDescription = Definitions::B_BC_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::A, 6);
+    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_BC_POSITION);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, position1);
+    ASSERT_TRUE(Comparer::compare(analysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_2));
+    board = analysis1.board();
+}
+
+TEST(MoveRequester, bishopSameSideCollision){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+    auto bBDDescription = Definitions::B_BC_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::B, 7);
+    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Collision);
+    ASSERT_TRUE(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().sameSide);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().position, position1);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bBDDescription);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::B_PB_DESCRIPTION);
+    ASSERT_TRUE(Comparer::compare(analysis1.board(), NORMAL_BOARD));
+    board = analysis1.board();
+}
+
+TEST(MoveRequester, bishopDifferentSideCollision){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bPDDescription = Definitions::B_PB_DESCRIPTION;
+    auto bPDPosition1 = Chess::Board::Position(Chess::Board::Column::B, 6);
+    auto bPDanalysis1 = MoveRequester::proposeMove(board, bPDDescription, bPDPosition1);
+    ASSERT_EQ(bPDanalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bPDanalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_PB_POSITION);
+    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bPDPosition1);
+    ASSERT_TRUE(Comparer::compare(bPDanalysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_1));
+    board = bPDanalysis1.board();
+
+    auto bBDDescription = Definitions::B_BC_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::A, 6);
+    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_BC_POSITION);
+    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, position1);
+    ASSERT_TRUE(Comparer::compare(analysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_2));
+    board = analysis1.board();
+
+    auto position2 = Chess::Board::Position(Chess::Board::Column::E, 2);
+    auto analysis2 = MoveRequester::proposeMove(board, bBDDescription, position2);
+    ASSERT_EQ(analysis2.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(analysis2.info<MoveResult>().status(), MoveResult::Status::Collision);
+    ASSERT_TRUE(analysis2.info<MoveResult>().info<MoveResult::Info::Collision>().differentSide);
+    ASSERT_EQ(analysis2.info<MoveResult>().info<MoveResult::Info::Collision>().position, position2);
+    ASSERT_EQ(analysis2.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bBDDescription);
+    ASSERT_EQ(analysis2.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::W_PE_DESCRIPTION);
+    ASSERT_TRUE(Comparer::compare(analysis2.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_2));
+    board = analysis2.board();
 }
