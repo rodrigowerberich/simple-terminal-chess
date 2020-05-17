@@ -304,6 +304,277 @@ R"( ______ ______ ______ ______ ______ ______ ______ ______
 | W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
 |______|______|______|______|______|______|______|______|)";
 
+static constexpr char MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_1[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA |      | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-kB |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_2[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA |      | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      | B-kB |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_3[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA |      | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      | B-kB |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      | W-kG |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF |      | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_4[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA |      | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      | B-kB |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | W-kG |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF |      | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_5[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA |      | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-kB |      |      | W-kG |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF |      | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_6[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA |      | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      | B-kB |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | W-kG |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF |      | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_7[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA |      | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      | B-kB |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      | W-kG |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF |      | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_8[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA |      | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      | B-kB |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      | W-kG |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF |      | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_1[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA |      | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      | B-kB |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_2[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA |      | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      | B-kB |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+
 TEST(MoveRequester, pawnRequestMoveTooBigOfAMovement) {
     using namespace Chess::Board;
     using namespace Chess::Rules;
@@ -938,4 +1209,221 @@ TEST(MoveRequester, rookdifferentSideCollision){
     ASSERT_EQ(bRAAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bRADescription);
     ASSERT_EQ(bRAAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::W_PD_DESCRIPTION);
     ASSERT_TRUE(Comparer::compare(bRAAnalysis3.board(), MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_3));
+}
+
+TEST(MoveRequester, knightValidMovements){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+    auto bkBDescription = Definitions::B_kB_DESCRIPTION;
+    auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::A, 6);
+    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_kB_POSITION);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition1);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_1));
+    board = bkBAnalysis1.board();
+
+    auto bkBPosition2 = Chess::Board::Position(Chess::Board::Column::C, 5);
+    auto bkBAnalysis2 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition2);
+    ASSERT_EQ(bkBAnalysis2.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition2);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis2.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_2));
+    board = bkBAnalysis2.board();
+
+    auto wkGDescription = Definitions::W_kG_DESCRIPTION;
+    auto wkGPosition1 = Chess::Board::Position(Chess::Board::Column::F, 3);
+    auto wkGAnalysis1 = MoveRequester::proposeMove(board, wkGDescription, wkGPosition1);
+    ASSERT_EQ(wkGAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(wkGAnalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(wkGAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::W_kG_POSITION);
+    ASSERT_EQ(wkGAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, wkGPosition1);
+    ASSERT_TRUE(Comparer::compare(wkGAnalysis1.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_3));
+    board = wkGAnalysis1.board();
+
+    auto wkGPosition2 = Chess::Board::Position(Chess::Board::Column::D, 4);
+    auto wkGAnalysis2 = MoveRequester::proposeMove(board, wkGDescription, wkGPosition2);
+    ASSERT_EQ(wkGAnalysis2.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(wkGAnalysis2.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(wkGAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, wkGPosition1);
+    ASSERT_EQ(wkGAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, wkGPosition2);
+    ASSERT_TRUE(Comparer::compare(wkGAnalysis2.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_4));
+    board = wkGAnalysis2.board();
+
+    auto bkBPosition3 = Chess::Board::Position(Chess::Board::Column::A, 4);
+    auto bkBAnalysis3 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition3);
+    ASSERT_EQ(bkBAnalysis3.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, bkBPosition2);
+    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition3);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis3.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_5));
+    board = bkBAnalysis3.board();
+
+    auto bkBPosition4 = Chess::Board::Position(Chess::Board::Column::B, 6);
+    auto bkBAnalysis4 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition4);
+    ASSERT_EQ(bkBAnalysis4.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bkBAnalysis4.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(bkBAnalysis4.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, bkBPosition3);
+    ASSERT_EQ(bkBAnalysis4.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition4);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis4.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_6));
+    board = bkBAnalysis4.board();
+
+    auto wkGPosition3 = Chess::Board::Position(Chess::Board::Column::F, 5);
+    auto wkGAnalysis3 = MoveRequester::proposeMove(board, wkGDescription, wkGPosition3);
+    ASSERT_EQ(wkGAnalysis3.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(wkGAnalysis3.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(wkGAnalysis3.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, wkGPosition2);
+    ASSERT_EQ(wkGAnalysis3.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, wkGPosition3);
+    ASSERT_TRUE(Comparer::compare(wkGAnalysis3.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_7));
+    board = wkGAnalysis3.board();
+
+    auto wkGPosition4 = Chess::Board::Position(Chess::Board::Column::G, 3);
+    auto wkGAnalysis4 = MoveRequester::proposeMove(board, wkGDescription, wkGPosition4);
+    ASSERT_EQ(wkGAnalysis4.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(wkGAnalysis4.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(wkGAnalysis4.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, wkGPosition3);
+    ASSERT_EQ(wkGAnalysis4.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, wkGPosition4);
+    ASSERT_TRUE(Comparer::compare(wkGAnalysis4.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_8));
+    board = wkGAnalysis4.board();
+}
+
+TEST(MoveRequester, knightInvalidMovements1){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+    auto bkBDescription = Definitions::B_kB_DESCRIPTION;
+    auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::B, 5);
+    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
+    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().initialPosition, Definitions::B_kB_POSITION);
+    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().finalPosition, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().pieceDescription, Definitions::B_kB_DESCRIPTION);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
+    board = bkBAnalysis1.board();
+}
+
+TEST(MoveRequester, knightInvalidMovements2){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+    auto bkBDescription = Definitions::B_kB_DESCRIPTION;
+    auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::A, 2);
+    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
+    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().initialPosition, Definitions::B_kB_POSITION);
+    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().finalPosition, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().pieceDescription, Definitions::B_kB_DESCRIPTION);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
+    board = bkBAnalysis1.board();
+}
+
+TEST(MoveRequester, knightInvalidMovements3){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+    auto bkBDescription = Definitions::B_kB_DESCRIPTION;
+    auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::F, 4);
+    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
+    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().initialPosition, Definitions::B_kB_POSITION);
+    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().finalPosition, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().pieceDescription, Definitions::B_kB_DESCRIPTION);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
+    board = bkBAnalysis1.board();
+}
+
+TEST(MoveRequester, knightInvalidMovements4){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+    auto bkBDescription = Definitions::B_kB_DESCRIPTION;
+    auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::F, 15);
+    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().status(), MoveResult::Status::InvalidInput);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::InvalidInput>().type , MoveResult::Info::InvalidInput::Type::InvalidPosition);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::InvalidInput>().invalidPieceDescription , Definitions::B_kB_DESCRIPTION);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
+    board = bkBAnalysis1.board();
+}
+
+TEST(MoveRequester, knightInvalidMovements5){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+    auto bkBDescription = Definitions::B_kB_DESCRIPTION;
+    auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::Invalid, 5);
+    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().status(), MoveResult::Status::InvalidInput);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::InvalidInput>().type , MoveResult::Info::InvalidInput::Type::InvalidPosition);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::InvalidInput>().invalidPieceDescription , Definitions::B_kB_DESCRIPTION);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
+    board = bkBAnalysis1.board();
+}
+
+TEST(MoveRequester, knightSameSideCollision){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+    auto bkBDescription = Definitions::B_kB_DESCRIPTION;
+    auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::D, 7);
+    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().status(), MoveResult::Status::Collision);
+    ASSERT_TRUE(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Collision>().sameSide);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Collision>().position, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bkBDescription);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::B_PD_DESCRIPTION);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
+    board = bkBAnalysis1.board();
+}
+
+TEST(MoveRequester, knightDifferentSideCollision){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+    auto bkBDescription = Definitions::B_kB_DESCRIPTION;
+    auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::C, 6);
+    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_kB_POSITION);
+    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition1);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_1));
+    board = bkBAnalysis1.board();
+
+    auto bkBPosition2 = Chess::Board::Position(Chess::Board::Column::B, 4);
+    auto bkBAnalysis2 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition2);
+    ASSERT_EQ(bkBAnalysis2.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().status(), MoveResult::Status::Ok);
+    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, bkBPosition1);
+    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition2);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis2.board(), MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_2));
+    board = bkBAnalysis2.board();
+
+
+    // Finish this test
+    auto bkBPosition3 = Chess::Board::Position(Chess::Board::Column::C, 2);
+    auto bkBAnalysis3 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition3);
+    ASSERT_EQ(bkBAnalysis3.type(), MoveProposalAnalysis::Type::MoveResult);
+    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().status(), MoveResult::Status::Collision);
+    ASSERT_TRUE(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().differentSide);
+    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().position, bkBPosition3);
+    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bkBDescription);
+    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::W_PC_DESCRIPTION);
+    ASSERT_TRUE(Comparer::compare(bkBAnalysis3.board(), MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_2));
+    board = bkBAnalysis3.board();
+
 }
