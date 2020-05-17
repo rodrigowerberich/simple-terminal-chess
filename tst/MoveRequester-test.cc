@@ -1413,8 +1413,6 @@ TEST(MoveRequester, knightDifferentSideCollision){
     ASSERT_TRUE(Comparer::compare(bkBAnalysis2.board(), MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_2));
     board = bkBAnalysis2.board();
 
-
-    // Finish this test
     auto bkBPosition3 = Chess::Board::Position(Chess::Board::Column::C, 2);
     auto bkBAnalysis3 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition3);
     ASSERT_EQ(bkBAnalysis3.type(), MoveProposalAnalysis::Type::MoveResult);
