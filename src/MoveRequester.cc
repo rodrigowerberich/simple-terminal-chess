@@ -7,11 +7,6 @@ namespace Chess{
 namespace Rules{
 
 template <>
-MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Bishop>(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription, const MoveResultType& moveResult){
-    return {originalBoard};
-}
-
-template <>
 MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Queen>(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription, const MoveResultType& moveResult){
     return {originalBoard};
 }
