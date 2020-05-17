@@ -1678,3 +1678,90 @@ TEST(MoveRequester, bishopDifferentSideCollision){
     ASSERT_TRUE(Comparer::compare(analysis2.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_2));
     board = analysis2.board();
 }
+
+TEST(MoveRequester, queenMovementInterrupted1){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bQDDescription = Definitions::B_QD_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::F, 6);
+    auto analysis1 = MoveRequester::proposeMove(board, bQDDescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_QD_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PE_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_QD_DESCRIPTION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PE_DESCRIPTION);
+}
+
+
+TEST(MoveRequester, queenMovementInterrupted2){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bQDDescription = Definitions::B_QD_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::B, 6);
+    auto analysis1 = MoveRequester::proposeMove(board, bQDDescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_QD_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PC_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_QD_DESCRIPTION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PC_DESCRIPTION);
+}
+
+TEST(MoveRequester, queenMovementInterrupted3){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bQDDescription = Definitions::B_QD_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::D, 6);
+    auto analysis1 = MoveRequester::proposeMove(board, bQDDescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_QD_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PD_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_QD_DESCRIPTION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PD_DESCRIPTION);
+}
+
+TEST(MoveRequester, queenMovementInterrupted4){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bQDDescription = Definitions::B_QD_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::B, 8);
+    auto analysis1 = MoveRequester::proposeMove(board, bQDDescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_QD_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_BC_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_QD_DESCRIPTION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_BC_DESCRIPTION);
+}
+
+TEST(MoveRequester, queenMovementInterrupted5){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bQDDescription = Definitions::B_QD_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::F, 8);
+    auto analysis1 = MoveRequester::proposeMove(board, bQDDescription, position1);
+    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_QD_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_KE_POSITION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_QD_DESCRIPTION);
+    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_KE_DESCRIPTION);
+}
+

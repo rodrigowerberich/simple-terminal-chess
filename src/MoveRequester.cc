@@ -7,11 +7,6 @@ namespace Chess{
 namespace Rules{
 
 template <>
-MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::Queen>(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription, const MoveResultType& moveResult){
-    return {originalBoard};
-}
-
-template <>
 MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::King>(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription, const MoveResultType& moveResult){
     return {originalBoard};
 }
@@ -38,8 +33,6 @@ MoveProposalAnalysis MoveRequester::proposeMove(const BoardType& board, const Pi
         initialMoveResult.status() == Chess::Board::MoveResult::Status::NoMovement){
         return MoveProposalAnalysis{board, initialMoveResult};
     }
-    // std::cout << Chess::Output::BoardPrinter(board) << std::endl;
-    // std::cout << Chess::Output::BoardPrinter(newBoard) << std::endl;
     return verifyMove(board, newBoard, pieceDescription, initialMoveResult);
 }
 
