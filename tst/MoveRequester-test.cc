@@ -7,6 +7,17 @@
 
 #include <sstream>
 
+#define ASSERT_MOVEMENT_OK(board_, description_, position_, old_position_, boardFinalStatus_)\
+{ \
+    auto analysisInternalMacro = MoveRequester::proposeMove(board_, description_, position_); \
+    ASSERT_EQ(analysisInternalMacro.type(), MoveProposalAnalysis::Type::MoveResult); \
+    ASSERT_EQ(analysisInternalMacro.info<MoveResult>().status(), MoveResult::Status::Ok); \
+    ASSERT_EQ(analysisInternalMacro.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, old_position_); \
+    ASSERT_EQ(analysisInternalMacro.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, position_); \
+    ASSERT_TRUE(Comparer::compare(analysisInternalMacro.board(), boardFinalStatus_)); \
+    board_ = analysisInternalMacro.board(); \
+}
+
 static constexpr char NORMAL_BOARD[] =
 R"( ______ ______ ______ ______ ______ ______ ______ ______ 
 |      |      |      |      |      |      |      |      |
@@ -668,6 +679,195 @@ R"( ______ ______ ______ ______ ______ ______ ______ ______
 |______|______|______|______|______|______|______|______|
 |      |      |      |      |      |      |      |      |
 |      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_1_1[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB |      | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      | B-PC |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_1_2[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC |      | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB |      | B-PD | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      | B-Q  |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      | B-PC |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_2_1[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_2_2[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC |      | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      | B-Q  |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_1[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC |      | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | B-PD |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_2[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC |      | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC |      | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | B-Q  |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | B-PD |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_3[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC |      | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC |      | B-PE | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-Q  |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | B-PD |      |      |      |      |
 |______|______|______|______|______|______|______|______|
 |      |      |      |      |      |      |      |      |
 |      |      |      |      |      |      |      |      |
@@ -1763,5 +1963,54 @@ TEST(MoveRequester, queenMovementInterrupted5){
     ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
     ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_QD_DESCRIPTION);
     ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_KE_DESCRIPTION);
+}
+
+TEST(MoveRequester, queenMovementMovementValid1){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bPCDescription = Definitions::B_PC_DESCRIPTION;
+    auto bPCPosition1 = Chess::Board::Position(Chess::Board::Column::C, 5);
+    ASSERT_MOVEMENT_OK(board, bPCDescription, bPCPosition1, Definitions::B_PC_POSITION, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_1_1);
+
+    auto bQDDescription = Definitions::B_QD_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::B, 6);
+    ASSERT_MOVEMENT_OK(board, bQDDescription, position1, Definitions::B_QD_POSITION, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_1_2);
+}
+
+
+TEST(MoveRequester, queenMovementMovementValid2){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bPCDescription = Definitions::B_PE_DESCRIPTION;
+    auto bPCPosition1 = Chess::Board::Position(Chess::Board::Column::E, 5);
+    ASSERT_MOVEMENT_OK(board, bPCDescription, bPCPosition1, Definitions::B_PE_POSITION, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_2_1);
+
+    auto bQDDescription = Definitions::B_QD_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::F, 6);
+    ASSERT_MOVEMENT_OK(board, bQDDescription, position1, Definitions::B_QD_POSITION, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_2_2);
+}
+
+TEST(MoveRequester, queenMovementMovementValid3){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bPCDescription = Definitions::B_PD_DESCRIPTION;
+    auto bPCPosition1 = Chess::Board::Position(Chess::Board::Column::D, 5);
+    ASSERT_MOVEMENT_OK(board, bPCDescription, bPCPosition1, Definitions::B_PD_POSITION, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_1);
+
+    auto bQDDescription = Definitions::B_QD_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::D, 6);
+    ASSERT_MOVEMENT_OK(board, bQDDescription, position1, Definitions::B_QD_POSITION, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_2);
+
+    auto position2 = Chess::Board::Position(Chess::Board::Column::A, 6);
+    ASSERT_MOVEMENT_OK(board, bQDDescription, position2, position1, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_3);
 }
 
