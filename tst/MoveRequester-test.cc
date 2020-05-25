@@ -1034,29 +1034,11 @@ TEST(MoveRequester, pawnVerticalBackMovementWhite) {
     
     // Move W-PC C2->C4
     auto pcPosition1 = Chess::Board::Position{Chess::Board::Column::C, 4};
-    MoveProposalAnalysis analysis1 = MoveRequester::proposeMove(board, pcDescription, pcPosition1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    board = analysis1.board();
-
-    std::stringstream outputStream;
-    outputStream << Chess::Output::BoardPrinter(analysis1.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_OK(board, pcDescription, pcPosition1, Definitions::W_PC_POSITION, MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
 
     // Trying to move W-PC C4->C3
     auto pcPosition2 = Chess::Board::Position{Chess::Board::Column::C, 3};
-    MoveProposalAnalysis analysis2 = MoveRequester::proposeMove(board, pcDescription, pcPosition2);
-    ASSERT_EQ(analysis2.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().initialPosition, pcPosition1);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().finalPosition, pcPosition2);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().pieceDescription, Definitions::W_PC_DESCRIPTION);
-
-    board = analysis2.board();
-
-    outputStream << Chess::Output::BoardPrinter(analysis2.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, pcDescription, pcPosition2, pcPosition1, MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
 }
 
 TEST(MoveRequester, pawnVerticalDoubleBackMovementWhite) {
