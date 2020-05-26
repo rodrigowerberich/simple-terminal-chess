@@ -57,6 +57,30 @@
     board_ = analysisInternalMacro.board(); \
 }
 
+#define ASSERT_MOVEMENT_INTERRUPTED(board_, description_, position_, initial_position_, collision_position_, colliding_piece_description_, boardFinalStatus_)\
+{ \
+    auto analysisInternalMacro = MoveRequester::proposeMove(board_, description_, position_); \
+    ASSERT_EQ(analysisInternalMacro.type(), MoveProposalAnalysis::Type::MovementInterrupted); \
+    ASSERT_EQ(analysisInternalMacro.info<MovementInterrupted>().initialPosition, initial_position_); \
+    ASSERT_EQ(analysisInternalMacro.info<MovementInterrupted>().collisionPosition, collision_position_); \
+    ASSERT_EQ(analysisInternalMacro.info<MovementInterrupted>().finalPosition, position_); \
+    ASSERT_EQ(analysisInternalMacro.info<MovementInterrupted>().pieceDescription, description_); \
+    ASSERT_EQ(analysisInternalMacro.info<MovementInterrupted>().pieceInPathDescription, colliding_piece_description_); \
+    ASSERT_TRUE(Comparer::compare(analysisInternalMacro.board(), boardFinalStatus_)); \
+    board_ = analysisInternalMacro.board(); \
+}
+
+#define ASSERT_MOVEMENT_INVALID_INPUT_INVALID_POSITION(board_, description_, position_, boardFinalStatus_)\
+{ \
+    auto analysisInternalMacro = MoveRequester::proposeMove(board_, description_, position_); \
+    ASSERT_EQ(analysisInternalMacro.type(), MoveProposalAnalysis::Type::MoveResult); \
+    ASSERT_EQ(analysisInternalMacro.info<MoveResult>().status(), MoveResult::Status::InvalidInput); \
+    ASSERT_EQ(analysisInternalMacro.info<MoveResult>().info<MoveResult::Info::InvalidInput>().type , MoveResult::Info::InvalidInput::Type::InvalidPosition);\
+    ASSERT_EQ(analysisInternalMacro.info<MoveResult>().info<MoveResult::Info::InvalidInput>().invalidPieceDescription , description_); \
+    ASSERT_TRUE(Comparer::compare(analysisInternalMacro.board(), boardFinalStatus_)); \
+    board_ = analysisInternalMacro.board(); \
+}
+
 static constexpr char NORMAL_BOARD[] =
 R"( ______ ______ ______ ______ ______ ______ ______ ______ 
 |      |      |      |      |      |      |      |      |
@@ -1022,7 +1046,6 @@ TEST(MoveRequester, pawnDoubleMoveBlack) {
     // Move B-PC C5->C3
     auto pcPosition2 = Chess::Board::Position{Chess::Board::Column::C, 3};
     ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, pcDescription, pcPosition2, pcPosition1, MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
-    MoveProposalAnalysis analysis2 = MoveRequester::proposeMove(board, pcDescription, pcPosition2);
 }
 
 TEST(MoveRequester, pawnVerticalBackMovementWhite) {
@@ -1050,29 +1073,11 @@ TEST(MoveRequester, pawnVerticalDoubleBackMovementWhite) {
     
     // Move W-PC C2->C4
     auto pcPosition1 = Chess::Board::Position{Chess::Board::Column::C, 4};
-    MoveProposalAnalysis analysis1 = MoveRequester::proposeMove(board, pcDescription, pcPosition1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    board = analysis1.board();
-
-    std::stringstream outputStream;
-    outputStream << Chess::Output::BoardPrinter(analysis1.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_OK(board, pcDescription, pcPosition1, Definitions::W_PC_POSITION, MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
 
     // Trying to move W-PC C4->2
     auto pcPosition2 = Chess::Board::Position{Chess::Board::Column::C, 2};
-    MoveProposalAnalysis analysis2 = MoveRequester::proposeMove(board, pcDescription, pcPosition2);
-    ASSERT_EQ(analysis2.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().initialPosition, pcPosition1);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().finalPosition, pcPosition2);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().pieceDescription, Definitions::W_PC_DESCRIPTION);
-
-    board = analysis2.board();
-
-    outputStream << Chess::Output::BoardPrinter(analysis2.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, pcDescription, pcPosition2, pcPosition1, MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
 }
 
 TEST(MoveRequester, pawnVerticalBackMovementBlack) {
@@ -1084,29 +1089,11 @@ TEST(MoveRequester, pawnVerticalBackMovementBlack) {
     
     // Move B-PC C7->C5
     auto pcPosition1 = Chess::Board::Position{Chess::Board::Column::C, 5};
-    MoveProposalAnalysis analysis1 = MoveRequester::proposeMove(board, pcDescription, pcPosition1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    board = analysis1.board();
-
-    std::stringstream outputStream;
-    outputStream << Chess::Output::BoardPrinter(analysis1.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_OK(board, pcDescription, pcPosition1, Definitions::B_PC_POSITION, MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
 
     // Trying to move B-PC C5->C6
     auto pcPosition2 = Chess::Board::Position{Chess::Board::Column::C, 6};
-    MoveProposalAnalysis analysis2 = MoveRequester::proposeMove(board, pcDescription, pcPosition2);
-    ASSERT_EQ(analysis2.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().initialPosition, pcPosition1);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().finalPosition, pcPosition2);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().pieceDescription, Definitions::B_PC_DESCRIPTION);
-
-    board = analysis2.board();
-
-    outputStream << Chess::Output::BoardPrinter(analysis2.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, pcDescription, pcPosition2, pcPosition1, MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
 }
 
 TEST(MoveRequester, pawnVerticalDoubleBackMovementBlack) {
@@ -1118,29 +1105,11 @@ TEST(MoveRequester, pawnVerticalDoubleBackMovementBlack) {
     
     // Move B-PC C7->C5
     auto pcPosition1 = Chess::Board::Position{Chess::Board::Column::C, 5};
-    MoveProposalAnalysis analysis1 = MoveRequester::proposeMove(board, pcDescription, pcPosition1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    board = analysis1.board();
-
-    std::stringstream outputStream;
-    outputStream << Chess::Output::BoardPrinter(analysis1.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_OK(board, pcDescription, pcPosition1, Definitions::B_PC_POSITION, MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
 
     // Trying to move B-PC C5->C7
     auto pcPosition2 = Chess::Board::Position{Chess::Board::Column::C, 7};
-    MoveProposalAnalysis analysis2 = MoveRequester::proposeMove(board, pcDescription, pcPosition2);
-    ASSERT_EQ(analysis2.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().initialPosition, pcPosition1);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().finalPosition, pcPosition2);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().pieceDescription, Definitions::B_PC_DESCRIPTION);
-
-    board = analysis2.board();
-
-    outputStream << Chess::Output::BoardPrinter(analysis2.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, pcDescription, pcPosition2, pcPosition1, MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
 }
 
 TEST(MoveRequester, pawnInvalidDiagonalMovement) {
@@ -1152,14 +1121,7 @@ TEST(MoveRequester, pawnInvalidDiagonalMovement) {
     
     // Move W-PC C2->E4
     auto pcPosition1 = Chess::Board::Position{Chess::Board::Column::E, 4};
-    MoveProposalAnalysis analysis1 = MoveRequester::proposeMove(board, pcDescription, pcPosition1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    board = analysis1.board();
-
-    std::stringstream outputStream;
-    outputStream << Chess::Output::BoardPrinter(analysis1.board());
-    ASSERT_EQ(outputStream.str(), NORMAL_BOARD);
-    outputStream.str("");
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, pcDescription, pcPosition1, Definitions::W_PC_POSITION, NORMAL_BOARD); 
 }
 
 TEST(MoveRequester, pawnHorizontalMovementBlack) {
@@ -1171,29 +1133,11 @@ TEST(MoveRequester, pawnHorizontalMovementBlack) {
     
     // Move B-PC C7->C5
     auto pcPosition1 = Chess::Board::Position{Chess::Board::Column::C, 5};
-    MoveProposalAnalysis analysis1 = MoveRequester::proposeMove(board, pcDescription, pcPosition1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    board = analysis1.board();
-
-    std::stringstream outputStream;
-    outputStream << Chess::Output::BoardPrinter(analysis1.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_OK(board, pcDescription, pcPosition1, Definitions::B_PC_POSITION, MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
 
     // Trying to move B-PC C5->D5
     auto pcPosition2 = Chess::Board::Position{Chess::Board::Column::D, 5};
-    MoveProposalAnalysis analysis2 = MoveRequester::proposeMove(board, pcDescription, pcPosition2);
-    ASSERT_EQ(analysis2.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().initialPosition, pcPosition1);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().finalPosition, pcPosition2);
-    ASSERT_EQ(analysis2.info<InvalidPieceMovement>().pieceDescription, Definitions::B_PC_DESCRIPTION);
-
-    board = analysis2.board();
-
-    outputStream << Chess::Output::BoardPrinter(analysis2.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, pcDescription, pcPosition2, pcPosition1, MOVE_REQUESTER_PAWN_DOUBLE_MOVE_BLACK_STR_1); 
 }
 
 TEST(MoveRequester, pawnHorizontalMovementBlackWithCollision) {
@@ -1205,18 +1149,7 @@ TEST(MoveRequester, pawnHorizontalMovementBlackWithCollision) {
     
     // Trying to move B-PC C7->D7
     auto pcPosition1 = Chess::Board::Position{Chess::Board::Column::D, 7};
-    MoveProposalAnalysis analysis1 = MoveRequester::proposeMove(board, pcDescription, pcPosition1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    ASSERT_EQ(analysis1.info<InvalidPieceMovement>().initialPosition, Definitions::B_PC_POSITION);
-    ASSERT_EQ(analysis1.info<InvalidPieceMovement>().finalPosition, pcPosition1);
-    ASSERT_EQ(analysis1.info<InvalidPieceMovement>().pieceDescription, Definitions::B_PC_DESCRIPTION);
-
-    board = analysis1.board();
-
-    std::stringstream outputStream;
-    outputStream << Chess::Output::BoardPrinter(analysis1.board());
-    ASSERT_EQ(outputStream.str(), NORMAL_BOARD);
-    outputStream.str("");
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, pcDescription, pcPosition1, Definitions::B_PC_POSITION, NORMAL_BOARD); 
 }
 
 TEST(MoveRequester, pawnFrontalCollisionLarge) {
@@ -1228,39 +1161,16 @@ TEST(MoveRequester, pawnFrontalCollisionLarge) {
     
     // Move W-PC C2->C4
     auto pcPosition1 = Chess::Board::Position{Chess::Board::Column::C, 4};
-    MoveProposalAnalysis analysis1 = MoveRequester::proposeMove(board, pcDescription, pcPosition1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    board = analysis1.board();
-
-    std::stringstream outputStream;
-    outputStream << Chess::Output::BoardPrinter(analysis1.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_OK(board, pcDescription, pcPosition1, Definitions::W_PC_POSITION, MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
 
     // Move W-PC C4->C5
     auto pcPosition2 = Chess::Board::Position{Chess::Board::Column::C, 5};
-    MoveProposalAnalysis analysis2 = MoveRequester::proposeMove(board, pcDescription, pcPosition2);
-    ASSERT_EQ(analysis2.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis2.info<MoveResult>().status(), MoveResult::Status::Ok);
-    board = analysis2.board();
-
-    outputStream << Chess::Output::BoardPrinter(analysis2.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_2);
-    outputStream.str("");
-
+    ASSERT_MOVEMENT_OK(board, pcDescription, pcPosition2, pcPosition1, MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_2);
 
     // Move B-PB C7->C5
     PieceDescription bPcDescription = Definitions::B_PC_DESCRIPTION;
     auto pbPosition1 = Chess::Board::Position{Chess::Board::Column::C, 5};
-    MoveProposalAnalysis analysis3 = MoveRequester::proposeMove(board, bPcDescription, pbPosition1);
-    std::cout << static_cast<int>(analysis3.type()) << std::endl; 
-    ASSERT_EQ(analysis3.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    board = analysis3.board();
-
-    outputStream << Chess::Output::BoardPrinter(analysis3.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_2);
-    outputStream.str("");
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, bPcDescription, pbPosition1, Definitions::B_PC_POSITION, MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_2);
 }
 
 TEST(MoveRequester, pawnFrontalCollision) {
@@ -1272,50 +1182,20 @@ TEST(MoveRequester, pawnFrontalCollision) {
     
     // Move W-PC C2->C4
     auto pcPosition1 = Chess::Board::Position{Chess::Board::Column::C, 4};
-    MoveProposalAnalysis analysis1 = MoveRequester::proposeMove(board, pcDescription, pcPosition1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    board = analysis1.board();
-
-    std::stringstream outputStream;
-    outputStream << Chess::Output::BoardPrinter(analysis1.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_OK(board, pcDescription, pcPosition1, Definitions::W_PC_POSITION, MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_1);
 
     // Move W-PC C4->C5
     auto pcPosition2 = Chess::Board::Position{Chess::Board::Column::C, 5};
-    MoveProposalAnalysis analysis2 = MoveRequester::proposeMove(board, pcDescription, pcPosition2);
-    ASSERT_EQ(analysis2.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis2.info<MoveResult>().status(), MoveResult::Status::Ok);
-    board = analysis2.board();
-
-    outputStream << Chess::Output::BoardPrinter(analysis2.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_2);
-    outputStream.str("");
-
+    ASSERT_MOVEMENT_OK(board, pcDescription, pcPosition2, pcPosition1, MOVE_REQUESTER_REQUEST_DIAGONAL_COLLISION_DIFFERENT_SIDE_STR_2);
 
     // Move B-PB C7->C6
     PieceDescription bPcDescription = Definitions::B_PC_DESCRIPTION;
     auto bPcPosition1 = Chess::Board::Position{Chess::Board::Column::C, 6};
-    MoveProposalAnalysis analysis3 = MoveRequester::proposeMove(board, bPcDescription, bPcPosition1);
-    ASSERT_EQ(analysis3.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis3.info<MoveResult>().status(), MoveResult::Status::Ok);
-    board = analysis3.board();
-
-    outputStream << Chess::Output::BoardPrinter(analysis3.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_PAWN_FRONTAL_COLISION_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_OK(board, bPcDescription, bPcPosition1, Definitions::B_PC_POSITION, MOVE_REQUESTER_PAWN_FRONTAL_COLISION_1);
 
     // Move B-PB C6->C5
     auto bPcPosition2 = Chess::Board::Position{Chess::Board::Column::C, 5};
-    MoveProposalAnalysis analysis4 = MoveRequester::proposeMove(board, bPcDescription, bPcPosition2);
-    std::cout << static_cast<int>(analysis4.type()) << std::endl; 
-    ASSERT_EQ(analysis4.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    board = analysis4.board();
-
-    outputStream << Chess::Output::BoardPrinter(analysis4.board());
-    ASSERT_EQ(outputStream.str(), MOVE_REQUESTER_PAWN_FRONTAL_COLISION_1);
-    outputStream.str("");
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, bPcDescription, bPcPosition2, bPcPosition1, MOVE_REQUESTER_PAWN_FRONTAL_COLISION_1);
 }
 
 TEST(MoveRequester, rookMovementInterrupted1){
@@ -1326,13 +1206,7 @@ TEST(MoveRequester, rookMovementInterrupted1){
 
     auto bRADescription = Definitions::B_RA_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::A, 5);
-    auto analysis1 = MoveRequester::proposeMove(board, bRADescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_RA_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PA_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_RA_DESCRIPTION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PA_DESCRIPTION);
+    ASSERT_MOVEMENT_INTERRUPTED(board, bRADescription, position1,  Definitions::B_RA_POSITION,  Definitions::B_PA_POSITION, Definitions::B_PA_DESCRIPTION, NORMAL_BOARD);
 }
 
 TEST(MoveRequester, rookMovementInterrupted2){
@@ -1343,13 +1217,7 @@ TEST(MoveRequester, rookMovementInterrupted2){
 
     auto bRADescription = Definitions::B_RA_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::C, 8);
-    auto analysis1 = MoveRequester::proposeMove(board, bRADescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_RA_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_kB_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_RA_DESCRIPTION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_kB_DESCRIPTION);
+    ASSERT_MOVEMENT_INTERRUPTED(board, bRADescription, position1,  Definitions::B_RA_POSITION,  Definitions::B_kB_POSITION, Definitions::B_kB_DESCRIPTION, NORMAL_BOARD);
 }
 
 TEST(MoveRequester, rookMovementInvalidDiagonal){
@@ -1360,11 +1228,7 @@ TEST(MoveRequester, rookMovementInvalidDiagonal){
 
     auto bRADescription = Definitions::B_RA_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::B, 7);
-    auto analysis1 = MoveRequester::proposeMove(board, bRADescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    ASSERT_EQ(analysis1.info<InvalidPieceMovement>().initialPosition, Definitions::B_RA_POSITION);
-    ASSERT_EQ(analysis1.info<InvalidPieceMovement>().finalPosition, position1);
-    ASSERT_EQ(analysis1.info<InvalidPieceMovement>().pieceDescription, Definitions::B_RA_DESCRIPTION);
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, bRADescription, position1, Definitions::B_RA_POSITION, NORMAL_BOARD); 
 }
 
 TEST(MoveRequester, rookSameSideCollision){
@@ -1375,13 +1239,7 @@ TEST(MoveRequester, rookSameSideCollision){
 
     auto bRADescription = Definitions::B_RA_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::A, 7);
-    auto analysis1 = MoveRequester::proposeMove(board, bRADescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Collision);
-    ASSERT_TRUE(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().sameSide);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().position, position1);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bRADescription);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::B_PA_DESCRIPTION);
+    ASSERT_MOVEMENT_COLLISION_SAME_SIDE(board, bRADescription, position1, Definitions::B_PA_DESCRIPTION, NORMAL_BOARD); 
 }
 
 TEST(MoveRequester, rookdifferentSideCollision){
@@ -1392,41 +1250,18 @@ TEST(MoveRequester, rookdifferentSideCollision){
 
     auto bPADescription = Definitions::B_PA_DESCRIPTION;
     auto bPAPosition1 = Chess::Board::Position{Chess::Board::Column::A, 5};
-    auto bPAAnalysis = MoveRequester::proposeMove(board, bPADescription, bPAPosition1);
-    ASSERT_EQ(bPAAnalysis.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bPAAnalysis.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_TRUE(Comparer::compare(bPAAnalysis.board(), MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_1));
-    board = bPAAnalysis.board();
+    ASSERT_MOVEMENT_OK(board, bPADescription, bPAPosition1, Definitions::B_PA_POSITION, MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_1);
 
     auto bRADescription = Definitions::B_RA_DESCRIPTION;
     auto bRAPosition1 = Chess::Board::Position(Chess::Board::Column::A, 6);
-    auto bRAAnalysis1 = MoveRequester::proposeMove(board, bRADescription, bRAPosition1);
-    ASSERT_EQ(bRAAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bRAAnalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(bRAAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_RA_POSITION);
-    ASSERT_EQ(bRAAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bRAPosition1);
-    ASSERT_TRUE(Comparer::compare(bRAAnalysis1.board(), MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_2));
-    board = bRAAnalysis1.board();
+    ASSERT_MOVEMENT_OK(board, bRADescription, bRAPosition1, Definitions::B_RA_POSITION, MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_2);
 
 
     auto bRAPosition2 = Chess::Board::Position(Chess::Board::Column::D, 6);
-    auto bRAAnalysis2 = MoveRequester::proposeMove(board, bRADescription, bRAPosition2);
-    ASSERT_EQ(bRAAnalysis2.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bRAAnalysis2.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(bRAAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, bRAPosition1);
-    ASSERT_EQ(bRAAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bRAPosition2);
-    ASSERT_TRUE(Comparer::compare(bRAAnalysis2.board(), MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_3));
-    board = bRAAnalysis2.board();
+    ASSERT_MOVEMENT_OK(board, bRADescription, bRAPosition2, bRAPosition1, MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_3);
 
     auto bRAPosition3 = Chess::Board::Position(Chess::Board::Column::D, 2);
-    auto bRAAnalysis3 = MoveRequester::proposeMove(board, bRADescription, bRAPosition3);
-    ASSERT_EQ(bRAAnalysis3.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bRAAnalysis3.info<MoveResult>().status(), MoveResult::Status::Collision);
-    ASSERT_TRUE(bRAAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().differentSide);
-    ASSERT_EQ(bRAAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().position, bRAPosition3);
-    ASSERT_EQ(bRAAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bRADescription);
-    ASSERT_EQ(bRAAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::W_PD_DESCRIPTION);
-    ASSERT_TRUE(Comparer::compare(bRAAnalysis3.board(), MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_3));
+    ASSERT_MOVEMENT_COLLISION_DIFFERENT_SIDE(board, bRADescription, bRAPosition3, Definitions::W_PD_DESCRIPTION, MOVE_REQUESTER_ROOK_DIFFERENT_SIDE_COLLISION_3); 
 }
 
 TEST(MoveRequester, knightValidMovements){
@@ -1436,77 +1271,29 @@ TEST(MoveRequester, knightValidMovements){
     Board board;
     auto bkBDescription = Definitions::B_kB_DESCRIPTION;
     auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::A, 6);
-    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_kB_POSITION);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition1);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_1));
-    board = bkBAnalysis1.board();
+    ASSERT_MOVEMENT_OK(board, bkBDescription, bkBPosition1, Definitions::B_kB_POSITION, MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_1);
 
     auto bkBPosition2 = Chess::Board::Position(Chess::Board::Column::C, 5);
-    auto bkBAnalysis2 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition2);
-    ASSERT_EQ(bkBAnalysis2.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition2);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis2.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_2));
-    board = bkBAnalysis2.board();
+    ASSERT_MOVEMENT_OK(board, bkBDescription, bkBPosition2, bkBPosition1, MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_2);
 
     auto wkGDescription = Definitions::W_kG_DESCRIPTION;
     auto wkGPosition1 = Chess::Board::Position(Chess::Board::Column::F, 3);
-    auto wkGAnalysis1 = MoveRequester::proposeMove(board, wkGDescription, wkGPosition1);
-    ASSERT_EQ(wkGAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(wkGAnalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(wkGAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::W_kG_POSITION);
-    ASSERT_EQ(wkGAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, wkGPosition1);
-    ASSERT_TRUE(Comparer::compare(wkGAnalysis1.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_3));
-    board = wkGAnalysis1.board();
+    ASSERT_MOVEMENT_OK(board, wkGDescription, wkGPosition1, Definitions::W_kG_POSITION, MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_3);
 
     auto wkGPosition2 = Chess::Board::Position(Chess::Board::Column::D, 4);
-    auto wkGAnalysis2 = MoveRequester::proposeMove(board, wkGDescription, wkGPosition2);
-    ASSERT_EQ(wkGAnalysis2.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(wkGAnalysis2.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(wkGAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, wkGPosition1);
-    ASSERT_EQ(wkGAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, wkGPosition2);
-    ASSERT_TRUE(Comparer::compare(wkGAnalysis2.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_4));
-    board = wkGAnalysis2.board();
+    ASSERT_MOVEMENT_OK(board, wkGDescription, wkGPosition2, wkGPosition1, MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_4);
 
     auto bkBPosition3 = Chess::Board::Position(Chess::Board::Column::A, 4);
-    auto bkBAnalysis3 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition3);
-    ASSERT_EQ(bkBAnalysis3.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, bkBPosition2);
-    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition3);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis3.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_5));
-    board = bkBAnalysis3.board();
+    ASSERT_MOVEMENT_OK(board, bkBDescription, bkBPosition3, bkBPosition2, MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_5);
 
     auto bkBPosition4 = Chess::Board::Position(Chess::Board::Column::B, 6);
-    auto bkBAnalysis4 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition4);
-    ASSERT_EQ(bkBAnalysis4.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bkBAnalysis4.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(bkBAnalysis4.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, bkBPosition3);
-    ASSERT_EQ(bkBAnalysis4.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition4);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis4.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_6));
-    board = bkBAnalysis4.board();
+    ASSERT_MOVEMENT_OK(board, bkBDescription, bkBPosition4, bkBPosition3, MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_6);
 
     auto wkGPosition3 = Chess::Board::Position(Chess::Board::Column::F, 5);
-    auto wkGAnalysis3 = MoveRequester::proposeMove(board, wkGDescription, wkGPosition3);
-    ASSERT_EQ(wkGAnalysis3.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(wkGAnalysis3.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(wkGAnalysis3.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, wkGPosition2);
-    ASSERT_EQ(wkGAnalysis3.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, wkGPosition3);
-    ASSERT_TRUE(Comparer::compare(wkGAnalysis3.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_7));
-    board = wkGAnalysis3.board();
+    ASSERT_MOVEMENT_OK(board, wkGDescription, wkGPosition3, wkGPosition2, MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_7);
 
     auto wkGPosition4 = Chess::Board::Position(Chess::Board::Column::G, 3);
-    auto wkGAnalysis4 = MoveRequester::proposeMove(board, wkGDescription, wkGPosition4);
-    ASSERT_EQ(wkGAnalysis4.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(wkGAnalysis4.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(wkGAnalysis4.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, wkGPosition3);
-    ASSERT_EQ(wkGAnalysis4.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, wkGPosition4);
-    ASSERT_TRUE(Comparer::compare(wkGAnalysis4.board(), MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_8));
-    board = wkGAnalysis4.board();
+    ASSERT_MOVEMENT_OK(board, wkGDescription, wkGPosition4, wkGPosition3, MOVE_REQUESTER_KNIGHT_VALID_MOVEMENTS_8);
 }
 
 TEST(MoveRequester, knightInvalidMovements1){
@@ -1516,13 +1303,7 @@ TEST(MoveRequester, knightInvalidMovements1){
     Board board;
     auto bkBDescription = Definitions::B_kB_DESCRIPTION;
     auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::B, 5);
-    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().initialPosition, Definitions::B_kB_POSITION);
-    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().finalPosition, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().pieceDescription, Definitions::B_kB_DESCRIPTION);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
-    board = bkBAnalysis1.board();
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, bkBDescription, bkBPosition1, Definitions::B_kB_POSITION, NORMAL_BOARD); 
 }
 
 TEST(MoveRequester, knightInvalidMovements2){
@@ -1532,13 +1313,7 @@ TEST(MoveRequester, knightInvalidMovements2){
     Board board;
     auto bkBDescription = Definitions::B_kB_DESCRIPTION;
     auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::A, 2);
-    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().initialPosition, Definitions::B_kB_POSITION);
-    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().finalPosition, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().pieceDescription, Definitions::B_kB_DESCRIPTION);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
-    board = bkBAnalysis1.board();
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, bkBDescription, bkBPosition1, Definitions::B_kB_POSITION, NORMAL_BOARD); 
 }
 
 TEST(MoveRequester, knightInvalidMovements3){
@@ -1548,13 +1323,7 @@ TEST(MoveRequester, knightInvalidMovements3){
     Board board;
     auto bkBDescription = Definitions::B_kB_DESCRIPTION;
     auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::F, 4);
-    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::InvalidPieceMovement);
-    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().initialPosition, Definitions::B_kB_POSITION);
-    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().finalPosition, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.info<InvalidPieceMovement>().pieceDescription, Definitions::B_kB_DESCRIPTION);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
-    board = bkBAnalysis1.board();
+    ASSERT_MOVEMENT_INVALID_PIECE_MOVEMENT(board, bkBDescription, bkBPosition1, Definitions::B_kB_POSITION, NORMAL_BOARD); 
 }
 
 TEST(MoveRequester, knightInvalidMovements4){
@@ -1564,13 +1333,7 @@ TEST(MoveRequester, knightInvalidMovements4){
     Board board;
     auto bkBDescription = Definitions::B_kB_DESCRIPTION;
     auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::F, 15);
-    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().status(), MoveResult::Status::InvalidInput);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::InvalidInput>().type , MoveResult::Info::InvalidInput::Type::InvalidPosition);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::InvalidInput>().invalidPieceDescription , Definitions::B_kB_DESCRIPTION);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
-    board = bkBAnalysis1.board();
+    ASSERT_MOVEMENT_INVALID_INPUT_INVALID_POSITION(board, bkBDescription, bkBPosition1, NORMAL_BOARD);
 }
 
 TEST(MoveRequester, knightInvalidMovements5){
@@ -1580,13 +1343,7 @@ TEST(MoveRequester, knightInvalidMovements5){
     Board board;
     auto bkBDescription = Definitions::B_kB_DESCRIPTION;
     auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::Invalid, 5);
-    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().status(), MoveResult::Status::InvalidInput);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::InvalidInput>().type , MoveResult::Info::InvalidInput::Type::InvalidPosition);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::InvalidInput>().invalidPieceDescription , Definitions::B_kB_DESCRIPTION);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
-    board = bkBAnalysis1.board();
+    ASSERT_MOVEMENT_INVALID_INPUT_INVALID_POSITION(board, bkBDescription, bkBPosition1, NORMAL_BOARD);
 }
 
 TEST(MoveRequester, knightSameSideCollision){
@@ -1596,15 +1353,7 @@ TEST(MoveRequester, knightSameSideCollision){
     Board board;
     auto bkBDescription = Definitions::B_kB_DESCRIPTION;
     auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::D, 7);
-    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().status(), MoveResult::Status::Collision);
-    ASSERT_TRUE(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Collision>().sameSide);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Collision>().position, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bkBDescription);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::B_PD_DESCRIPTION);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), NORMAL_BOARD));
-    board = bkBAnalysis1.board();
+    ASSERT_MOVEMENT_COLLISION_SAME_SIDE(board, bkBDescription, bkBPosition1, Definitions::B_PD_DESCRIPTION, NORMAL_BOARD); 
 }
 
 TEST(MoveRequester, knightDifferentSideCollision){
@@ -1614,33 +1363,13 @@ TEST(MoveRequester, knightDifferentSideCollision){
     Board board;
     auto bkBDescription = Definitions::B_kB_DESCRIPTION;
     auto bkBPosition1 = Chess::Board::Position(Chess::Board::Column::C, 6);
-    auto bkBAnalysis1 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_kB_POSITION);
-    ASSERT_EQ(bkBAnalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition1);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis1.board(), MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_1));
-    board = bkBAnalysis1.board();
+    ASSERT_MOVEMENT_OK(board, bkBDescription, bkBPosition1, Definitions::B_kB_POSITION, MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_1);
 
     auto bkBPosition2 = Chess::Board::Position(Chess::Board::Column::B, 4);
-    auto bkBAnalysis2 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition2);
-    ASSERT_EQ(bkBAnalysis2.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, bkBPosition1);
-    ASSERT_EQ(bkBAnalysis2.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bkBPosition2);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis2.board(), MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_2));
-    board = bkBAnalysis2.board();
+    ASSERT_MOVEMENT_OK(board, bkBDescription, bkBPosition2, bkBPosition1, MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_2);
 
     auto bkBPosition3 = Chess::Board::Position(Chess::Board::Column::C, 2);
-    auto bkBAnalysis3 = MoveRequester::proposeMove(board, bkBDescription, bkBPosition3);
-    ASSERT_EQ(bkBAnalysis3.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().status(), MoveResult::Status::Collision);
-    ASSERT_TRUE(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().differentSide);
-    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().position, bkBPosition3);
-    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bkBDescription);
-    ASSERT_EQ(bkBAnalysis3.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::W_PC_DESCRIPTION);
-    ASSERT_TRUE(Comparer::compare(bkBAnalysis3.board(), MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_2));
-    board = bkBAnalysis3.board();
+    ASSERT_MOVEMENT_COLLISION_DIFFERENT_SIDE(board, bkBDescription, bkBPosition3, Definitions::W_PC_DESCRIPTION, MOVE_REQUESTER_KNIGHT_KNIGHT_DIFFERENT_SIDE_COLLISION_2); 
 }
 
 TEST(MoveRequester, bishopMovementInterrupted1){
@@ -1651,13 +1380,7 @@ TEST(MoveRequester, bishopMovementInterrupted1){
 
     auto bBDDescription = Definitions::B_BC_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::E, 6);
-    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_BC_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PD_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_BC_DESCRIPTION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PD_DESCRIPTION);
+    ASSERT_MOVEMENT_INTERRUPTED(board, bBDDescription, position1,  Definitions::B_BC_POSITION,  Definitions::B_PD_POSITION, Definitions::B_PD_DESCRIPTION, NORMAL_BOARD);
 }
 
 TEST(MoveRequester, bishopMovementInterrupted2){
@@ -1668,13 +1391,7 @@ TEST(MoveRequester, bishopMovementInterrupted2){
 
     auto bBDDescription = Definitions::B_BC_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::A, 6);
-    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_BC_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PB_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_BC_DESCRIPTION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PB_DESCRIPTION);
+    ASSERT_MOVEMENT_INTERRUPTED(board, bBDDescription, position1,  Definitions::B_BC_POSITION,  Definitions::B_PB_POSITION, Definitions::B_PB_DESCRIPTION, NORMAL_BOARD);
 }
 
 TEST(MoveRequester, bishopMovementValid1){
@@ -1685,23 +1402,11 @@ TEST(MoveRequester, bishopMovementValid1){
 
     auto bPDDescription = Definitions::B_PD_DESCRIPTION;
     auto bPDPosition1 = Chess::Board::Position(Chess::Board::Column::D, 6);
-    auto bPDanalysis1 = MoveRequester::proposeMove(board, bPDDescription, bPDPosition1);
-    ASSERT_EQ(bPDanalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bPDanalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_PD_POSITION);
-    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bPDPosition1);
-    ASSERT_TRUE(Comparer::compare(bPDanalysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_1_1));
-    board = bPDanalysis1.board();
+    ASSERT_MOVEMENT_OK(board, bPDDescription, bPDPosition1, Definitions::B_PD_POSITION, MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_1_1);
 
     auto bBDDescription = Definitions::B_BC_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::H, 3);
-    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_BC_POSITION);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, position1);
-    ASSERT_TRUE(Comparer::compare(analysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_1_2));
-    board = analysis1.board();
+    ASSERT_MOVEMENT_OK(board, bBDDescription, position1, Definitions::B_BC_POSITION, MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_1_2);
 }
 
 TEST(MoveRequester, bishopMovementValid2){
@@ -1712,23 +1417,11 @@ TEST(MoveRequester, bishopMovementValid2){
 
     auto bPDDescription = Definitions::B_PB_DESCRIPTION;
     auto bPDPosition1 = Chess::Board::Position(Chess::Board::Column::B, 6);
-    auto bPDanalysis1 = MoveRequester::proposeMove(board, bPDDescription, bPDPosition1);
-    ASSERT_EQ(bPDanalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bPDanalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_PB_POSITION);
-    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bPDPosition1);
-    ASSERT_TRUE(Comparer::compare(bPDanalysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_1));
-    board = bPDanalysis1.board();
+    ASSERT_MOVEMENT_OK(board, bPDDescription, bPDPosition1, Definitions::B_PB_POSITION, MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_1);
 
     auto bBDDescription = Definitions::B_BC_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::A, 6);
-    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_BC_POSITION);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, position1);
-    ASSERT_TRUE(Comparer::compare(analysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_2));
-    board = analysis1.board();
+    ASSERT_MOVEMENT_OK(board, bBDDescription, position1, Definitions::B_BC_POSITION, MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_2);
 }
 
 TEST(MoveRequester, bishopSameSideCollision){
@@ -1738,15 +1431,7 @@ TEST(MoveRequester, bishopSameSideCollision){
     Board board;
     auto bBDDescription = Definitions::B_BC_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::B, 7);
-    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Collision);
-    ASSERT_TRUE(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().sameSide);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().position, position1);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bBDDescription);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::B_PB_DESCRIPTION);
-    ASSERT_TRUE(Comparer::compare(analysis1.board(), NORMAL_BOARD));
-    board = analysis1.board();
+    ASSERT_MOVEMENT_COLLISION_SAME_SIDE(board, bBDDescription, position1, Definitions::B_PB_DESCRIPTION, NORMAL_BOARD); 
 }
 
 TEST(MoveRequester, bishopDifferentSideCollision){
@@ -1757,34 +1442,14 @@ TEST(MoveRequester, bishopDifferentSideCollision){
 
     auto bPDDescription = Definitions::B_PB_DESCRIPTION;
     auto bPDPosition1 = Chess::Board::Position(Chess::Board::Column::B, 6);
-    auto bPDanalysis1 = MoveRequester::proposeMove(board, bPDDescription, bPDPosition1);
-    ASSERT_EQ(bPDanalysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(bPDanalysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_PB_POSITION);
-    ASSERT_EQ(bPDanalysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, bPDPosition1);
-    ASSERT_TRUE(Comparer::compare(bPDanalysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_1));
-    board = bPDanalysis1.board();
+    ASSERT_MOVEMENT_OK(board, bPDDescription, bPDPosition1, Definitions::B_PB_POSITION, MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_1);
 
     auto bBDDescription = Definitions::B_BC_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::A, 6);
-    auto analysis1 = MoveRequester::proposeMove(board, bBDDescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis1.info<MoveResult>().status(), MoveResult::Status::Ok);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().oldPosition, Definitions::B_BC_POSITION);
-    ASSERT_EQ(analysis1.info<MoveResult>().info<MoveResult::Info::Ok>().newPosition, position1);
-    ASSERT_TRUE(Comparer::compare(analysis1.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_2));
-    board = analysis1.board();
+    ASSERT_MOVEMENT_OK(board, bBDDescription, position1, Definitions::B_BC_POSITION, MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_2);
 
     auto position2 = Chess::Board::Position(Chess::Board::Column::E, 2);
-    auto analysis2 = MoveRequester::proposeMove(board, bBDDescription, position2);
-    ASSERT_EQ(analysis2.type(), MoveProposalAnalysis::Type::MoveResult);
-    ASSERT_EQ(analysis2.info<MoveResult>().status(), MoveResult::Status::Collision);
-    ASSERT_TRUE(analysis2.info<MoveResult>().info<MoveResult::Info::Collision>().differentSide);
-    ASSERT_EQ(analysis2.info<MoveResult>().info<MoveResult::Info::Collision>().position, position2);
-    ASSERT_EQ(analysis2.info<MoveResult>().info<MoveResult::Info::Collision>().originalPiece, bBDDescription);
-    ASSERT_EQ(analysis2.info<MoveResult>().info<MoveResult::Info::Collision>().colidingPiece, Definitions::W_PE_DESCRIPTION);
-    ASSERT_TRUE(Comparer::compare(analysis2.board(), MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_2));
-    board = analysis2.board();
+    ASSERT_MOVEMENT_COLLISION_DIFFERENT_SIDE(board, bBDDescription, position2, Definitions::W_PE_DESCRIPTION, MOVE_REQUESTER_BISHOP_MOVEMENT_VALID_2_2); 
 }
 
 TEST(MoveRequester, queenMovementInterrupted1){
@@ -1795,13 +1460,7 @@ TEST(MoveRequester, queenMovementInterrupted1){
 
     auto bQDDescription = Definitions::B_QD_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::F, 6);
-    auto analysis1 = MoveRequester::proposeMove(board, bQDDescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_QD_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PE_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_QD_DESCRIPTION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PE_DESCRIPTION);
+    ASSERT_MOVEMENT_INTERRUPTED(board, bQDDescription, position1,  Definitions::B_QD_POSITION,  Definitions::B_PE_POSITION, Definitions::B_PE_DESCRIPTION, NORMAL_BOARD);
 }
 
 
@@ -1813,13 +1472,7 @@ TEST(MoveRequester, queenMovementInterrupted2){
 
     auto bQDDescription = Definitions::B_QD_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::B, 6);
-    auto analysis1 = MoveRequester::proposeMove(board, bQDDescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_QD_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PC_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_QD_DESCRIPTION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PC_DESCRIPTION);
+    ASSERT_MOVEMENT_INTERRUPTED(board, bQDDescription, position1,  Definitions::B_QD_POSITION,  Definitions::B_PC_POSITION, Definitions::B_PC_DESCRIPTION, NORMAL_BOARD);
 }
 
 TEST(MoveRequester, queenMovementInterrupted3){
@@ -1830,13 +1483,7 @@ TEST(MoveRequester, queenMovementInterrupted3){
 
     auto bQDDescription = Definitions::B_QD_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::D, 6);
-    auto analysis1 = MoveRequester::proposeMove(board, bQDDescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_QD_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_PD_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_QD_DESCRIPTION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_PD_DESCRIPTION);
+    ASSERT_MOVEMENT_INTERRUPTED(board, bQDDescription, position1,  Definitions::B_QD_POSITION,  Definitions::B_PD_POSITION, Definitions::B_PD_DESCRIPTION, NORMAL_BOARD);
 }
 
 TEST(MoveRequester, queenMovementInterrupted4){
@@ -1847,13 +1494,7 @@ TEST(MoveRequester, queenMovementInterrupted4){
 
     auto bQDDescription = Definitions::B_QD_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::B, 8);
-    auto analysis1 = MoveRequester::proposeMove(board, bQDDescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_QD_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_BC_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_QD_DESCRIPTION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_BC_DESCRIPTION);
+    ASSERT_MOVEMENT_INTERRUPTED(board, bQDDescription, position1,  Definitions::B_QD_POSITION,  Definitions::B_BC_POSITION, Definitions::B_BC_DESCRIPTION, NORMAL_BOARD);
 }
 
 TEST(MoveRequester, queenMovementInterrupted5){
@@ -1864,13 +1505,7 @@ TEST(MoveRequester, queenMovementInterrupted5){
 
     auto bQDDescription = Definitions::B_QD_DESCRIPTION;
     auto position1 = Chess::Board::Position(Chess::Board::Column::F, 8);
-    auto analysis1 = MoveRequester::proposeMove(board, bQDDescription, position1);
-    ASSERT_EQ(analysis1.type(), MoveProposalAnalysis::Type::MovementInterrupted);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().initialPosition, Definitions::B_QD_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().collisionPosition, Definitions::B_KE_POSITION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().finalPosition, position1);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceDescription, Definitions::B_QD_DESCRIPTION);
-    ASSERT_EQ(analysis1.info<MovementInterrupted>().pieceInPathDescription, Definitions::B_KE_DESCRIPTION);
+    ASSERT_MOVEMENT_INTERRUPTED(board, bQDDescription, position1,  Definitions::B_QD_POSITION,  Definitions::B_KE_POSITION, Definitions::B_KE_DESCRIPTION, NORMAL_BOARD);
 }
 
 TEST(MoveRequester, queenMovementMovementValid1){
