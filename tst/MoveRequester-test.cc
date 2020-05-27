@@ -1557,3 +1557,34 @@ TEST(MoveRequester, queenMovementMovementValid3){
     ASSERT_MOVEMENT_OK(board, bQDDescription, position2, position1, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_3);
 }
 
+TEST(MoveRequester, queenSameSideCollision){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bQDDescription = Definitions::B_QD_DESCRIPTION;
+    auto bQDPosition1 = Chess::Board::Position(Chess::Board::Column::D, 7);
+    ASSERT_MOVEMENT_COLLISION_SAME_SIDE(board, bQDDescription, bQDPosition1, Definitions::B_PD_DESCRIPTION, NORMAL_BOARD);
+}
+
+TEST(MoveRequester, queenDifferentSideCollision){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bPDDescription = Definitions::B_PD_DESCRIPTION;
+    auto bPDPosition1 = Chess::Board::Position(Chess::Board::Column::D, 5);
+    ASSERT_MOVEMENT_OK(board, bPDDescription, bPDPosition1, Definitions::B_PD_POSITION, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_1);
+
+    auto bQDDescription = Definitions::B_QD_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::D, 6);
+    ASSERT_MOVEMENT_OK(board, bQDDescription, position1, Definitions::B_QD_POSITION, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_2);
+
+    auto position2 = Chess::Board::Position(Chess::Board::Column::A, 6);
+    ASSERT_MOVEMENT_OK(board, bQDDescription, position2, position1, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_3);
+
+    auto position3 = Chess::Board::Position(Chess::Board::Column::A, 2);
+    ASSERT_MOVEMENT_COLLISION_DIFFERENT_SIDE(board, bQDDescription, position3, Definitions::W_PA_DESCRIPTION, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_3);
+}
