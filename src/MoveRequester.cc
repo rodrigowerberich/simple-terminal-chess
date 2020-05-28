@@ -6,13 +6,6 @@
 namespace Chess{
 namespace Rules{
 
-template <>
-MoveProposalAnalysis MoveRequester::verifyMove<Chess::Board::PieceType::King>(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription, const MoveResultType& moveResult){
-    return {originalBoard};
-}
-
-
-#define MACRO_VERIFY_MOVE_SWITCH_CASE(_X, _A, _B, _C) case Chess::Board::PieceType::_X: return verifyMove<Chess::Board::PieceType::_X>(_A, _B, _C);
 MoveProposalAnalysis MoveRequester::verifyMove(const BoardType& originalBoard, const BoardType& newBoard, const PieceDescriptionType& pieceDescription, const MoveResultType& moveResult){
     switch(pieceDescription.type()){
         case Chess::Board::PieceType::Pawn: return verifyMove<Chess::Board::PieceType::Pawn>(originalBoard, newBoard, pieceDescription, moveResult);

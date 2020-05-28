@@ -10,7 +10,6 @@ namespace QueenMoveRequester{
 
 std::vector<Chess::Board::Position> queenPath(const Chess::Board::Position& initialPosition, const Chess::Board::Position& finallPosition);
 
-
 }
 }
 }
