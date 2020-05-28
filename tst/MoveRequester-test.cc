@@ -945,6 +945,412 @@ R"( ______ ______ ______ ______ ______ ______ ______ ______
 | W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
 |______|______|______|______|______|______|______|______|)";
 
+static constexpr char MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_1[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_2[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-K  | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_3[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | B-K  | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_4[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-K  |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_5[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      | B-K  |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_6[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      | B-K  |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_7[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE | B-K  |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_8[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-K  | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_9[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_1[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  | B-K  | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_2[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD | B-K  | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+
+static constexpr char MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_3[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-K  |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_4[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | B-K  | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_5[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | B-K  |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
+static constexpr char MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_6[] =
+R"( ______ ______ ______ ______ ______ ______ ______ ______ 
+|      |      |      |      |      |      |      |      |
+| B-RA | B-kB | B-BC | B-Q  |      | B-BF | B-kG | B-RH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| B-PA | B-PB | B-PC | B-PD |      | B-PF | B-PG | B-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      | B-PE |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      |      |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+|      |      |      | B-K  |      |      |      |      |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-PA | W-PB | W-PC | W-PD | W-PE | W-PF | W-PG | W-PH |
+|______|______|______|______|______|______|______|______|
+|      |      |      |      |      |      |      |      |
+| W-RA | W-kB | W-BC | W-Q  | W-K  | W-BF | W-kG | W-RH |
+|______|______|______|______|______|______|______|______|)";
+
 
 TEST(MoveRequester, pawnRequestMoveTooBigOfAMovement) {
     using namespace Chess::Board;
@@ -1587,4 +1993,81 @@ TEST(MoveRequester, queenDifferentSideCollision){
 
     auto position3 = Chess::Board::Position(Chess::Board::Column::A, 2);
     ASSERT_MOVEMENT_COLLISION_DIFFERENT_SIDE(board, bQDDescription, position3, Definitions::W_PA_DESCRIPTION, MOVE_REQUESTER_QUEEN_MOVEMENT_VALID_3_3);
+}
+
+TEST(MoveRequester, kingMovementMovementValid1){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bPEDescription = Definitions::B_PE_DESCRIPTION;
+    auto bPEPosition1 = Chess::Board::Position(Chess::Board::Column::E, 6);
+    ASSERT_MOVEMENT_OK(board, bPEDescription, bPEPosition1, Definitions::B_PE_POSITION, MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_1);
+
+    auto bKEDescription = Definitions::B_KE_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::E, 7);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position1, Definitions::B_KE_POSITION, MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_2);
+
+    auto position2 = Chess::Board::Position(Chess::Board::Column::D, 6);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position2, position1, MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_3);
+
+    auto position3 = Chess::Board::Position(Chess::Board::Column::E, 5);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position3, position2, MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_4);
+
+    auto position4 = Chess::Board::Position(Chess::Board::Column::F, 5);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position4, position3, MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_5);
+
+    auto position5 = Chess::Board::Position(Chess::Board::Column::G, 6);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position5, position4, MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_6);
+
+    auto position6 = Chess::Board::Position(Chess::Board::Column::F, 6);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position6, position5, MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_7);
+
+    auto position7 = Chess::Board::Position(Chess::Board::Column::E, 7);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position7, position6, MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_8);
+
+    auto position8 = Chess::Board::Position(Chess::Board::Column::E, 8);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position8, position7, MOVE_REQUESTER_KING_MOVEMENT_MOVEMENT_VALID_1_9);
+}
+
+TEST(MoveRequester, kingCollisionSameSide){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bKEDescription = Definitions::B_KE_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::E, 7);
+    ASSERT_MOVEMENT_COLLISION_SAME_SIDE(board, bKEDescription, position1, Definitions::B_PE_DESCRIPTION, NORMAL_BOARD);
+}
+
+TEST(MoveRequester, kingCollisionDifferentSide){
+    using namespace Chess::Board;
+    using namespace Chess::Rules;
+
+    Board board;
+
+    auto bPEDescription = Definitions::B_PE_DESCRIPTION;
+    auto bPEPosition1 = Chess::Board::Position(Chess::Board::Column::E, 5);
+    ASSERT_MOVEMENT_OK(board, bPEDescription, bPEPosition1, Definitions::B_PE_POSITION, MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_1);
+
+    auto bKEDescription = Definitions::B_KE_DESCRIPTION;
+    auto position1 = Chess::Board::Position(Chess::Board::Column::E, 7);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position1, Definitions::B_KE_POSITION, MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_2);
+
+    auto position2 = Chess::Board::Position(Chess::Board::Column::E, 6);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position2, position1, MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_3);
+
+    auto position3 = Chess::Board::Position(Chess::Board::Column::D, 5);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position3, position2, MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_4);
+
+    auto position4 = Chess::Board::Position(Chess::Board::Column::D, 4);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position4, position3, MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_5);
+
+    auto position5 = Chess::Board::Position(Chess::Board::Column::D, 3);
+    ASSERT_MOVEMENT_OK(board, bKEDescription, position5, position4, MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_6);
+
+    auto position6 = Chess::Board::Position(Chess::Board::Column::D, 2);
+    ASSERT_MOVEMENT_COLLISION_DIFFERENT_SIDE(board, bKEDescription, position6, Definitions::W_PD_DESCRIPTION, MOVE_REQUESTER_KING_COLLISION_SAME_SIDE_6);
 }
