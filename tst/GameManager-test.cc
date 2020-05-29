@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "GameManager.hh"
-#include "Parser.hh"
-#include "Printer.hh"
+#include "Input/Parser.hh"
+#include "Output/Printer.hh"
 
 #include <sstream>
 

@@ -5,7 +5,7 @@
 
 #include "CommandManager.hh"
 #include "CommandQuit.hh"
-#include "ParsedInput.hh"
+#include "Input/ParsedInput.hh"
 
 class GameResource{    
 };

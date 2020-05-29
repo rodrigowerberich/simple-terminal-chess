@@ -1,10 +1,9 @@
 #include "gtest/gtest.h"
-#include "MoveRequester.hh"
-#include "Board.hh"
-#include "BoardDefinitions.hh"
-#include "BoardPrinter.hh"
-#include "BoardComparer.hh"
-
+#include "Rules/MoveRequester.hh"
+#include "Board/Board.hh"
+#include "Board/BoardDefinitions.hh"
+#include "Output/BoardPrinter.hh"
+#include "Board/BoardComparer.hh"
 #include <sstream>
 
 #define ASSERT_MOVEMENT_OK(board_, description_, position_, old_position_, boardFinalStatus_)\

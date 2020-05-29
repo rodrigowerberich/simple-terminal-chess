@@ -2,8 +2,8 @@
 
 #include "GameResources.hh"
 // #include "CommandQuit.hh"
-#include "ParserInterface.hh"
-#include "Printer.hh"
+#include "Input/ParserInterface.hh"
+#include "Output/Printer.hh"
 
 namespace Chess{
 

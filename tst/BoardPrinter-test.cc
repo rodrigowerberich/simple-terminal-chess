@@ -1,9 +1,9 @@
 #include <sstream>
 
 #include "gtest/gtest.h"
-#include "BoardPrinter.hh"
-#include "Board.hh"
-#include "Printer.hh"
+#include "Output/BoardPrinter.hh"
+#include "Board/Board.hh"
+#include "Output/Printer.hh"
 
 TEST(BoardPrinter, print){
     using namespace Chess::Board;

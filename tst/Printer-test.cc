@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "gtest/gtest.h"
-#include "Printer.hh"
+#include "Output/Printer.hh"
 
 TEST(Printer, print){
     std::stringstream outputStream;

@@ -4,7 +4,7 @@
 #include <algorithm>
 
 #include "CommandQuit.hh"
-#include "ParsedInput.hh"
+#include "Input/ParsedInput.hh"
 
 namespace Chess{
     

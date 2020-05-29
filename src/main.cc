@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "GameManager.hh"
-#include "Parser.hh"
+#include "Input/Parser.hh"
 
 int main(){
     // Chess::Input::Parser parser(std::cin);

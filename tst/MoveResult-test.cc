@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "MoveResult.hh"
+#include "Board/MoveResult.hh"
 
 TEST(MoveResult, OkContruction) {
     using namespace Chess;

@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
-#include "Piece.hh"
-
+#include "Board/Piece.hh"
 
 TEST(Piece, pieceConstruction) {
     using namespace Chess;

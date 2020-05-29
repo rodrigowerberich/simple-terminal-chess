@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "PieceDescription.hh"
+#include "Board/PieceDescription.hh"
 
 TEST(PieceDescription, pawnA) {
     using namespace Chess::Board;

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ParserInterface.hh"
-#include "Printer.hh"
+#include "Input/ParserInterface.hh"
+#include "Output/Printer.hh"
 
 namespace Chess{
 

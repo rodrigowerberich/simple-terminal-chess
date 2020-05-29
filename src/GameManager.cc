@@ -1,5 +1,5 @@
 #include "GameManager.hh"
-#include "Parser.hh"
+#include "Input/Parser.hh"
 
 #include <iostream>
 

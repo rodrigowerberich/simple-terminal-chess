@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "KingMoveRequester.hh"
+#include "Rules/KingMoveRequester.hh"
 
 #define MACRO_P(_C,_R) Chess::Board::Position{Chess::Board::Column::_C, _R}
 
