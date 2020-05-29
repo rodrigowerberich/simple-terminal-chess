@@ -1,5 +1,4 @@
-#include "CommandQuit.hh"
-
+#include "Command/Quit.hh"
 namespace Chess{
 namespace Command{
 

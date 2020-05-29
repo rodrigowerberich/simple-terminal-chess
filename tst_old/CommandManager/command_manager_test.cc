@@ -3,9 +3,8 @@
 #include <iostream>
 #include <algorithm>
 
-#include "CommandManager.hh"
-#include "CommandQuit.hh"
-#include "Input/ParsedInput.hh"
+#include "Command/Manager.hh"
+#include "Command/Quit.hh"#include "Input/ParsedInput.hh"
 
 class GameResource{    
 };

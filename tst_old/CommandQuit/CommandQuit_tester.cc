@@ -3,8 +3,7 @@
 #include <iostream>
 #include <algorithm>
 
-#include "CommandQuit.hh"
-#include "Input/ParsedInput.hh"
+#include "Command/Quit.hh"#include "Input/ParsedInput.hh"
 
 namespace Chess{
     
