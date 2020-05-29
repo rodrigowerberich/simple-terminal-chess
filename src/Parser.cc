@@ -17,7 +17,7 @@ Parser::~Parser(){
     
 }
 
-ParsedInput Parser::parse(){
+ParsedInput Parser::parse() const{
     // Making Sure the parsed input is empty
     ParsedInput parsedInput = {};
     // Read until user types a space

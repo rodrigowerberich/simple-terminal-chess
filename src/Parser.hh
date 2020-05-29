@@ -14,7 +14,7 @@ private:
 public:
     Parser(std::istream& inputStream);
     ~Parser();
-    ParsedInput parse() override;
+    ParsedInput parse() const override;
 };
 }
 }

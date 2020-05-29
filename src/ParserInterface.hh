@@ -9,7 +9,7 @@ namespace Input {
 class ParserInterface
 {
 public:
-    virtual ParsedInput parse() = 0;
+    virtual ParsedInput parse() const = 0;
 };
 
 }
