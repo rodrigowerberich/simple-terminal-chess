@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "Board/BoardComparer.hh"
+#include "Board/Comparer.hh"
 #include "Board/BoardDefinitions.hh"
 
 static constexpr char NORMAL_BOARD[] =

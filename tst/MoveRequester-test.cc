@@ -3,7 +3,7 @@
 #include "Board/Board.hh"
 #include "Board/BoardDefinitions.hh"
 #include "Output/BoardPrinter.hh"
-#include "Board/BoardComparer.hh"
+#include "Board/Comparer.hh"
 #include <sstream>
 
 #define ASSERT_MOVEMENT_OK(board_, description_, position_, old_position_, boardFinalStatus_)\

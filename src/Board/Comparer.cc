@@ -1,6 +1,6 @@
 #include <sstream>
 
-#include "Board/BoardComparer.hh"
+#include "Board/Comparer.hh"
 #include "Output/BoardPrinter.hh"
 
 namespace Chess{
