@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "Board/Side.hh"
 #include "Board/Piece.hh"
-#include "Board/BoardDefinitions.hh"
+#include "Board/Definitions.hh"
 
 TEST(Side, whiteSideConstruction) {
     using namespace Chess;

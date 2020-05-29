@@ -1,5 +1,5 @@
 #include "Board/Side.hh"
-#include "Board/BoardDefinitions.hh"
+#include "Board/Definitions.hh"
 
 namespace Chess{
 namespace Board{

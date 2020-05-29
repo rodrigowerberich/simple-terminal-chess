@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "Board/Board.hh"
-#include "Board/BoardDefinitions.hh"
+#include "Board/Definitions.hh"
 
 TEST(Board, moveOk){
     using namespace Chess::Board;

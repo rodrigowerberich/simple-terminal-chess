@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "Rules/MoveRequester.hh"
 #include "Board/Board.hh"
-#include "Board/BoardDefinitions.hh"
+#include "Board/Definitions.hh"
 #include "Output/BoardPrinter.hh"
 #include "Board/Comparer.hh"
 #include <sstream>

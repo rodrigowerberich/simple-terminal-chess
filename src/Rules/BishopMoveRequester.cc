@@ -1,7 +1,7 @@
 #include "Rules/MoveRequester.hh"
 #include "Rules/BishopMoveRequester.hh"
 #include "Rules/PieceMoverAux.hh"
-#include "Board/BoardDefinitions.hh"
+#include "Board/Definitions.hh"
 
 #include <iostream>
 namespace Chess{
