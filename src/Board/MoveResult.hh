@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "Board/BoardPosition.hh"
+#include "Board/Position.hh"
 #include "Board/PieceDescription.hh"
 
 namespace Chess{

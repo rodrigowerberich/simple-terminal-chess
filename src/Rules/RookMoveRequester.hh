@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "Board/BoardPosition.hh"
+#include "Board/Position.hh"
 
 namespace Chess{
 namespace Rules{

@@ -1,4 +1,4 @@
-#include "Board/BoardPosition.hh"
+#include "Board/Position.hh"
 
 #include <sstream>
 
