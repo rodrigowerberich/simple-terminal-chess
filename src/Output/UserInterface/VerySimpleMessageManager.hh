@@ -8,13 +8,22 @@ namespace Chess{
 namespace Output{
 namespace UserInterface{
 
+class VerySimpleLanguagePackage: public LanguagePackageInterface{
+private:
+    using LanguagePackFormat = std::map<std::string, std::string>;
+    LanguagePackFormat m_languagePack;
+public:
+    VerySimpleLanguagePackage();
+    VerySimpleLanguagePackage(const LanguagePackFormat& languagePack);
+    const std::string& operator[](const std::string& messageSelector) const override;
+};
 
 class VerySimpleMessageManager: public MessageManagerInterface{
 private:
-    std::map<std::string, std::map<std::string, std::string>> m_messages;
+    std::map<std::string, VerySimpleLanguagePackage> m_languagePacks;
 public:
     VerySimpleMessageManager();
-    const std::string& operator[](const MessageSelector& selector) const override;
+    const LanguagePackageInterface& operator[](const std::string& languageSelector) const override;
 };
 
 }
