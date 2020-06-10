@@ -1,12 +1,15 @@
 #include "GameManager.hh"
 #include "Input/Parser.hh"
+#include "Output/UserInterface/MessageSelector.hh"
 
 #include <iostream>
 
 namespace Chess{
 
-GameManager::GameManager(Chess::Input::ParserInterface& parser, Chess::Output::Printer& printer):
-m_resources{parser, printer}{
+GameManager::GameManager(Chess::Input::ParserInterface& parser, 
+                Chess::Output::Printer& printer,
+                Chess::Output::UserInterface::MessageManagerInterface& messageManager):
+m_resources{parser, printer, messageManager}{
 
 }
 
@@ -24,8 +27,11 @@ bool GameManager::run(){
 }
 
 void GameManager::printStartGameMessage(){
+    using namespace Output::UserInterface;
     auto& printer = m_resources.printer();
-    printer.print("Welcome to simple chess");
+    auto& messageManager = m_resources.messageManager();
+    printer.print(messageManager[LanguageSelector::EN][MessageSelector::GAME_START_WELCOME_MESSAGE]);
+    printer.println();
 }
 
 

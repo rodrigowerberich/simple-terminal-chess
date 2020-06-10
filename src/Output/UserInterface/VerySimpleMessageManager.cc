@@ -21,10 +21,12 @@ const std::string& VerySimpleLanguagePackage::operator[](const std::string& mess
 
 VerySimpleMessageManager::VerySimpleMessageManager(){
     std::map<std::string, std::string> enLanguagePack;
-    enLanguagePack[MessageNameSelector::WELCOME_MESSAGE] = "Hi";
+    enLanguagePack[MessageSelector::WELCOME_MESSAGE] = "Hi";
+    enLanguagePack[MessageSelector::GAME_START_WELCOME_MESSAGE] = "Welcome to Terminal Chess!!";
 
     std::map<std::string, std::string> ptBrLanguagePack;
-    ptBrLanguagePack[MessageNameSelector::WELCOME_MESSAGE] = "Oi";
+    ptBrLanguagePack[MessageSelector::WELCOME_MESSAGE] = "Oi";
+    ptBrLanguagePack[MessageSelector::GAME_START_WELCOME_MESSAGE] = "Bem vindo ao Xadrez no terminal!!";
 
     std::map<std::string, std::string> emptyLanguagePack;
 

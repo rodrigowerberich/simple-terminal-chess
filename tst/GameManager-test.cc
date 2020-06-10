@@ -2,6 +2,8 @@
 #include "GameManager.hh"
 #include "Input/Parser.hh"
 #include "Output/Printer.hh"
+#include "Output/UserInterface/VerySimpleMessageManager.hh"
+#include "Output/UserInterface/MessageSelector.hh"
 
 #include <sstream>
 
@@ -12,8 +14,13 @@ TEST(GameManager, oneHorizontalStepGrowing) {
     std::stringstream outputStream;
     auto parser = Chess::Input::Parser(inputStream);
     auto printer = Chess::Output::Printer(outputStream);
+    auto messageManager = Chess::Output::UserInterface::VerySimpleMessageManager();
 
-    auto gameManager = Chess::GameManager(parser, printer);
+    auto gameManager = Chess::GameManager(parser, printer, messageManager);
     gameManager.init();
-    ASSERT_EQ(outputStream.str(), "Welcome to simple chess");
+    
+    auto bufferContent = messageManager[Chess::Output::UserInterface::LanguageSelector::EN][Chess::Output::UserInterface::MessageSelector::GAME_START_WELCOME_MESSAGE];
+    bufferContent += "\n";
+
+    ASSERT_EQ(outputStream.str(), bufferContent);
 }
