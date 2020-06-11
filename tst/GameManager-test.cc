@@ -4,6 +4,7 @@
 #include "Output/Printer.hh"
 #include "Output/UserInterface/VerySimpleMessageManager.hh"
 #include "Output/UserInterface/MessageSelector.hh"
+#include "BasicGameConfiguration.hh"
 
 #include <sstream>
 
@@ -15,8 +16,10 @@ TEST(GameManager, oneHorizontalStepGrowing) {
     auto parser = Chess::Input::Parser(inputStream);
     auto printer = Chess::Output::Printer(outputStream);
     auto messageManager = Chess::Output::UserInterface::VerySimpleMessageManager();
+    auto configuration = Chess::BasicGameConfiguration();
 
-    auto gameManager = Chess::GameManager(parser, printer, messageManager);
+
+    auto gameManager = Chess::GameManager(parser, printer, messageManager, configuration);
     gameManager.init();
     
     auto bufferContent = messageManager[Chess::Output::UserInterface::LanguageSelector::EN][Chess::Output::UserInterface::MessageSelector::GAME_START_WELCOME_MESSAGE];

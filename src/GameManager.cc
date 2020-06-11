@@ -7,9 +7,10 @@
 namespace Chess{
 
 GameManager::GameManager(Chess::Input::ParserInterface& parser, 
-                Chess::Output::Printer& printer,
-                Chess::Output::UserInterface::MessageManagerInterface& messageManager):
-m_resources{parser, printer, messageManager}{
+                         Chess::Output::Printer& printer, 
+                         Chess::Output::UserInterface::MessageManagerInterface& messageManager,
+                         Chess::GameConfigurationInterface& configuration):
+m_resources{parser, printer, messageManager, configuration}{
 
 }
 
@@ -30,7 +31,8 @@ void GameManager::printStartGameMessage(){
     using namespace Output::UserInterface;
     auto& printer = m_resources.printer();
     auto& messageManager = m_resources.messageManager();
-    printer.print(messageManager[LanguageSelector::EN][MessageSelector::GAME_START_WELCOME_MESSAGE]);
+
+    printer.print(messageManager[MessageSelector::GAME_START_WELCOME_MESSAGE]);
     printer.println();
 }
 

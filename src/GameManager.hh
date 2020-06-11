@@ -7,8 +7,9 @@ namespace Chess{
 class GameManager{
 public:
     GameManager(Chess::Input::ParserInterface& parser, 
-                Chess::Output::Printer& printer,
-                Chess::Output::UserInterface::MessageManagerInterface& messageManager);
+                Chess::Output::Printer& printer, 
+                Chess::Output::UserInterface::MessageManagerInterface& messageManager,
+                Chess::GameConfigurationInterface& configuration);
     void init();
     bool run();
 private:

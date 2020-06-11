@@ -10,8 +10,12 @@ Chess::Output::Printer& GameResources::printer(){
     return m_printer;
 }
 
-Chess::Output::UserInterface::MessageManagerInterface& GameResources::messageManager(){
-    return m_messageManager;
+const Chess::Output::UserInterface::LanguagePackageInterface& GameResources::messageManager() const{
+    return m_messageManager[m_configuration.language()];
+}
+
+Chess::GameConfigurationInterface& GameResources::configuration(){
+    return m_configuration;
 }
 
 }
