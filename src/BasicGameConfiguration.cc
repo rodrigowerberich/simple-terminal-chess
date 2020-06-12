@@ -3,8 +3,17 @@
 
 namespace Chess{
 
-const std::string& BasicGameConfiguration::language() const{
-    return Chess::Output::UserInterface::LanguageSelector::EN;
+BasicGameConfiguration::BasicGameConfiguration():m_language{Chess::Output::UserInterface::LanguageSelector::EN}{
 }
+
+
+const std::string& BasicGameConfiguration::language() const{
+    return m_language;
+}
+
+void BasicGameConfiguration::setLanguage(const std::string& language){
+    m_language = language;
+}
+
 
 }

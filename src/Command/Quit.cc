@@ -1,7 +1,8 @@
 #include "Command/Quit.hh"
 #include "Output/UserInterface/MessageSelector.hh"
 
-#include <iostream>
+#include <algorithm>
+
 namespace Chess{
 namespace Command{
 
@@ -19,8 +20,12 @@ void Quit::init(Chess::Resources::GameResourcesInterface& gameResources){
 
 
 bool Quit::activated(const Chess::Input::ParsedInput& parsedInput){
-    std::cout << parsedInput[0] << " " << m_quitWord1 << " " << m_quitWord2 << std::endl;
-    return (parsedInput.size() == 1) && ((parsedInput[0] == m_quitWord1) || (parsedInput[0] == m_quitWord2));
+    if(parsedInput.size() != 1){
+        return false;
+    }
+    auto lowerInput = parsedInput[0];
+    std::transform(lowerInput.begin(), lowerInput.end(), lowerInput.begin(), [](auto l){return std::tolower(l);});
+    return (parsedInput.size() == 1) && ((lowerInput == m_quitWord1) || (lowerInput == m_quitWord2));
 }
 
 bool Quit::execute(Chess::Resources::GameResourcesInterface& gameResources){

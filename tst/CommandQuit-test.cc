@@ -2,6 +2,7 @@
 #include "Command/Quit.hh"
 #include "Resources/Fakes/OnlyLanguageGameResources.hh"
 #include "Output/UserInterface/VerySimpleMessageManager.hh"
+#include "Output/UserInterface/MessageSelector.hh"
 #include "BasicGameConfiguration.hh"
 
 #include <vector>
@@ -9,7 +10,11 @@
 TEST(CommandQuit, correctInputs) {    
     auto correctInputs = std::vector<Chess::Input::ParsedInput>{
         {"exit"},
-        {"quit"}
+        {"quit"},
+        {"EXIT"},
+        {"QUIT"},
+        {"Exit"},
+        {"Quit"},
     };
 
     auto quit = Chess::Command::Quit{};
@@ -48,6 +53,29 @@ TEST(CommandQuit, initEN){
     auto correctInputs = std::vector<Chess::Input::ParsedInput>{
         {"exit"},
         {"quit"}
+    };
+
+    for(const auto& correctInput: correctInputs){
+        ASSERT_TRUE(quit.activated(correctInput));
+    }
+
+}
+
+TEST(CommandQuit, initPT_BR){
+    auto basicMessageManager = Chess::Output::UserInterface::VerySimpleMessageManager();
+    auto gameConfiguration = Chess::BasicGameConfiguration();
+    gameConfiguration.setLanguage(Chess::Output::UserInterface::LanguageSelector::PT_BR);
+
+    auto gameResources = Chess::Resources::Fakes::OnlyLanguageGameResources{
+        basicMessageManager,
+        gameConfiguration
+    };
+    auto quit = Chess::Command::Quit{};
+    quit.init(gameResources);
+
+    auto correctInputs = std::vector<Chess::Input::ParsedInput>{
+        {"sair"},
+        {"finalizar"}
     };
 
     for(const auto& correctInput: correctInputs){
