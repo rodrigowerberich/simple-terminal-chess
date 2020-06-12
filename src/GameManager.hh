@@ -1,21 +1,20 @@
 #pragma once
 
-#include "GameResources.hh"
+#include "Resources/GameResourcesInterface.hh"
+#include "Command/ManagerInterface.hh"
 
 namespace Chess{
 
 class GameManager{
 public:
-    GameManager(Chess::Input::ParserInterface& parser, 
-                Chess::Output::Printer& printer, 
-                Chess::Output::UserInterface::MessageManagerInterface& messageManager,
-                Chess::GameConfigurationInterface& configuration);
+    GameManager(Chess::Resources::GameResourcesInterface& resources,
+                Chess::Command::ManagerInterface& commandManager);
     void init();
     bool run();
 private:
-    Chess::GameResources m_resources;
+    Chess::Resources::GameResourcesInterface& m_resources;
+    Chess::Command::ManagerInterface& m_commandManager;
     void printStartGameMessage();
-    
 };
 
 }

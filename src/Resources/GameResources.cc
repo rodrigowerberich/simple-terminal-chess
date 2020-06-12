@@ -1,6 +1,7 @@
-#include "GameResources.hh"
+#include "Resources/GameResources.hh"
 
 namespace Chess{
+namespace Resources{
 
 Chess::Input::ParserInterface& GameResources::parser(){
     return m_parser;
@@ -18,4 +19,5 @@ Chess::GameConfigurationInterface& GameResources::configuration(){
     return m_configuration;
 }
 
+}
 }

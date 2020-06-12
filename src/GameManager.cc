@@ -6,19 +6,14 @@
 
 namespace Chess{
 
-GameManager::GameManager(Chess::Input::ParserInterface& parser, 
-                         Chess::Output::Printer& printer, 
-                         Chess::Output::UserInterface::MessageManagerInterface& messageManager,
-                         Chess::GameConfigurationInterface& configuration):
-m_resources{parser, printer, messageManager, configuration}{
+GameManager::GameManager(Chess::Resources::GameResourcesInterface& resources,
+                         Chess::Command::ManagerInterface& commandManager):
+m_resources{resources}, m_commandManager{commandManager}{
 
 }
 
 void GameManager::init(){
     printStartGameMessage();
-    // m_commandQuit.init(m_resources);
-
-    // m_resources.parser().addCommand(m_commandQuit);
 }
 
 bool GameManager::run(){
@@ -35,6 +30,5 @@ void GameManager::printStartGameMessage(){
     printer.print(messageManager[MessageSelector::GAME_START_WELCOME_MESSAGE]);
     printer.println();
 }
-
 
 }

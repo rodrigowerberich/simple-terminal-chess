@@ -1,18 +1,17 @@
 #pragma once
 
 #include "Input/ParsedInput.hh"
+#include "Resources/GameResourcesInterface.hh"
 
 namespace Chess{
-
-class GameResources;
 
 namespace Command{
 
 class CommandInterface{
 public:
-    virtual void init(GameResources& gameResources) = 0;
+    virtual void init(Chess::Resources::GameResourcesInterface& gameResources) = 0;
     virtual bool activated(const Chess::Input::ParsedInput& parsedInput) = 0;
-    virtual bool execute(GameResources& gameResources) = 0;
+    virtual bool execute(Chess::Resources::GameResourcesInterface& gameResources) = 0;
 };
 
 }

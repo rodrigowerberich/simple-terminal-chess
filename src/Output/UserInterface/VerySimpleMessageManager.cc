@@ -23,10 +23,14 @@ VerySimpleMessageManager::VerySimpleMessageManager(){
     std::map<std::string, std::string> enLanguagePack;
     enLanguagePack[MessageSelector::WELCOME_MESSAGE] = "Hi";
     enLanguagePack[MessageSelector::GAME_START_WELCOME_MESSAGE] = "Welcome to Terminal Chess!!";
+    enLanguagePack[MessageSelector::QUIT_COMMAND_QUIT_WORD_1] = "exit";
+    enLanguagePack[MessageSelector::QUIT_COMMAND_QUIT_WORD_2] = "quit";
 
     std::map<std::string, std::string> ptBrLanguagePack;
     ptBrLanguagePack[MessageSelector::WELCOME_MESSAGE] = "Oi";
     ptBrLanguagePack[MessageSelector::GAME_START_WELCOME_MESSAGE] = "Bem vindo ao Xadrez no terminal!!";
+    ptBrLanguagePack[MessageSelector::QUIT_COMMAND_QUIT_WORD_1] = "sair";
+    ptBrLanguagePack[MessageSelector::QUIT_COMMAND_QUIT_WORD_2] = "finalizar";
 
     std::map<std::string, std::string> emptyLanguagePack;
 

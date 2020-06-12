@@ -1,14 +1,11 @@
 #pragma once
 
-#include "Input/ParserInterface.hh"
-#include "Output/Printer.hh"
-#include "Output/UserInterface/MessageManagerInterface.hh"
-#include "GameConfigurationInterface.hh"
+#include "Resources/GameResourcesInterface.hh"
 
 namespace Chess{
+namespace Resources{
 
-class GameResources
-{
+class GameResources: public GameResourcesInterface{
 private:
     Chess::Input::ParserInterface& m_parser;
     Chess::Output::Printer& m_printer;
@@ -25,10 +22,11 @@ public:
     m_configuration{configuration}{};
     ~GameResources(){};
 
-    Chess::Input::ParserInterface& parser();
-    Chess::Output::Printer& printer();
-    const Chess::Output::UserInterface::LanguagePackageInterface& messageManager() const;
-    Chess::GameConfigurationInterface& configuration();
+    Chess::Input::ParserInterface& parser() override;
+    Chess::Output::Printer& printer() override;
+    const Chess::Output::UserInterface::LanguagePackageInterface& messageManager() const override;
+    Chess::GameConfigurationInterface& configuration() override;
 };
 
+}
 }
