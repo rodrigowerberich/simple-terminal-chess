@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "Command/Quit.hh"
 #include "Resources/Fakes/OnlyLanguageGameResources.hh"
+#include "Resources/Fakes/NothingGameResources.hh"
 #include "Output/UserInterface/VerySimpleMessageManager.hh"
 #include "Output/UserInterface/MessageSelector.hh"
 #include "BasicGameConfiguration.hh"
@@ -82,5 +83,10 @@ TEST(CommandQuit, initPT_BR){
     for(const auto& correctInput: correctInputs){
         ASSERT_TRUE(quit.activated(correctInput));
     }
+}
 
+TEST(CommandQuit, Execute){
+    auto fakeGameResources = Chess::Resources::Fakes::NothingGameResources();
+    auto quit = Chess::Command::Quit{};
+    ASSERT_FALSE(quit.execute(fakeGameResources));
 }
