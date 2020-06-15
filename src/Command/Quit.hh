@@ -2,13 +2,14 @@
 
 #include "CommandInterface.hh"
 
+#include <vector>
+
 namespace Chess{
 namespace Command{
 
 class Quit: public Chess::Command::CommandInterface{
 private:
-    std::string m_quitWord1;
-    std::string m_quitWord2;
+    std::vector<std::string> m_quitWords;
 public:
     Quit();
     void init(Chess::Resources::GameResourcesInterface& gameResources) override;

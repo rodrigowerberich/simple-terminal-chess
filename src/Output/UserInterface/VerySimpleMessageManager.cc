@@ -18,6 +18,16 @@ const std::string& VerySimpleLanguagePackage::operator[](const std::string& mess
     return Chess::Output::UserInterface::ERROR_MESSAGE;
 }
 
+const std::vector<std::string> VerySimpleLanguagePackage::filterHeaders(const FilterFunction& filter) const{
+    std::vector<std::string> result;
+    for(const auto& pair:m_languagePack){
+        if(filter(pair.first)){
+            result.push_back(pair.first);
+        }
+    }
+    return result;
+}
+
 
 VerySimpleMessageManager::VerySimpleMessageManager(){
     std::map<std::string, std::string> enLanguagePack;
@@ -31,6 +41,7 @@ VerySimpleMessageManager::VerySimpleMessageManager(){
     ptBrLanguagePack[MessageSelector::GAME_START_WELCOME_MESSAGE] = "Bem vindo ao Xadrez no terminal!!";
     ptBrLanguagePack[MessageSelector::QUIT_COMMAND_QUIT_WORD_1] = "sair";
     ptBrLanguagePack[MessageSelector::QUIT_COMMAND_QUIT_WORD_2] = "finalizar";
+    ptBrLanguagePack["QUIT COMMAND QUIT WORD 3"] = "terminar";
 
     std::map<std::string, std::string> emptyLanguagePack;
 

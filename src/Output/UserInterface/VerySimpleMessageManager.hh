@@ -16,6 +16,7 @@ public:
     VerySimpleLanguagePackage();
     VerySimpleLanguagePackage(const LanguagePackFormat& languagePack);
     const std::string& operator[](const std::string& messageSelector) const override;
+    const std::vector<std::string> filterHeaders(const FilterFunction&) const override;
 };
 
 class VerySimpleMessageManager: public MessageManagerInterface{

@@ -75,7 +75,8 @@ TEST(CommandQuit, initPT_BR){
 
     auto correctInputs = std::vector<Chess::Input::ParsedInput>{
         {"sair"},
-        {"finalizar"}
+        {"finalizar"},
+        {"terminar"},
     };
 
     for(const auto& correctInput: correctInputs){
