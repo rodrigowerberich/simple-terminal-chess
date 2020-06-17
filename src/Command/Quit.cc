@@ -3,27 +3,39 @@
 
 #include <algorithm>
 #include <regex>
-#include <iostream>
+#include <functional>
 
 namespace Chess{
 namespace Command{
 
 Quit::Quit():
-m_quitWords{"exit", "quit"}{
+m_quitWords{"exit", "quit"},
+m_helpText{""}{
 }
 
 
 void Quit::init(Chess::Resources::GameResourcesInterface& gameResources){
     m_quitWords.clear();
+    m_helpText = "";
     auto quitWordNames = gameResources.messageManager().filterHeaders([](const auto& messageName){
         return std::regex_match(messageName, std::regex("QUIT COMMAND QUIT WORD \\d*"));
     });
+
+    m_helpText += gameResources.messageManager()[Chess::Output::UserInterface::MessageSelector::QUIT_COMMAND_HELP_BEFORE_MESSAGE];
+
     for(const auto & quitWordName:quitWordNames){
         auto quitWord = gameResources.messageManager()[quitWordName];
         std::transform(quitWord.begin(), quitWord.end(), quitWord.begin(), [](auto l){return std::tolower(l);});
-        std::cout << quitWord << std::endl;
         m_quitWords.push_back(quitWord);
+        
+        
+        m_helpText+= "\"" + quitWord + "\"";
+        if (quitWordName != quitWordNames.back()){
+            m_helpText += ", ";
+        }
     }
+
+    m_helpText += gameResources.messageManager()[Chess::Output::UserInterface::MessageSelector::QUIT_COMMAND_HELP_AFTER_MESSAGE];
 }
 
 
@@ -40,6 +52,11 @@ bool Quit::activated(const Chess::Input::ParsedInput& parsedInput){
 bool Quit::execute(Chess::Resources::GameResourcesInterface& gameResources){
     return false;
 }
+
+const std::string & Quit::helpText() const{
+    return m_helpText;
+}
+
 
 }
 }

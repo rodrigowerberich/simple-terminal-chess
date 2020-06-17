@@ -2,6 +2,7 @@
 
 #include "Resources/GameResourcesInterface.hh"
 #include "Command/ManagerInterface.hh"
+#include "Input/ParsedInput.hh"
 
 namespace Chess{
 
@@ -15,6 +16,7 @@ private:
     Chess::Resources::GameResourcesInterface& m_resources;
     Chess::Command::ManagerInterface& m_commandManager;
     void printStartGameMessage();
+    bool handleUnrecognizedCommand(Chess::Input::ParsedInput& parsedInput);
 };
 
 }

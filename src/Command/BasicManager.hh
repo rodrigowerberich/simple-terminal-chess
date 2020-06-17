@@ -10,7 +10,9 @@ private:
     std::vector<Command::CommandInterface*> m_commands;
 public:
     void addCommand(CommandInterface& commandToAdd) override;
-    void processInput(const Input::ParsedInput& parsedInput, Resources::GameResourcesInterface& gameResources) override;
+    ManagerInterface::ProcessResult processInput(const Input::ParsedInput& parsedInput, Resources::GameResourcesInterface& gameResources) override;
+    HelpTexts helpTexts() const;
+
 };
 
 }

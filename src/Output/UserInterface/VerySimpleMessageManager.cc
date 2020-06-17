@@ -33,15 +33,31 @@ VerySimpleMessageManager::VerySimpleMessageManager(){
     std::map<std::string, std::string> enLanguagePack;
     enLanguagePack[MessageSelector::WELCOME_MESSAGE] = "Hi";
     enLanguagePack[MessageSelector::GAME_START_WELCOME_MESSAGE] = "Welcome to Terminal Chess!!";
+
     enLanguagePack[MessageSelector::QUIT_COMMAND_QUIT_WORD_1] = "exit";
     enLanguagePack[MessageSelector::QUIT_COMMAND_QUIT_WORD_2] = "quit";
+    enLanguagePack[MessageSelector::QUIT_COMMAND_HELP_BEFORE_MESSAGE] = "To close the program type any of the following: ";
+    enLanguagePack[MessageSelector::QUIT_COMMAND_HELP_AFTER_MESSAGE] = ".";
+
+    enLanguagePack[MessageSelector::BEFORE_UNRECOGNIZED_INPUT_MESSAGE] = "The command";
+    enLanguagePack[MessageSelector::AFTER_UNRECOGNIZED_INPUT_MESSAGE] = "is not recognized";
+
+    enLanguagePack[MessageSelector::HELP_COMMAND_HELP_WORD_1] = "help";
 
     std::map<std::string, std::string> ptBrLanguagePack;
     ptBrLanguagePack[MessageSelector::WELCOME_MESSAGE] = "Oi";
     ptBrLanguagePack[MessageSelector::GAME_START_WELCOME_MESSAGE] = "Bem vindo ao Xadrez no terminal!!";
+
     ptBrLanguagePack[MessageSelector::QUIT_COMMAND_QUIT_WORD_1] = "sair";
     ptBrLanguagePack[MessageSelector::QUIT_COMMAND_QUIT_WORD_2] = "finalizar";
     ptBrLanguagePack["QUIT COMMAND QUIT WORD 3"] = "terminar";
+    ptBrLanguagePack[MessageSelector::QUIT_COMMAND_HELP_BEFORE_MESSAGE] = "Para sair do programa basta digitar um dos comandos listados a seguir";
+    ptBrLanguagePack[MessageSelector::QUIT_COMMAND_HELP_AFTER_MESSAGE] = ".";
+
+    ptBrLanguagePack[MessageSelector::BEFORE_UNRECOGNIZED_INPUT_MESSAGE] = "O comando";
+    ptBrLanguagePack[MessageSelector::AFTER_UNRECOGNIZED_INPUT_MESSAGE] = "não é reconhecido";
+
+    ptBrLanguagePack[MessageSelector::HELP_COMMAND_HELP_WORD_1] = "ajuda";
 
     std::map<std::string, std::string> emptyLanguagePack;
 

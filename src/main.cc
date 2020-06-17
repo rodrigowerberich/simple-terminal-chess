@@ -10,6 +10,7 @@
 #include "Resources/GameResources.hh"
 
 #include "Command/Quit.hh"
+#include "Command/Help.hh"
 
 int main(){
     auto parser = Chess::Input::Parser(std::cin);
@@ -32,11 +33,14 @@ int main(){
 
     auto quitCommand = Chess::Command::Quit();
 
+    auto helpCommand = Chess::Command::Help(commandManager);
+
     commandManager.addCommand(quitCommand);
+    commandManager.addCommand(helpCommand);
 
     gameManager.init();
 
-    // while(gameManager.run());
+    while(gameManager.run());
     
     return 0;
 }

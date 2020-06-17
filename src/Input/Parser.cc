@@ -31,8 +31,8 @@ ParsedInput Parser::parse() const{
     std::string word;
     while (std::getline(lineReadStream, word, ' ')) {
         parsedInput.push_back(word);
-
     }
+    parsedInput.setOriginalInput(lineRead);
     return parsedInput;
 }
 

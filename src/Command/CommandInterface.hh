@@ -12,6 +12,7 @@ public:
     virtual void init(Chess::Resources::GameResourcesInterface& gameResources) = 0;
     virtual bool activated(const Chess::Input::ParsedInput& parsedInput) = 0;
     virtual bool execute(Chess::Resources::GameResourcesInterface& gameResources) = 0;
+    virtual const std::string & helpText() const = 0;
 };
 
 }
