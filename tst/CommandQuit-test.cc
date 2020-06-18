@@ -90,3 +90,18 @@ TEST(CommandQuit, Execute){
     auto quit = Chess::Command::Quit{};
     ASSERT_FALSE(quit.execute(fakeGameResources));
 }
+
+TEST(CommandQuit, HelpText){
+    auto basicMessageManager = Chess::Output::UserInterface::VerySimpleMessageManager();
+    auto gameConfiguration = Chess::BasicGameConfiguration();
+
+    auto gameResources = Chess::Resources::Fakes::OnlyLanguageGameResources{
+        basicMessageManager,
+        gameConfiguration
+    };
+    auto quit = Chess::Command::Quit{};
+    quit.init(gameResources);
+    
+    auto helpMessage = "To close the program type any of the following: \"exit\", \"quit\".";
+    ASSERT_EQ(helpMessage, quit.helpText());
+}
