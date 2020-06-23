@@ -4,11 +4,14 @@
 #include "Command/BasicManager.hh"
 #include "Resources/Fakes/OnlyLanguageGameResources.hh"
 #include "Resources/Fakes/NothingGameResources.hh"
+#include "Resources/Fakes/PrinterLanguageConfigurationGameResources.hh"
 #include "Output/UserInterface/VerySimpleMessageManager.hh"
 #include "Output/UserInterface/MessageSelector.hh"
 #include "BasicGameConfiguration.hh"
+#include "Output/Printer.hh"
 
 #include <vector>
+#include <sstream>
 
 TEST(CommandHelp, correctInputs) {    
     auto manager = Chess::Command::BasicManager();
@@ -86,3 +89,32 @@ TEST(CommandHelp, quitHelpText) {
     ASSERT_EQ(helpTexts[0], "To close the program type any of the following: \"exit\", \"quit\".");
 }
 
+TEST(CommandHelp, Execution) {    
+    auto outputStream = std::stringstream();
+    
+    auto printer = Chess::Output::Printer(outputStream);
+    auto commandManager = Chess::Command::BasicManager();
+    auto basicMessageManager = Chess::Output::UserInterface::VerySimpleMessageManager();
+    auto gameConfiguration = Chess::BasicGameConfiguration();
+
+
+    auto gameResources = Chess::Resources::Fakes::PrinterLanguageConfigurationGameResources{
+        printer,
+        basicMessageManager,
+        gameConfiguration
+    };
+
+
+    auto help = Chess::Command::Help{commandManager};
+    auto quit = Chess::Command::Quit{};
+    
+    commandManager.addCommand(help);
+    commandManager.addCommand(quit);
+
+    help.init(gameResources);
+    quit.init(gameResources);
+
+    help.execute(gameResources);
+
+    ASSERT_EQ(outputStream.str(), "To close the program type any of the following: \"exit\", \"quit\".\n");
+}
